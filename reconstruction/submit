@@ -1,0 +1,273 @@
+#!/bin/bash
+
+# load EOS configuration
+source "/afs/cern.ch/project/eos/installation/totem/etc/setup.sh"
+shopt -s expand_aliases
+
+#----------------------------------------------------------------------------------------------------
+
+function PrintUsage()
+{
+	echo "USAGE: submit <options> [config]"
+	echo "OPTIONS:"
+	echo "    -submit     really submit jobs"
+	echo "    -test       make files but do not submit jobs"
+	echo "    -queue <q>  use queue <q>"
+}
+
+#----------------------------------------------------------------------------------------------------
+
+# default values
+
+work_dir="work_dir"
+template_file="reconstruction_template_RP_cfg.py"
+check_template_file="CheckRootFile_template"
+
+reco_dir_base="/pool"
+output_dir_base=""
+
+config_file="cfg.py"
+log_file="log"
+job_log_file="job_log"
+check_file="CheckRootFile.cc"
+finished_file="finished"
+success_file="success"
+
+test_only="y"
+
+queue="8nh"
+
+bsub_options="pool>5000"	# require more than 5 GB of space in the pool directory
+#bsub_options="mem>2000"	# at least 2 GB of memory
+
+input_config=""
+
+#----------------------------------------------------------------------------------------------------
+# parse command line
+
+while [ -n "$1" ]
+do
+	case "$1" in
+		"-h" | "--help")
+			PrintUsage
+			exit 0
+			;;
+
+		"-test")
+			test_only="y"
+			;;
+
+		"-submit")
+			test_only="n"
+			;;
+
+		"-queue")
+			shift
+			queue="$1"
+			;;
+
+		-*)
+			echo "ERROR: unknown option '$1'."
+			PrintUsage
+			exit 1
+			;;
+
+		*)
+			if [ -n "$input_config" ]
+			then
+				echo "ERROR: only one config can be used at at time."
+				exit 1
+			fi
+			input_config="$1"
+			;;
+
+	esac
+
+	shift
+done
+
+#----------------------------------------------------------------------------------------------------
+# source config
+
+if [ ! -f "$input_config" ]
+then
+	echo "ERROR: can't read config file '$input_config'."
+	PrintUsage
+	exit 1
+fi
+
+source "$input_config"
+
+#----------------------------------------------------------------------------------------------------
+
+function MakeConfig()
+{
+	(
+		echo "#!/bin/sh"
+		echo "export HOME=\"/afs/cern.ch/exp/totem/scratch/jkaspar\""
+		echo "source \"/cvmfs/cms.cern.ch/cmsset_default.sh\""
+		echo "cd \"/afs/cern.ch/work/j/jkaspar/software/offline/704/src\""
+		echo "cmsenv"
+		echo "cd \"../user/reconstruction_new/$dir\""
+		echo ""
+		echo "# EOS configuration"
+		echo "source \"/afs/cern.ch/project/eos/installation/totem/etc/setup.sh\""
+		echo "shopt -s expand_aliases"
+		echo ""
+		cat "common_job_code"
+		echo ""
+		echo "("
+		echo ""
+		echo "date"
+		echo ""
+		echo "# prepare directory for reco"
+		echo "mkdir -p \"$reco_dir\""
+		echo ""
+		echo "# run CMSSW"
+		echo "cmsRun \"$config_file\" 2>&1 | grep -v ProcessVFATDataParallel > \"$log_file\""
+		echo "cmsRun_retCode=\$?"
+		echo "if [ \$cmsRun_retCode -ne 0 ]"
+		echo "then"
+		echo "    echo \"cmsRun crashed: return code = \$cmsRun_retCode\""
+		echo "    ls -l > \"$finished_file\""
+		echo "    exit 1"
+		echo "fi"
+		echo ""
+		echo "date"
+		echo ""
+		echo "# check ROOT file consistency"
+		echo "root -b -q -l \"$check_file\" 2> /dev/null"
+		echo "if [ \$? -eq 0 ]"
+		echo "then"
+		echo "    success=1"
+		echo "    outputDir=\"$output_dir\""
+		echo "    RemoteMkdir \"\$outputDir\""
+    	echo "    SafeCmd RemoteCopy \"$config_file\" \"\$outputDir/${output_tag}_cfg.py\" || success=0"
+    	echo "    SafeCmd RemoteCopy \"$log_file\" \"\$outputDir/${output_tag}.log\" || success=0"
+    	echo "    SafeCmd RemoteCopy \"$output_file\" \"\$outputDir/${output_tag}.root\" || success=0"
+		echo "    if [ \$success -eq 1 ]"
+		echo "    then"
+		echo "        touch \"$success_file\""
+		echo "    fi"
+		echo "else"
+		echo "    echo \"The reco file is corrupted, you will need to rerun this job.\""
+		echo "fi"
+		echo ""
+		echo "ls -l > \"$finished_file\""
+		echo ""
+		echo ") > $job_log_file"
+	) > "$dir/job"
+
+	chmod u+x "$dir/job"
+}
+
+#----------------------------------------------------------------------------------------------------
+
+function MakeScript()
+{
+	cat "$template_file" | sed -e "\
+			s|\$run|$run|g;\
+			s|\$input_files|$input_files|;\
+			s|\$mapping|$mapping|g;\
+			s|\$geometry|$geometry|g;\
+			s|\$alignment_files|$alignment_files|g;\
+			s|\$ntuple_file|ntuple.root|;\
+			s|\$output_file|$output_file|;\
+		" > "$dir/$config_file"
+}
+
+#----------------------------------------------------------------------------------------------------
+
+function MakeCheckScript()
+{
+    cat "$check_template_file" | sed "\
+        s|\$file|$output_file|;\
+      " > "$dir/$check_file"
+}
+
+#----------------------------------------------------------------------------------------------------
+
+function Submit()
+{
+	if [ "$test_only" == "y" ]
+	then
+		echo "    would be submitted (bsub -R "$bsub_options" -q $queue)"
+	else
+		cwd=`pwd -P`
+		result=`bsub -R "$bsub_options" -q $queue -o /dev/null -e /dev/null "$cwd/$dir/job"`
+		echo "    $result"
+		echo "$result" > "$dir/submitted"
+	fi
+}
+
+#----------------------------------------------------------------------------------------------------
+#----------------------------------------------------------------------------------------------------
+
+function CheckVariableDefined()
+{
+	local varName="$1"
+	if [ -z "${!varName+x}" ]
+	then
+		echo "ERROR in standard_block_submitter: variable '$varName' not defined"
+		exit 1
+	fi
+}
+
+CheckVariableDefined "input_blocks"
+CheckVariableDefined "input_block_labels"
+CheckVariableDefined "input_block_runs"
+CheckVariableDefined "input_block_output_tags"
+CheckVariableDefined "template_file"
+CheckVariableDefined "mapping"
+CheckVariableDefined "geometry"
+CheckVariableDefined "alignment_files"
+CheckVariableDefined "output_dir"
+
+#----------------------------------------------------------------------------------------------------
+
+# process input
+for idx in ${!input_blocks[*]} 
+do
+	# determine input tag
+	input_tag="${input_block_labels[$idx]}"
+
+	echo "* $input_tag"
+
+	# collect files
+	input_files=""
+	for file in ${input_blocks[$idx]}
+	do
+		if [ -n "$input_files" ]
+		then
+			input_files="${input_files},\n"
+		fi
+
+		input_files="${input_files}\t\t\"$file\""
+	done
+
+	# set per-block variables
+	run="${input_block_runs[$idx]}"
+
+	# make work directory
+	dir="$work_dir/$input_tag"
+	mkdir -p "$dir"
+
+	# define output dir
+	output_tag="${input_block_output_tags[$idx]}"
+
+	# define reco dir and file
+	reco_dir="$reco_dir_base/$input_tag"
+	output_file="$reco_dir/output.root"
+	
+	# make config
+	MakeConfig
+
+	# make job script
+	MakeScript
+
+	# make check script
+	MakeCheckScript
+
+	# submit to batch queue
+	Submit
+done

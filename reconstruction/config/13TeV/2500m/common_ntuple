@@ -1,0 +1,26 @@
+#!/bin/bash
+
+#input_dir="/eos/totem/user/j/jkaspar/reco/alignment_sr"
+input_dir="/eos/totem/data/offline/2016/2500m/version1"
+
+input_filter_command="| grep run_\$run | grep _reco.root"
+
+files_per_block="1"
+
+template_file="config/13TeV/2500m/ntuple_template.py"
+
+mapping="" # irrelevant
+
+alignment_files="" #irrelevant
+
+#output_dir="/eos/totem/user/j/jkaspar/reco/alignment_sr"
+output_dir="/eos/totem/data/offline/2016/2500m/version1"
+
+task_prefix="$geometry/ntuple"
+task_suffix="_ntuple"
+
+queue="8nh"
+
+#----------------------------------------------------------------------------------------------------
+
+source standard_block_submitter

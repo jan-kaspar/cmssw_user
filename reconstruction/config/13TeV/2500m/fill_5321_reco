@@ -1,0 +1,56 @@
+#!/bin/bash
+
+runs=(
+	#"10279"
+	#"10280"
+	"10281"
+	#"10282"
+	"10283"
+	#"10284"
+	"10285"
+	"10286"
+	#"10287"
+	"10288"
+	"10289"
+	#"10291"
+	"10292"
+	"10293"
+	"10294"
+	"10295"
+	#"10296"
+	"10297"
+	"10298"
+	"10299"
+	#"10300"
+	"10301"
+	"10302"
+	"10303"
+	#"10304"
+	"10305"
+)
+
+input_dir="/eos/totem/data/rawdata/2016"
+input_filter_command="| grep run_\$run | grep .srs"
+
+files_per_block="10"
+
+template_file="config/13TeV/2500m/reco_template.py"
+
+mapping="\"TotemCondFormats/DAQInformation/data/rp_210new_220far.xml\""
+
+geometry="2016_09_23_fill5321"
+
+alignment_files="'TotemAlignment/RPData/LHC/2016_09_23_fill5321/version1/sr+el/45.xml', 'TotemAlignment/RPData/LHC/2016_09_23_fill5321/version1/sr+el/56.xml'"
+
+#output_dir="/eos/totem/user/j/jkaspar/reco/alignment_none"
+#output_dir="/eos/totem/user/j/jkaspar/reco/alignment_sr"
+output_dir="/eos/totem/data/offline/2016/2500m/version1"
+
+task_prefix="$geometry/reco"
+task_suffix="_reco"
+
+queue="8nh"
+
+#----------------------------------------------------------------------------------------------------
+
+source standard_block_submitter

@@ -1,0 +1,81 @@
+#!/bin/bash
+
+runs=(
+	"10322"
+	"10324"
+	"10325"
+	"10326"
+	"10327"
+	"10328"
+	"10329"
+	"10331"
+	"10332"
+)
+
+raw_dir="/eos/totem/data/rawdata/2016"
+
+files_per_block="1"
+
+#----------------------------------------------------------------------------------------------------
+
+config_tag=""
+
+template_file="config/ctpps/reconstruction_template_RP.py"
+
+mapping="\"TotemCondFormats/DAQInformation/data/rp_210new_220far.xml\""
+
+geometry="2016_09_24_fill5322"
+
+alignment_files=""
+
+output_dir="/eos/totem/user/j/jkaspar/reco/alignment_none"
+#output_dir="/eos/totem/user/j/jkaspar/reco/alignment_sr"
+
+queue="8nh"
+
+#----------------------------------------------------------------------------------------------------
+
+input_blocks=()
+input_block_labels=()
+input_block_runs=()
+input_block_output_tags=()
+
+for run in ${runs[*]}
+do
+	buffer=""
+	buffer_size="0"
+
+	block_idx="0"
+
+	raw_file_list=`eos ls "$raw_dir"|grep "run_$run"`
+
+	for file in $raw_file_list
+	do
+		buffer="$buffer root://eostotem.cern.ch/$raw_dir/$file"
+		let buffer_size+=1
+	
+		if [ "$buffer_size" -ge "$files_per_block" ]
+		then
+			input_blocks+=("$buffer")
+			input_block_labels+=("$geometry/$run/$block_idx")
+			input_block_runs+=("$run")
+			input_block_output_tags+=("run_${run}.${block_idx}_reco")
+	
+			buffer=""
+			let buffer_size=0
+			let block_idx+=1
+		fi
+	done
+
+	if [ "$buffer_size" -gt "0" ]
+	then
+		input_blocks+=("$buffer")
+		input_block_labels+=("$run/$block_idx")
+		input_block_runs+=("$run")
+		input_block_output_tags+=("run_${tag}.${block_idx}_reco")
+	
+		buffer=""
+		let buffer_size=0
+		let block_idx+=1
+	fi
+done
