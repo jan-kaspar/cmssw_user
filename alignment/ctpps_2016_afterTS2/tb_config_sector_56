@@ -1,0 +1,94 @@
+#!/bin/bash
+
+#----------------------------------------------------------------------------------------------------
+
+function SubmitTBAForAllStations()
+{
+	if [ "$submit_sector_45" == "y" ]
+	then
+		sector="45"; z0="-217000"; rps="$rps_45"
+		SubmitTrackBasedAlignment
+	fi
+
+	if [ "$submit_sector_56" == "y" ]
+	then
+		sector="56"; z0="+217000"; rps="$rps_56"
+		SubmitTrackBasedAlignment
+	fi
+}
+
+#----------------------------------------------------------------------------------------------------
+
+# what to optimise
+submit_sector_45="n"
+rps_45=""
+
+submit_sector_56="y"
+rps_56="101,103,104,105"
+excludePlanes="1039"
+
+# event selection
+minimumHitsPerProjectionPerRP=3
+requireNumberOfUnits="2"
+requireOverlap="False"
+requireAtLeast3PotsInOverlap="True"
+
+additionalAcceptedRPSets="103,104"
+
+# even number limit
+maxEvents="0" # process all events
+#maxEvents="100000" # TODO remove
+#maxEvents="20000" # TODO remove
+
+# iteration settings
+iterations=5
+#iterations=5 # TODO remove
+optimize=("s" "s" "sr")
+maxResidualToSigma=(100 10 10 3)
+chiSqPerNdfCut=(5000 50 50 5)
+maxTrackAx=("1.5E-3" "0.5E-3")
+maxTrackAy=("1.5E-3" "0.5E-3")
+
+# constraint settings
+constraintsType="final"
+constraintsLabel="fin"
+final_constraints_units="0, 1"
+
+useExtendedConstraints=("True")
+useZeroThetaRotZConstraint="True"
+useEqualMeanUMeanVRotZConstraint="False"
+
+# diagonistics
+iterationsWithDiagnostics="0" # TODO
+#iterationsWithDiagnostics="4" # TODO
+
+# input settings
+reco_dir="/eos/totem/user/j/jkaspar/reco/alignment_none"
+#reco_dir="/eos/totem/user/j/jkaspar/reco/alignment_sr_el"
+
+# geometry settings
+geometry="2016_09_24_fill5322"
+
+#initial_alignment=(
+#	"/afs/cern.ch/work/j/jkaspar/software/offline/704/src/TotemAlignment/RPData/LHC/2016_04_20_fill4828/version1/sr+el/45.xml"
+#	"/afs/cern.ch/work/j/jkaspar/software/offline/704/src/TotemAlignment/RPData/LHC/2016_04_20_fill4828/version1/sr+el/56.xml"
+#)
+
+# output settings
+subdir="tb,round1"
+label=""  # for non-standard settings
+#label=",test"  # TODO
+
+NewDataSet
+tasks=(
+	"10322"
+	"10324"
+	"10325"
+	"10326"
+	"10327"
+	"10328"
+	"10329"
+	"10331"
+	"10332"
+)
+SubmitTBAForAllStations
