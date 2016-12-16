@@ -67,13 +67,13 @@ process.p = cms.Path(
 
 # store desired results
 process.output = cms.OutputModule("PoolOutputModule",
-  fileName = cms.untracked.string("$reco_file"),
+  fileName = cms.untracked.string("$output_file"),
   outputCommands = cms.untracked.vstring(
-    'drop *',
+#   'drop *',
 #   'keep RPDigClusteredmDetSetVector_*_*_*',
 #   'keep RPRecognizedPatternsCollection_*_*_*',
-    'keep RPTrackCandidateCollection_*_*_*',
-    'keep RPFittedTrackCollection_*_*_*'
+#   'keep RPTrackCandidateCollection_*_*_*',
+#   'keep RPFittedTrackCollection_*_*_*'
   )
 )
 

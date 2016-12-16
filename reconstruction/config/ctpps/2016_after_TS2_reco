@@ -1,0 +1,40 @@
+#!/bin/bash
+
+runs=(
+	"10322"
+	"10324"
+	"10325"
+	"10326"
+	"10327"
+	"10328"
+	"10329"
+	"10331"
+	"10332"
+)
+
+#----------------------------------------------------------------------------------------------------
+
+input_dir="/eos/totem/data/rawdata/2016"
+input_filter_command="| grep run_\$run | grep .srs"
+
+files_per_block="1"
+
+template_file="config/ctpps/reco_template.py"
+
+mapping="\"TotemCondFormats/DAQInformation/data/rp_210new_220far.xml\""
+
+geometry="2016_09_24_fill5322"
+
+alignment_files="\"TotemAlignment/RPData/LHC/2016_09_24_fill5322/version1/sr/45.xml\", \"TotemAlignment/RPData/LHC/2016_09_24_fill5322/version1/sr/56.xml\""
+
+#output_dir="/eos/totem/user/j/jkaspar/reco/alignment_none"
+output_dir="/eos/totem/user/j/jkaspar/reco/alignment_sr"
+
+task_prefix="$geometry/reco"
+task_suffix="_reco"
+
+queue="8nh"
+
+#----------------------------------------------------------------------------------------------------
+
+source standard_block_submitter
