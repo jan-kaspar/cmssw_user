@@ -108,7 +108,7 @@ function MakeConfig()
 		echo "source \"/cvmfs/cms.cern.ch/cmsset_default.sh\""
 		echo "cd \"/afs/cern.ch/work/j/jkaspar/software/offline/704/src\""
 		echo "cmsenv"
-		echo "cd \"../user/reconstruction_new/$dir\""
+		echo "cd \"../user-new/reconstruction/$dir\""
 		echo ""
 		echo "# EOS configuration"
 		echo "source \"/afs/cern.ch/project/eos/installation/totem/etc/setup.sh\""
