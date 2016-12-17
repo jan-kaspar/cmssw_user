@@ -6,10 +6,12 @@ function PrintUsage()
 {
 	echo "USAGE: submit <options> [config]"
 	echo "OPTIONS:"
-	echo "    -test       make files but do not submit jobs"
-	echo "    -submit     really submit jobs"
-	echo "    -batch      submit jobs to LXBATCH"
-	echo "    -queue <q>  use queue <q>, implies -batch option"
+	echo "    -test             prepare jobs but do not execute"
+	echo "    -run              prepare jobs and execute"
+	echo "    -local            execute jobs locally"
+	echo "    -batch, -lxbatch  submit jobs to LXBATCH"
+	echo "    -submit           abbreviation of -run and -batch"
+	echo "    -queue <q>        use LXBATCH queue <q>, implies -batch option"
 }
 
 #----------------------------------------------------------------------------------------------------
@@ -37,17 +39,26 @@ do
 			test_only="y"
 			;;
 
-		"-submit")
+		"-run")
 			test_only="n"
 			;;
 
-		"-batch")
+		"-local")
+			use_lxbatch="n"
+			;;
+
+		"-batch" | "-lxbatch")
 			use_lxbatch="y"
 			;;
 
 		"-queue")
 			shift
 			queue="$1"
+			use_lxbatch="y"
+			;;
+
+		"-submit")
+			test_only="n"
 			use_lxbatch="y"
 			;;
 
