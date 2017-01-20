@@ -9,11 +9,11 @@ excludePlanes=""
 
 # event selection
 minimumHitsPerProjectionPerRP=3
-#requireNumberOfUnits="1"
-requireNumberOfUnits="2"
+requireNumberOfUnits="1"
+#requireNumberOfUnits="2"
 requireOverlap="False"
-#requireAtLeast3PotsInOverlap="False"
-requireAtLeast3PotsInOverlap="True"
+requireAtLeast3PotsInOverlap="False"
+#requireAtLeast3PotsInOverlap="True"
 
 additionalAcceptedRPSets=""
 
@@ -40,7 +40,7 @@ useEqualMeanUMeanVRotZConstraint="False"
 
 # diagonistics
 iterationsWithDiagnostics="0"
-iterationsWithDiagnostics="4" # TODO
+#iterationsWithDiagnostics="4"
 
 # input settings
 reco_dir="/eos/totem/user/j/jkaspar/reco/alignment_none"
@@ -62,10 +62,17 @@ label=""  # for non-standard settings
 NewDataSet
 tasks=(
 	"10077"
-	"10079"
+#	"10079"
 	"10080"
 	"10081"
 	"10082"
 )
+
+SubmitTrackBasedAlignment
+
+#-----
+
+requireNumberOfUnits="2"
+requireAtLeast3PotsInOverlap="True"
 
 SubmitTrackBasedAlignment
