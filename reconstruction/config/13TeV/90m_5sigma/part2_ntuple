@@ -7,7 +7,7 @@ runs=(
 )
 
 # TODO: update
-input_dir="/eos/totem/data/offline/2016/90m_5sigma/version-pilot"
+input_dir="/eos/totem/data/offline/2015/90m_5sigma/version-pilot"
 
 input_filter_command="| grep run_\$run | grep _reco.root"
 
@@ -17,15 +17,17 @@ template_file="config/13TeV/90m_5sigma/ntuple_template_T2_RP_cfg.py"
 
 mapping="" # irrelevant
 
+geometry="2015_10_13_fill4489"
+
 alignment_files="" #irrelevant
 
 # TODO: update
-output_dir="/eos/totem/data/offline/2016/90m_5sigma/version-pilot"
+output_dir="/eos/totem/data/offline/2015/90m_5sigma/version-pilot"
 
 task_prefix="$geometry/ntuple"
 task_suffix="_ntuple"
 
-queue="8nh"
+queue="1nd"
 
 #----------------------------------------------------------------------------------------------------
 
