@@ -1,0 +1,32 @@
+#!/bin/bash
+
+runs=(
+	"9836"
+	"9838"
+	"9840"
+	"9841"
+)
+
+input_dir="/eos/totem/data/rawdata/2015"
+input_filter_command="| grep run_\$run | grep .srs"
+
+files_per_block="5"
+
+template_file="config/13TeV/90m_5sigma/reco_template_T1_T2_RP_cfg.py"
+
+mapping="'TotemCondFormats/DAQInformation/data/rp_220_210far.xml', 'TotemCondFormats/DAQInformation/data/t1_all_run2.xml', 'TotemCondFormats/DAQInformation/data/t2_3quarters.xml'"
+
+geometry="2015_10_13_fill4489"
+
+alignment_files="'TotemAlignment/RPData/LHC/2015_10_13_fill4489/version1/sr/45.xml', 'TotemAlignment/RPData/LHC/2015_10_13_fill4489/version1/sr/56.xml'"
+
+output_dir="/eos/totem/data/offline/2015/90m_5sigma/version-pilot"
+
+task_prefix="$geometry/reco"
+task_suffix="_reco"
+
+queue="1nd"
+
+#----------------------------------------------------------------------------------------------------
+
+source standard_block_submitter
