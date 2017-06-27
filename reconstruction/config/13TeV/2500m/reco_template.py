@@ -15,6 +15,7 @@ $input_files
 # raw to digi conversion
 process.load('TotemCondFormats.DAQInformation.DAQMappingSourceXML_cfi')
 process.DAQMappingSourceXML.mappingFileNames = cms.untracked.vstring($mapping)
+process.DAQMappingSourceXML.maskFileNames = cms.untracked.vstring("/afs/cern.ch/work/j/jkaspar/software/offline/704/user-new/reconstruction/config/13TeV/2500m/analysis_mask.xml")  # remove from reconstruction the planes for which it was not possible to determine alignment
 
 process.load('TotemRawData.RawToDigi.Raw2DigiProducer_cfi')
 process.Raw2DigiProducer.verbosity = 0

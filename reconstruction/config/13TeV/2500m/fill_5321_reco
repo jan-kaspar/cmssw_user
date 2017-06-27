@@ -44,7 +44,7 @@ alignment_files="'TotemAlignment/RPData/LHC/2016_09_23_fill5321/version1/sr+el/4
 
 #output_dir="/eos/totem/user/j/jkaspar/reco/alignment_none"
 #output_dir="/eos/totem/user/j/jkaspar/reco/alignment_sr"
-output_dir="/eos/totem/data/offline/2016/2500m/version1"
+output_dir="/eos/totem/data/offline/2016/2500m/version2"
 
 task_prefix="$geometry/reco"
 task_suffix="_reco"

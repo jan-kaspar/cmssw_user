@@ -1,7 +1,7 @@
 #!/bin/bash
 
 #input_dir="/eos/totem/user/j/jkaspar/reco/alignment_sr"
-input_dir="/eos/totem/data/offline/2016/2500m/version1"
+input_dir="/eos/totem/data/offline/2016/2500m/version2"
 
 input_filter_command="| grep run_\$run | grep _reco.root"
 
@@ -14,7 +14,7 @@ mapping="" # irrelevant
 alignment_files="" #irrelevant
 
 #output_dir="/eos/totem/user/j/jkaspar/reco/alignment_sr"
-output_dir="/eos/totem/data/offline/2016/2500m/version1"
+output_dir="/eos/totem/data/offline/2016/2500m/version2"
 
 task_prefix="$geometry/ntuple"
 task_suffix="_ntuple"

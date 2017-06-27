@@ -1,0 +1,72 @@
+<top>
+  <arm id="0">
+    <station id="0">
+      <rp_detector_set id="4">
+        <rp_plane id="4">
+		  <vfat full_mask="yes" id="0"/>
+		  <vfat full_mask="yes" id="1"/>
+		  <vfat full_mask="yes" id="2"/>
+		  <vfat full_mask="yes" id="3"/>
+        </rp_plane>
+      </rp_detector_set>
+    </station>
+  </arm>
+
+  <arm id="0">
+    <station id="0">
+      <rp_detector_set id="5">
+        <rp_plane id="0">
+		  <vfat full_mask="yes" id="0"/>
+		  <vfat full_mask="yes" id="1"/>
+		  <vfat full_mask="yes" id="2"/>
+		  <vfat full_mask="yes" id="3"/>
+        </rp_plane>
+        <rp_plane id="1">
+		  <vfat full_mask="yes" id="0"/>
+		  <vfat full_mask="yes" id="1"/>
+		  <vfat full_mask="yes" id="2"/>
+		  <vfat full_mask="yes" id="3"/>
+        </rp_plane>
+        <rp_plane id="2">
+		  <vfat full_mask="yes" id="0"/>
+		  <vfat full_mask="yes" id="1"/>
+		  <vfat full_mask="yes" id="2"/>
+		  <vfat full_mask="yes" id="3"/>
+        </rp_plane>
+        <rp_plane id="3">
+		  <vfat full_mask="yes" id="0"/>
+		  <vfat full_mask="yes" id="1"/>
+		  <vfat full_mask="yes" id="2"/>
+		  <vfat full_mask="yes" id="3"/>
+        </rp_plane>
+      </rp_detector_set>
+    </station>
+  </arm>
+	
+  <arm id="0">
+    <station id="2">
+      <rp_detector_set id="4">
+        <rp_plane id="5">
+		  <vfat full_mask="yes" id="0"/>
+		  <vfat full_mask="yes" id="1"/>
+		  <vfat full_mask="yes" id="2"/>
+		  <vfat full_mask="yes" id="3"/>
+        </rp_plane>
+      </rp_detector_set>
+    </station>
+  </arm>
+
+  <arm id="1">
+    <station id="0">
+      <rp_detector_set id="3">
+        <rp_plane id="9">
+		  <vfat full_mask="yes" id="0"/>
+		  <vfat full_mask="yes" id="1"/>
+		  <vfat full_mask="yes" id="2"/>
+		  <vfat full_mask="yes" id="3"/>
+        </rp_plane>
+      </rp_detector_set>
+    </station>
+  </arm>
+
+</top>
