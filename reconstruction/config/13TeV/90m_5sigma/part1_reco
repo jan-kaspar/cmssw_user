@@ -10,7 +10,7 @@ runs=(
 input_dir="/eos/totem/data/rawdata/2015"
 input_filter_command="| grep run_\$run | grep .srs"
 
-files_per_block="5"
+files_per_block="2"
 
 template_file="config/13TeV/90m_5sigma/reco_template_T1_T2_RP_cfg.py"
 
@@ -20,12 +20,12 @@ geometry="2015_10_13_fill4489"
 
 alignment_files="'TotemAlignment/RPData/LHC/2015_10_13_fill4489/version1/sr/45.xml', 'TotemAlignment/RPData/LHC/2015_10_13_fill4489/version1/sr/56.xml'"
 
-output_dir="/eos/totem/data/offline/2015/90m_5sigma/version-pilot"
+output_dir="/eos/totem/data/offline/2015/90m_5sigma/version1"
 
 task_prefix="$geometry/reco"
 task_suffix="_reco"
 
-queue="1nd"
+queue="2nd"
 
 #----------------------------------------------------------------------------------------------------
 

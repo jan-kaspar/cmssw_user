@@ -7,8 +7,7 @@ runs=(
 	"9841"
 )
 
-# TODO: update
-input_dir="/eos/totem/data/offline/2015/90m_5sigma/version-pilot"
+input_dir="/eos/totem/data/offline/2015/90m_5sigma/version1"
 
 input_filter_command="| grep run_\$run | grep _reco.root"
 
@@ -22,8 +21,7 @@ geometry="2015_10_13_fill4489"
 
 alignment_files="" #irrelevant
 
-# TODO: update
-output_dir="/eos/totem/data/offline/2015/90m_5sigma/version-pilot"
+output_dir="/eos/totem/data/offline/2015/90m_5sigma/version1"
 
 task_prefix="$geometry/ntuple"
 task_suffix="_ntuple"

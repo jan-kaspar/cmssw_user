@@ -13,10 +13,9 @@ process.source.fileNames = cms.untracked.vstring(
 $input_files
 )
 
-# TODO
-process.maxEvents = cms.untracked.PSet(
-     input = cms.untracked.int32(100)
-)
+#process.maxEvents = cms.untracked.PSet(
+#     input = cms.untracked.int32(100)
+#)
 
 # RP geometry and alignment
 process.load("Configuration.TotemCommon.geometryRP_cfi")
