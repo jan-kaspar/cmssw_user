@@ -6,69 +6,62 @@ work_dir="work_dir"
 
 function PrintUsage()
 {
-	echo "USAGE: wd_control <command>"
-	echo "COMMANDS"
-	echo "    -h, --help	        print this help and exit"
-	echo "    pf, print-finished    print finished directories"
-	echo "    ps, print-success     print success directories"
-	echo "    pc, print-crashed     print crashed directories"
-	echo "    cf, clean-finished    delete finished directories"
-	echo "    cs, clean-success     delete success directories"
-	echo "    rc, resubmit-crashed  resubmit the jobs which crashed"
+	echo "USAGE: wd_control <option> <command> <option> ..."
+	echo "COMMANDS:"
+	echo "    print                   print directory name"
+	echo "    clean                   remove directory"
+	echo "    resubmit                resubmit"
+	echo "OPTIONS:"
+	echo "    -h, --help              print this help and exit"
+	echo "    -s <selection>          set directory selection rule:"
+	echo "        finished            job has saved 'finished' file"
+	echo "        success             job has saved 'success' file"
+	echo "        crashed             job has saved 'finished' but no 'success' file"
+	echo "        unfinished          job has not saved 'finished' file"
+	echo "    -queue <q>              use the specified LXBATCH queue"
 }
 
 #----------------------------------------------------------------------------------------------------
 
-# parse command line
+# defaults
+selection=""
 comm=""
 
+queue="1nd"
+
+# parse command line
 while [ -n "$1" ]
 do
-	if [ -n "$comm" ]
-	then
-		echo "ERROR: only one command can be given at a time"
-		PrintUsage
-		exit 1
-	fi
-
 	case "$1" in
 		"-h" | "--help")
 			PrintUsage
 			exit 0
 			;;
 
-        "pf" | "print-finished")
-            comm="print-finished"
+        "-s")
+			shift
+            selection="$1"
             ;;
-         
-        "ps" | "print-success")
-            comm="print-success"
+
+        "-queue")
+			shift
+            queue="$1"
             ;;
-         
-        "pc" | "print-crashed")
-            comm="print-crashed"
-            ;;
-         
-        "cf" | "clean-finished")
-            comm="clean-finished"
-            ;;
-         
-        "cs" | "clean-success")
-            comm="clean-success"
-            ;;
-         
-        "rc" | "resubmit-crashed")
-            comm="resubmit-crashed"
-            ;;
+
+		"print" | "clean" | "resubmit")
+			comm="$1"
+			;;
          
         *)
-			echo "ERROR: command '$1 not understood."
+			echo "ERROR: command/option '$1 not understood."
 			PrintUsage
             exit 1
 	esac
 
 	shift
 done
+
+echo "queue = $queue"
 
 # command given?
 if [ -z "$comm" ]
@@ -77,6 +70,24 @@ then
 	PrintUsage
 	exit 1
 fi
+
+# selection given?
+if [ -z "$selection" ]
+then
+	echo "ERROR: no selection given"
+	PrintUsage
+	exit 1
+fi
+
+# validate selection
+case "$selection" in
+	"finished" | "success" | "crashed" | "unfinished")
+		;;
+	*)
+		echo "ERROR: selection '$selection' not understood."
+		PrintUsage
+		exit 1
+esac
 
 # process all directory entries
 find "$work_dir" -type d|while read entry
@@ -93,62 +104,63 @@ do
 		continue
 	fi
 
-	# print commands
-	if [ "$comm" == "print-finished" ]
-	then 
-		if [ -f "$entry/finished" ]
-		then
-			echo $entry
-		fi
+	# is selected ?
+	selected="f"
+	case "$selection" in
+		"finished")
+				if [ -f "$entry/finished" ]
+				then
+					selected="t"
+				fi
+			;;
+
+		"success")
+				if [ -f "$entry/success" ]
+				then
+					selected="t"
+				fi
+			;;
+
+		"crashed")
+				if [ -f "$entry/finished" -a ! -f "$entry/success" ]
+				then
+					selected="t"
+				fi
+			;;
+
+		"unfinished")
+				if [ -f "$entry/submitted" -a ! -f "$entry/finished" ]
+				then
+					selected="t"
+				fi
+			;;
+	esac
+
+	# skip not selected
+	if [ "$selected" != "t" ]
+	then
+		continue
 	fi
 
-	if [ "$comm" == "print-success" ]
-	then 
-		if [ -f "$entry/success" ]
-		then
-			echo $entry
-		fi
-	fi
+	# execute command
+	case "$comm" in
+		"print")
+				echo "$entry"
+			;;
 
-	if [ "$comm" == "print-crashed" ]
-	then 
-		if [ -f "$entry/finished" -a ! -f "$entry/success" ]
-		then
-			echo $entry
-		fi
-	fi
+		"clean")
+				echo "deleting: $entry"
+				rm -rf "$entry"
+			;;
 
-	# clean commands
-	if [ "$comm" == "clean-finished" ]
-	then 
-		if [ -f "$entry/finished" ]
-		then
-			echo "deleting: $entry"
-			rm -rf "$entry"
-		fi
-	fi
+		"resubmit")
+				echo "resubmitting: $entry"
 
-	if [ "$comm" == "clean-success" ]
-	then 
-		if [ -f "$entry/success" ]
-		then
-			echo "deleting: $entry"
-			rm -rf "$entry"
-		fi
-	fi
-
-	# resubmit commands
-	if [ "$comm" == "resubmit-crashed" ]
-	then 
-		if [ -f "$entry/finished" -a ! -f "$entry/success" ]
-		then
-			echo "resubmitting: $entry"
-
-			cwd=`pwd -P`
-			result=`bsub -q 8nh -o /dev/null -e /dev/null "$cwd/$entry/job"`
-			echo "    $result"
-			echo "$result" > "$entry/resubmitted"
-		fi
-	fi
-	
+				cwd=`pwd -P`
+				result=`bsub -q "$queue" -o /dev/null -e /dev/null "$cwd/$entry/job"`
+				echo "    $result"
+				echo "$result" > "$entry/submitted"
+				rm -f "$entry/finished"
+			;;
+	esac
 done
