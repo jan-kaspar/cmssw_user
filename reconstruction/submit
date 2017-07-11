@@ -17,6 +17,18 @@ function PrintUsage()
 
 #----------------------------------------------------------------------------------------------------
 
+function CheckVariableDefined()
+{
+	local varName="$1"
+	if [ -z "${!varName+x}" ]
+	then
+		echo "ERROR in standard_block_submitter: variable '$varName' not defined"
+		exit 1
+	fi
+}
+
+#----------------------------------------------------------------------------------------------------
+
 # default values
 
 work_dir="work_dir"
@@ -100,19 +112,34 @@ source "$input_config"
 
 #----------------------------------------------------------------------------------------------------
 
+CheckVariableDefined "input_blocks"
+CheckVariableDefined "input_block_labels"
+CheckVariableDefined "input_block_runs"
+CheckVariableDefined "input_block_output_tags"
+
+CheckVariableDefined "template_file"
+
+#----------------------------------------------------------------------------------------------------
+#----------------------------------------------------------------------------------------------------
+
 function MakeConfig()
 {
 	(
+		# TODO: make configurable
+
 		echo "#!/bin/sh"
 		echo "export HOME=\"/afs/cern.ch/exp/totem/scratch/jkaspar\""
 		echo "source \"/cvmfs/cms.cern.ch/cmsset_default.sh\""
-		echo "cd \"/afs/cern.ch/work/j/jkaspar/software/offline/704/src\""
+		echo "cd \"/afs/cern.ch/work/j/jkaspar/software/ctpps/production/CMSSW_9_2_4/src\""
 		echo "cmsenv"
-		echo "cd \"../user-new/reconstruction/$dir\""
+		echo "cd \"../user/reconstruction/$dir\""
 		echo ""
 		echo "# EOS configuration"
 		echo "source \"/afs/cern.ch/project/eos/installation/totem/etc/setup.sh\""
 		echo "shopt -s expand_aliases"
+		echo ""
+		echo "# grid proxy configuration"
+		echo "export X509_USER_PROXY=\"/afs/cern.ch/user/j/jkaspar/$proxy_file\""
 		echo ""
 		cat "common_job_code"
 		echo ""
@@ -120,11 +147,13 @@ function MakeConfig()
 		echo ""
 		echo "date"
 		echo ""
+		echo "voms-proxy-info"
+		echo ""
 		echo "# prepare directory for reco"
 		echo "mkdir -p \"$reco_dir\""
 		echo ""
 		echo "# run CMSSW"
-		echo "cmsRun \"$config_file\" 2>&1 | grep -v ProcessVFATDataParallel > \"$log_file\""
+		echo "cmsRun \"$config_file\" > \"$log_file\""
 		echo "cmsRun_retCode=\$?"
 		echo "if [ \$cmsRun_retCode -ne 0 ]"
 		echo "then"
@@ -201,28 +230,6 @@ function Submit()
 }
 
 #----------------------------------------------------------------------------------------------------
-#----------------------------------------------------------------------------------------------------
-
-function CheckVariableDefined()
-{
-	local varName="$1"
-	if [ -z "${!varName+x}" ]
-	then
-		echo "ERROR in standard_block_submitter: variable '$varName' not defined"
-		exit 1
-	fi
-}
-
-CheckVariableDefined "input_blocks"
-CheckVariableDefined "input_block_labels"
-CheckVariableDefined "input_block_runs"
-CheckVariableDefined "input_block_output_tags"
-CheckVariableDefined "template_file"
-CheckVariableDefined "mapping"
-CheckVariableDefined "geometry"
-CheckVariableDefined "alignment_files"
-CheckVariableDefined "output_dir"
-
 #----------------------------------------------------------------------------------------------------
 
 # process input

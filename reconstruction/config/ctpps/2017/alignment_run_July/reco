@@ -1,0 +1,38 @@
+#!/bin/bash
+
+runs=(
+	298596
+	298597
+)
+
+datasets=(
+	"/ZeroBias1/Run2017B-v1/RAW"
+	"/ZeroBias2/Run2017B-v1/RAW"
+	"/ZeroBias4/Run2017B-v1/RAW"
+	"/ZeroBias5/Run2017B-v1/RAW"
+	"/ZeroBias6/Run2017B-v1/RAW"
+	"/ZeroBias7/Run2017B-v1/RAW"
+	"/ZeroBias8/Run2017B-v1/RAW"
+	"/ZeroBias9/Run2017B-v1/RAW"
+	"/ZeroBias10/Run2017B-v1/RAW"
+)
+
+files_per_block="10"
+
+output_dir="/eos/totem/data/ctpps/reconstruction/2017/alignment_run_July/version1"
+
+task_prefix="reco"
+task_suffix="_reco"
+
+queue="8nh"
+
+#----------------------------------------------------------------------------------------------------
+
+template_file="config/ctpps/2017/alignment_run_July/template_reco.py"
+
+CheckVariableDefined "output_dir"
+
+
+#----------------------------------------------------------------------------------------------------
+
+source ctpps_block_submitter

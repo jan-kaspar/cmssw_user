@@ -1,0 +1,58 @@
+#!/bin/bash
+
+#----------------------------------------------------------------------------------------------------
+
+CheckVariableDefined "runs"
+CheckVariableDefined "task_prefix"
+CheckVariableDefined "task_suffix"
+CheckVariableDefined "files_per_block"
+
+#----------------------------------------------------------------------------------------------------
+
+input_blocks=()
+input_block_labels=()
+input_block_runs=()
+input_block_output_tags=()
+
+for run in ${runs[*]}
+do
+	echo "* querying data for run $run"
+
+	buffer=""
+	buffer_size="0"
+
+	block_idx="0"
+
+	for dataset in ${datasets[*]}
+	do
+		for file in `das_client --limit=0 --query "file dataset=$dataset run=$run"`
+		do
+			buffer="$buffer $file"
+			let buffer_size+=1
+		
+			if [ "$buffer_size" -ge "$files_per_block" ]
+			then
+				input_blocks+=("$buffer")
+				input_block_labels+=("${task_prefix}/$run/$block_idx")
+				input_block_runs+=("$run")
+				input_block_output_tags+=("run_${run}.${block_idx}${task_suffix}")
+		
+				buffer=""
+				let buffer_size=0
+				let block_idx+=1
+			fi
+		done
+		
+		if [ "$buffer_size" -gt "0" ]
+		then
+			input_blocks+=("$buffer")
+			input_block_labels+=("${task_prefix}/$run/$block_idx")
+			input_block_runs+=("$run")
+			input_block_output_tags+=("run_${run}.${block_idx}${task_suffix}")
+		
+			buffer=""
+			let buffer_size=0
+			let block_idx+=1
+		fi
+	done
+done
