@@ -16,7 +16,7 @@ datasets=(
 	"/ZeroBias1/Run2017B-PromptReco-v2/AOD"
 )
 
-files_per_block="10"
+files_per_block="1"
 
 output_dir="/eos/totem/data/ctpps/reconstruction/2017/alignment_run_July/version2"
 
