@@ -1,0 +1,36 @@
+#!/bin/bash
+
+runs=(
+	# crossing angle 140 urad
+	298593
+
+	# crossing angle 130 urad
+	298594
+	298596
+
+	# crossing angle 120 urad
+	298597
+)
+
+datasets=(
+	"/ZeroBias1/Run2017B-PromptReco-v2/AOD"
+)
+
+files_per_block="10"
+
+output_dir="/eos/totem/data/ctpps/reconstruction/2017/alignment_run_July/version2"
+
+task_prefix="re_reco"
+task_suffix="_re_reco"
+
+queue="8nh"
+
+#----------------------------------------------------------------------------------------------------
+
+template_file="config/ctpps/2017/alignment_run_July/template_re_reco.py"
+
+CheckVariableDefined "output_dir"
+
+#----------------------------------------------------------------------------------------------------
+
+source ctpps_block_submitter
