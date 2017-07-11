@@ -22,7 +22,10 @@ function CheckVariableDefined()
 	local varName="$1"
 	if [ -z "${!varName+x}" ]
 	then
-		echo "ERROR in standard_block_submitter: variable '$varName' not defined"
+		local idx
+		let idx=${#BASH_SOURCE[@]}-2
+		local scriptName="${BASH_SOURCE[$idx]}"
+		echo "ERROR in $scriptName: variable '$varName' not defined"
 		exit 1
 	fi
 }
@@ -31,6 +34,7 @@ function CheckVariableDefined()
 
 # default values
 
+reconstruction_dir=`pwd -P`
 work_dir="work_dir"
 template_file="reconstruction_template_RP_cfg.py"
 check_template_file="CheckRootFile_template"
@@ -125,14 +129,13 @@ CheckVariableDefined "template_file"
 function MakeConfig()
 {
 	(
-		# TODO: make configurable
-
 		echo "#!/bin/sh"
 		echo "export HOME=\"/afs/cern.ch/exp/totem/scratch/jkaspar\""
+		echo ""
 		echo "source \"/cvmfs/cms.cern.ch/cmsset_default.sh\""
-		echo "cd \"/afs/cern.ch/work/j/jkaspar/software/ctpps/production/CMSSW_9_2_4/src\""
+		echo "cd \"$CMSSW_BASE\""
 		echo "cmsenv"
-		echo "cd \"../user/reconstruction/$dir\""
+		echo "cd \"$reconstruction_dir/$dir\""
 		echo ""
 		echo "# EOS configuration"
 		echo "source \"/afs/cern.ch/project/eos/installation/totem/etc/setup.sh\""
