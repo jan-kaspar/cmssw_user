@@ -18,7 +18,7 @@ datasets=(
 
 files_per_block="1"
 
-output_dir="/eos/totem/data/ctpps/reconstruction/2017/alignment_run_July/version2"
+output_dir="/eos/totem/data/ctpps/reconstruction/2017/alignment_run_July/version3"
 
 task_prefix="re_reco"
 task_suffix="_re_reco"

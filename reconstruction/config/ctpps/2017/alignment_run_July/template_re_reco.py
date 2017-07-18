@@ -32,9 +32,9 @@ $input_files
   )
 )
 
-process.maxEvents = cms.untracked.PSet(
-  input = cms.untracked.int32(100)
-)
+#process.maxEvents = cms.untracked.PSet(
+#  input = cms.untracked.int32(100)
+#)
 
 # strips: non-parallel pattern recognition
 process.load("RecoCTPPS.TotemRPLocal.totemRPUVPatternFinder_cfi")
@@ -84,7 +84,10 @@ process.p = cms.Path(
 from RecoCTPPS.Configuration.RecoCTPPS_EventContent_cff import RecoCTPPSAOD
 process.output = cms.OutputModule("PoolOutputModule",
   fileName = cms.untracked.string("$output_file"),
-  outputCommands = RecoCTPPSAOD.outputCommands
+  outputCommands = RecoCTPPSAOD.outputCommands + cms.vstring(
+    "keep CTPPSPixelClusteredmDetSetVector_*_*_*",
+    "keep CTPPSPixelRecHitedmDetSetVector_*_*_*",
+  )
 )
 
 process.outpath = cms.EndPath(process.output)
