@@ -1,8 +1,8 @@
 #!/bin/bash
 
 # load EOS configuration
-source "/afs/cern.ch/project/eos/installation/totem/etc/setup.sh"
-shopt -s expand_aliases
+#source "/afs/cern.ch/project/eos/installation/totem/etc/setup.sh"
+#shopt -s expand_aliases
 
 #----------------------------------------------------------------------------------------------------
 
@@ -138,11 +138,11 @@ function MakeConfig()
 		echo "cd \"$reconstruction_dir/$dir\""
 		echo ""
 		echo "# EOS configuration"
-		echo "source \"/afs/cern.ch/project/eos/installation/totem/etc/setup.sh\""
-		echo "shopt -s expand_aliases"
+		echo "#source \"/afs/cern.ch/project/eos/installation/totem/etc/setup.sh\""
+		echo "#shopt -s expand_aliases"
 		echo ""
 		echo "# grid proxy configuration"
-		echo "export X509_USER_PROXY=\"/afs/cern.ch/user/j/jkaspar/$proxy_file\""
+		echo "export X509_USER_PROXY=\"/afs/cern.ch/user/j/jkaspar/x509up_u2177\""
 		echo ""
 		cat "common_job_code"
 		echo ""
@@ -187,7 +187,7 @@ function MakeConfig()
 		echo ""
 		echo "ls -l > \"$finished_file\""
 		echo ""
-		echo ") > $job_log_file"
+		echo ") &> $job_log_file"
 	) > "$dir/job"
 
 	chmod u+x "$dir/job"
