@@ -1,0 +1,64 @@
+#!/bin/bash
+
+# what to optimise
+sector="45"
+z0="-210000"
+#rps="3,4,5,23,24,25" # TODO
+rps="3,23"
+
+excludePlanes=""
+#excludePlanes="1981448192"
+
+# event selection
+minimumHitsPerProjectionPerRP=3
+requireNumberOfUnits="2"
+requireOverlap="False"
+requireAtLeast3PotsInOverlap="True"
+
+additionalAcceptedRPSets=""
+
+# even number limit
+#maxEvents="-1" # process all events
+maxEvents="1000" # TODO
+
+# iteration settings
+iterations=2
+optimize=("s" "s" "sr")
+maxResidualToSigma=(100 10 10 3)
+chiSqPerNdfCut=(5000 50 50 5)
+maxTrackAx=("1" "10E-3")
+maxTrackAy=("1" "10E-3")
+
+# constraint settings
+constraintsType="standard" # nothing else enabled
+constraintsLabel="std"
+final_constraints_units="1,21"
+
+# diagonistics
+iterationsWithDiagnostics="4"
+
+# input settings
+reco_dir="/eos/totem/data/ctpps/reconstruction/2017/alignment_run_July/version3"
+
+# geometry settings
+geometry="2017_07_08_fill5912"
+
+#initial_alignment=(
+#	"/afs/cern.ch/work/j/jkaspar/software/offline/704/src/TotemAlignment/RPData/LHC/2016_04_20_fill4828/version1/sr+el/45.xml"
+#	"/afs/cern.ch/work/j/jkaspar/software/offline/704/src/TotemAlignment/RPData/LHC/2016_04_20_fill4828/version1/sr+el/56.xml"
+#)
+
+# output settings
+subdir="tb,round1"
+label=""  # for non-standard settings, e.g. ",test"
+
+NewDataSet
+tasks=(
+	298593
+# TODO
+#	298594
+#	298596
+#	298597
+)
+
+SubmitTrackBasedAlignment
