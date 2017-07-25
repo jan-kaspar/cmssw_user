@@ -1,3 +1,36 @@
+int RawToDecRPId(int raw)
+{
+	int arm = (int)(raw / 2^24) % 2;
+	int st = (int)(raw / 2^22) % 4;
+	int rp = (int)(raw / 2^19) % 8;
+
+	return arm*100 + st*10 + rp;
+}
+
+//---------------------------------------------------------------------------------------------------------------------
+
+int RawToDecSensorId(int raw)
+{
+	int subdet = (int)(raw / 2^25) % 8;
+	int arm = (int)(raw / 2^24) % 2;
+	int st = (int)(raw / 2^22) % 4;
+	int rp = (int)(raw / 2^19) % 8;
+
+	int plane = -1;
+
+	// strips
+	if (subdet == 3)
+		plane = (int)(raw / 2^15) % 16;
+
+	// pixels
+	if (subdet == 4)
+		plane = (int)(raw / 2^16) % 8;
+
+	if (plane < 0)
+		write("ERROR in RawToDecSensorId > plane < 0.");
+
+	return arm*1000 + st*100 + rp*10 + plane;
+}
 
 //---------------------------------------------------------------------------------------------------------------------
 
@@ -56,7 +89,7 @@ int ParseXML(string filename, Alignment a)
 		if (!det_node && !rp_node)
 			continue;
 
-		int id = -1;
+		int id_raw = -1;
 		real sh_r = 0, sh_r_e = 0, rot_z = 0, rot_z_e = 0;
 		real sh_x = 0, sh_x_e = 0, sh_y = 0, sh_y_e = 0;
 		real sh_z = 0, sh_z_e = 0;
@@ -64,7 +97,7 @@ int ParseXML(string filename, Alignment a)
 		for (int j = 0; j < bits.length; ++j)
 		{
 			//write("> ", bits[j]);
-			if (find(bits[j], "id=") >= 0) id = (int) bits[++j];
+			if (find(bits[j], "id=") >= 0) id_raw = (int) bits[++j];
 			if (find(bits[j], "sh_r=") >= 0) sh_r = (real) bits[++j];
 			if (find(bits[j], "sh_r_e=") >= 0) sh_r_e = (real) bits[++j];
 			if (find(bits[j], "sh_x=") >= 0) sh_x = (real) bits[++j];
@@ -77,11 +110,12 @@ int ParseXML(string filename, Alignment a)
 			if (find(bits[j], "rot_z_e=") >= 0) rot_z_e = (real) bits[++j];
 		}
 	
-		if (id < 0)
+		if (id_raw < 0)
 			continue;
 
 		if (det_node)
 		{
+			int id = RawToDecSensorId(id_raw);
 			a.shr[id] = sh_r;
 			a.shr_e[id] = sh_r_e;
 			a.rotz[id] = rot_z;
@@ -89,6 +123,7 @@ int ParseXML(string filename, Alignment a)
 			a.shz[id] = sh_z;
 			a.shz_e[id] = sh_z_e;
 		} else {
+			int id = RawToDecRPId(id_raw);
 			a.rp_shx[id] = sh_x;
 			a.rp_shx_e[id] = sh_x_e;
 			a.rp_shy[id] = sh_y;

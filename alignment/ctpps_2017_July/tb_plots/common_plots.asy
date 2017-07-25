@@ -33,10 +33,7 @@ void LoadAlignments()
 	
 	for (int ini : inputs.keys)
 	{
-		string f = "../" + inputs[ini] + "/cumulative_factored_results_Jan.xml";
-	
-		//f = replace(f, "<rp_str>", rp_str);
-		//f = replace(f, "<sector>", sector);
+		string f = "../" + inputs[ini] + "/results_cumulative_factored_Jan.xml";
 	
 		Alignment a;
 		int r = ParseXML(f, a);

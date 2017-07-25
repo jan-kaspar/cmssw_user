@@ -3,11 +3,11 @@
 # what to optimise
 sector="45"
 z0="-210000"
-#rps="3,4,5,23,24,25" # TODO
-rps="3,23"
+rps="3,4,5,23,24,25" # TODO
+#rps="3,23"
 
-excludePlanes=""
-#excludePlanes="1981448192"
+# planes 4.4, 5.0, 5.1, 5.2, 5.3
+excludePlanes="1981939712,1982332928,1982365696,1982398464,1982431232"
 
 # event selection
 minimumHitsPerProjectionPerRP=3
@@ -19,13 +19,14 @@ additionalAcceptedRPSets=""
 
 # even number limit
 #maxEvents="-1" # process all events
-maxEvents="1000" # TODO
+maxEvents="20000" # TODO
 
 # iteration settings
-iterations=2
-optimize=("s" "s" "sr")
-maxResidualToSigma=(100 10 10 3)
-chiSqPerNdfCut=(5000 50 50 5)
+iterations=4
+#optimize=("s" "s" "sr")
+optimize=("s")
+maxResidualToSigma=(260 20 10 3)
+chiSqPerNdfCut=(10000 400 50 5)
 maxTrackAx=("1" "10E-3")
 maxTrackAy=("1" "10E-3")
 
@@ -55,10 +56,9 @@ label=""  # for non-standard settings, e.g. ",test"
 NewDataSet
 tasks=(
 	298593
-# TODO
-#	298594
-#	298596
-#	298597
+	298594
+	298596
+	298597
 )
 
 SubmitTrackBasedAlignment

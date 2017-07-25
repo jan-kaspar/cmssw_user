@@ -3,8 +3,8 @@
 # what to optimise
 sector="56"
 z0="+210000"
-#rps="103,104,105,123,124,125" # TODO
-rps="103,123"
+rps="103,104,105,123,124,125" # TODO
+#rps="103,123"
 
 excludePlanes="1998323712,1998356480"
 
@@ -18,13 +18,14 @@ additionalAcceptedRPSets=""
 
 # even number limit
 #maxEvents="-1" # process all events
-maxEvents="1000" # TODO
+maxEvents="10000" # TODO
 
 # iteration settings
-iterations=2
-optimize=("s" "s" "sr")
-maxResidualToSigma=(100 10 10 3)
-chiSqPerNdfCut=(5000 50 50 5)
+iterations=4
+#optimize=("s" "s" "sr")
+optimize=("s")
+maxResidualToSigma=(100 10 3)
+chiSqPerNdfCut=(5000 50 5)
 maxTrackAx=("1" "10E-3")
 maxTrackAy=("1" "10E-3")
 
