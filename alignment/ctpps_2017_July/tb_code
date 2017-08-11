@@ -70,7 +70,6 @@ function BeginJobScript()
 	echo "source \"/cvmfs/cms.cern.ch/cmsset_default.sh\""
 	echo "cd \"$CMSSW_BASE\""
 	echo "eval \`scram runtime -sh\`"
-    echo "export PYTHONPATH=\"\$PYTHONPATH:\$CMSSW_BASE/user/config\""
 	echo ""
 	echo "job_dir=\"$job_dir\""
 	echo ""
