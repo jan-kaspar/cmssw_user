@@ -19,7 +19,7 @@ additionalAcceptedRPSets=""
 
 # even number limit
 #maxEvents="-1" # process all events
-maxEvents="20000" # TODO
+maxEvents="1000000" # TODO
 
 # iteration settings
 iterations=4
@@ -36,7 +36,7 @@ constraintsLabel="std"
 final_constraints_units="1,21"
 
 # diagonistics
-iterationsWithDiagnostics="4"
+iterationsWithDiagnostics="0"
 
 # input settings
 reco_dir="/eos/totem/data/ctpps/reconstruction/2017/alignment_run_July/version3"

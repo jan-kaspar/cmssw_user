@@ -52,7 +52,12 @@ string RPName(int rp)
 
 struct Alignment
 {
-	real shr[], shr_e[], rotz[], rotz_e[], shz[], shz_e[];
+	real shr[], shr_e[];
+	real shx[], shx_e[];
+	real shy[], shy_e[];
+	real shz[], shz_e[];
+	real rotz[], rotz_e[];
+
 	real rp_shx[], rp_shx_e[];
 	real rp_shy[], rp_shy_e[];
 	real rp_rotz[], rp_rotz_e[];
@@ -118,10 +123,16 @@ int ParseXML(string filename, Alignment a)
 			int id = RawToDecSensorId(id_raw);
 			a.shr[id] = sh_r;
 			a.shr_e[id] = sh_r_e;
-			a.rotz[id] = rot_z;
-			a.rotz_e[id] = rot_z_e;
+
+			a.shx[id] = sh_x;
+			a.shx_e[id] = sh_x_e;
+			a.shy[id] = sh_y;
+			a.shy_e[id] = sh_y_e;
 			a.shz[id] = sh_z;
 			a.shz_e[id] = sh_z_e;
+
+			a.rotz[id] = rot_z;
+			a.rotz_e[id] = rot_z_e;
 		} else {
 			int id = RawToDecRPId(id_raw);
 			a.rp_shx[id] = sh_x;
@@ -142,6 +153,13 @@ real GetQuantity(Alignment a, string qn, int key)
 {
 	if (qn == "shr") return a.shr[key];
 	if (qn == "shr_e") return a.shr_e[key];
+
+	if (qn == "shx") return a.shx[key];
+	if (qn == "shx_e") return a.shx_e[key];
+
+	if (qn == "shy") return a.shy[key];
+	if (qn == "shy_e") return a.shy_e[key];
+
 	if (qn == "rotz") return a.rotz[key];
 	if (qn == "rotz_e") return a.rotz_e[key];
 
