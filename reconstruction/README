@@ -1,0 +1,4 @@
+Usage:
+ * bash --rcfile config/.../environment
+ * (optional) voms-proxy-init --voms=cms
+ * ./submit config/.../...
