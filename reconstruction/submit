@@ -123,6 +123,8 @@ CheckVariableDefined "input_block_output_tags"
 
 CheckVariableDefined "template_file"
 
+CheckVariableDefined "output_dir"
+
 #----------------------------------------------------------------------------------------------------
 #----------------------------------------------------------------------------------------------------
 
