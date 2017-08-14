@@ -15,6 +15,10 @@ process.MessageLogger = cms.Service("MessageLogger",
 # geometry
 process.load("Configuration.Geometry.geometry_CTPPS_alaTotem_fill5912_cfi")
 
+# misalignments and alignment corrections
+process.load("Geometry.VeryForwardGeometryBuilder.TotemRPIncludeAlignments_cfi")
+process.TotemRPIncludeAlignments.RealFiles = cms.vstring($alignment_files)
+
 # pixel mappings
 process.load("CondFormats.CTPPSReadoutObjects.CTPPSPixelDAQMappingESSourceXML_cfi")
 
@@ -51,7 +55,7 @@ process.clusterProd = cms.EDProducer("CTPPSPixelClusterProducer",
   ElectronADCGain = cms.double(135.0),
   VCaltoElectronOffset = cms.int32(-411),
   VCaltoElectronGain = cms.int32(50),
-  CalibrationFile = cms.string("/afs/cern.ch/work/j/jkaspar/software/ctpps/development/pixel_from_Enrico/CMSSW_9_2_0/src/Gain_Fed_1462-1463_Run_107.root"),
+  CalibrationFile = cms.string("/afs/cern.ch/work/j/jkaspar/software/ctpps/development/pixel_from_Enrico_alignment/CMSSW_9_2_6/src/Gain_Fed_1462-1463_Run_107.root"),
   DAQCalibration = cms.bool(True),
   doSingleCalibration = cms.bool(False)
 )

@@ -13,12 +13,25 @@ runs=(
 )
 
 datasets=(
-	"/ZeroBias1/Run2017B-PromptReco-v2/AOD"
+	#"/ZeroBias1/Run2017B-PromptReco-v2/AOD"
+
+	"/ZeroBias2/Run2017B-PromptReco-v2/AOD"
+	"/ZeroBias3/Run2017B-PromptReco-v2/AOD"
+	"/ZeroBias4/Run2017B-PromptReco-v2/AOD"
+	"/ZeroBias5/Run2017B-PromptReco-v2/AOD"
+	"/ZeroBias6/Run2017B-PromptReco-v2/AOD"
+	"/ZeroBias7/Run2017B-PromptReco-v2/AOD"
+	"/ZeroBias8/Run2017B-PromptReco-v2/AOD"
+	"/ZeroBias9/Run2017B-PromptReco-v2/AOD"
+	"/ZeroBias10/Run2017B-PromptReco-v2/AOD"
 )
 
 files_per_block="1"
 
-output_dir="/eos/totem/data/ctpps/reconstruction/2017/alignment_run_July/version3"
+#output_dir="/eos/totem/data/ctpps/reconstruction/2017/alignment_run_July/version4-pilot"
+output_dir="/eos/totem/data/ctpps/reconstruction/2017/alignment_run_July/version4-rest"
+
+alignment_files="\"Alignment/CTPPS/data/2017_07_08_fill5912/sr/version1/45.xml\", \"Alignment/CTPPS/data/2017_07_08_fill5912/sr/version1/56.xml\""
 
 task_prefix="re_reco"
 task_suffix="_re_reco"
@@ -28,8 +41,6 @@ queue="8nh"
 #----------------------------------------------------------------------------------------------------
 
 template_file="config/ctpps/2017/alignment_run_July/template_re_reco.py"
-
-CheckVariableDefined "output_dir"
 
 #----------------------------------------------------------------------------------------------------
 
