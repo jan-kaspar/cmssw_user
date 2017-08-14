@@ -16,8 +16,6 @@ input_block_output_tags=()
 
 for run in ${runs[*]}
 do
-	echo "* querying data for run $run"
-
 	buffer=""
 	buffer_size="0"
 
@@ -25,6 +23,8 @@ do
 
 	for dataset in ${datasets[*]}
 	do
+		echo "* querying input for run $run, dataset $dataset"
+
 		for file in `das_client --limit=0 --query "file dataset=$dataset run=$run"`
 		do
 			buffer="$buffer $file"
