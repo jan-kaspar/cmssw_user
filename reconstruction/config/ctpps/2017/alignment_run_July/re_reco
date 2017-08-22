@@ -13,8 +13,7 @@ runs=(
 )
 
 datasets=(
-	#"/ZeroBias1/Run2017B-PromptReco-v2/AOD"
-
+	"/ZeroBias1/Run2017B-PromptReco-v2/AOD"
 	"/ZeroBias2/Run2017B-PromptReco-v2/AOD"
 	"/ZeroBias3/Run2017B-PromptReco-v2/AOD"
 	"/ZeroBias4/Run2017B-PromptReco-v2/AOD"
@@ -28,10 +27,11 @@ datasets=(
 
 files_per_block="1"
 
-#output_dir="/eos/totem/data/ctpps/reconstruction/2017/alignment_run_July/version4-pilot"
-output_dir="/eos/totem/data/ctpps/reconstruction/2017/alignment_run_July/version4-rest"
+output_dir="/eos/totem/data/ctpps/reconstruction/2017/alignment_run_July/version5"
+#output_dir="/eos/totem/data/ctpps/reconstruction/2017/alignment_run_July/version5-pilot"
+#output_dir="/eos/totem/data/ctpps/reconstruction/2017/alignment_run_July/version4-rest"
 
-alignment_files="\"Alignment/CTPPS/data/2017_07_08_fill5912/sr/version1/45.xml\", \"Alignment/CTPPS/data/2017_07_08_fill5912/sr/version1/56.xml\""
+alignment_files="\"Alignment/CTPPS/data/2017_07_08_fill5912/sr+el/version1/45.xml\", \"Alignment/CTPPS/data/2017_07_08_fill5912/sr+el/version1/56.xml\""
 
 task_prefix="re_reco"
 task_suffix="_re_reco"
