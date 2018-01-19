@@ -1,7 +1,13 @@
 import FWCore.ParameterSet.Config as cms
-from Configuration.StandardSequences.Eras import eras
 
-process = cms.Process("CTPPSReReco", eras.ctpps_2016)
+from Configuration.StandardSequences.Eras import eras
+process = cms.Process("CTPPSReRecoWithAlignmentAndPixel", eras.ctpps_2016)
+
+# import of standard configurations
+#process.load('Configuration.StandardSequences.Services_cff')
+#process.load('FWCore.MessageService.MessageLogger_cfi')
+#process.load('Configuration.EventContent.EventContent_cff')
+process.load('Configuration.StandardSequences.FrontierConditions_GlobalTag_cff')
 
 # minimum of logs
 process.MessageLogger = cms.Service("MessageLogger",
@@ -12,12 +18,9 @@ process.MessageLogger = cms.Service("MessageLogger",
   )
 )
 
-# geometry
-process.load("Configuration.Geometry.geometry_CTPPS_alaTotem_fill5912_cfi")
-
 # misalignments and alignment corrections
-process.load("Geometry.VeryForwardGeometryBuilder.TotemRPIncludeAlignments_cfi")
-process.TotemRPIncludeAlignments.RealFiles = cms.vstring($alignment_files)
+process.load("Geometry.VeryForwardGeometryBuilder.ctppsIncludeAlignments_cfi")
+process.ctppsIncludeAlignments.RealFiles = cms.vstring("Alignment/CTPPS/data/2017_07_08_fill5912/sr+el/version1/45.xml", "Alignment/CTPPS/data/2017_07_08_fill5912/sr+el/version1/56.xml")
 
 # pixel mappings
 process.load("CondFormats.CTPPSReadoutObjects.CTPPSPixelDAQMappingESSourceXML_cfi")
@@ -40,48 +43,22 @@ $input_files
 #  input = cms.untracked.int32(100)
 #)
 
-# strips: non-parallel pattern recognition
-process.load("RecoCTPPS.TotemRPLocal.totemRPUVPatternFinder_cfi")
+# define global tag
+from Configuration.AlCa.GlobalTag import GlobalTag
+process.GlobalTag = GlobalTag(process.GlobalTag, '94X_dataRun2_ReReco17_forValidation', '')
 
-# strips: local track fitting
-process.load("RecoCTPPS.TotemRPLocal.totemRPLocalTrackFitter_cfi")
+# reconstruction sequences
+process.load("RecoCTPPS.Configuration.recoCTPPS_cff")
 
-# pixels: clusterisation
-process.clusterProd = cms.EDProducer("CTPPSPixelClusterProducer",
-  label=cms.untracked.string("ctppsPixelDigis"),
-  RPixVerbosity = cms.int32(0),
-  SeedADCThreshold = cms.int32(10),
-  ADCThreshold = cms.int32(10),
-  ElectronADCGain = cms.double(135.0),
-  VCaltoElectronOffset = cms.int32(-411),
-  VCaltoElectronGain = cms.int32(50),
-  CalibrationFile = cms.string("/afs/cern.ch/work/j/jkaspar/software/ctpps/development/pixel_from_Enrico_alignment/CMSSW_9_2_6/src/Gain_Fed_1462-1463_Run_107.root"),
-  DAQCalibration = cms.bool(True),
-  doSingleCalibration = cms.bool(False)
-)
-
-# pixels: rechit producer
-process.load("RecoCTPPS.CTPPSPixelLocal.CTPPSPixelRecHit_cfi")
-process.rechitProd.RPixVerbosity = cms.int32(0)
-
-# common: lite tracks
-process.load("RecoCTPPS.TotemRPLocal.ctppsLocalTrackLiteProducer_cfi")
-
-# processing sequences
 process.stripReProcessing = cms.Sequence(
   process.totemRPUVPatternFinder
   * process.totemRPLocalTrackFitter
 )
 
-process.pixelAdditionalProcessing = cms.Sequence(
-  process.clusterProd
-  * process.rechitProd
-)
-
 process.p = cms.Path(
   process.stripReProcessing
-  + process.pixelAdditionalProcessing
-  + process.ctppsLocalTrackLiteProducer
+  * process.ctppsPixelLocalReconstruction
+  * process.ctppsLocalTrackLiteProducer
 )
 
 # output configuration

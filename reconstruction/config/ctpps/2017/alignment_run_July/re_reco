@@ -13,23 +13,22 @@ runs=(
 )
 
 datasets=(
-	"/ZeroBias1/Run2017B-PromptReco-v2/AOD"
-	"/ZeroBias2/Run2017B-PromptReco-v2/AOD"
-	"/ZeroBias3/Run2017B-PromptReco-v2/AOD"
-	"/ZeroBias4/Run2017B-PromptReco-v2/AOD"
-	"/ZeroBias5/Run2017B-PromptReco-v2/AOD"
-	"/ZeroBias6/Run2017B-PromptReco-v2/AOD"
-	"/ZeroBias7/Run2017B-PromptReco-v2/AOD"
-	"/ZeroBias8/Run2017B-PromptReco-v2/AOD"
-	"/ZeroBias9/Run2017B-PromptReco-v2/AOD"
-	"/ZeroBias10/Run2017B-PromptReco-v2/AOD"
+# TODO: uncomment all
+#	"/ZeroBias1/Run2017B-PromptReco-v2/AOD"
+	"/ZeroBias2/Run2017B-PromptReco-v2/AOD"	# on T2
+	"/ZeroBias3/Run2017B-PromptReco-v2/AOD"	# on T2
+#	"/ZeroBias4/Run2017B-PromptReco-v2/AOD"
+#	"/ZeroBias5/Run2017B-PromptReco-v2/AOD"
+#	"/ZeroBias6/Run2017B-PromptReco-v2/AOD"
+#	"/ZeroBias7/Run2017B-PromptReco-v2/AOD"
+	"/ZeroBias8/Run2017B-PromptReco-v2/AOD"	# on T2
+	"/ZeroBias9/Run2017B-PromptReco-v2/AOD"	# on T2
+#	"/ZeroBias10/Run2017B-PromptReco-v2/AOD"
 )
 
 files_per_block="1"
 
-output_dir="/eos/totem/data/ctpps/reconstruction/2017/alignment_run_July/version5"
-#output_dir="/eos/totem/data/ctpps/reconstruction/2017/alignment_run_July/version5-pilot"
-#output_dir="/eos/totem/data/ctpps/reconstruction/2017/alignment_run_July/version4-rest"
+output_dir="/eos/totem/data/ctpps/reconstruction/2017/alignment_run_July/version6"
 
 alignment_files="\"Alignment/CTPPS/data/2017_07_08_fill5912/sr+el/version1/45.xml\", \"Alignment/CTPPS/data/2017_07_08_fill5912/sr+el/version1/56.xml\""
 
