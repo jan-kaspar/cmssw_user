@@ -1,28 +1,26 @@
 #!/bin/bash
 
 runs=(
-# TODO: uncomment all
 	294736
-#	294737
-#	294739
-#	294741
+	294737
+	294739
+	294741
 )
 
 datasets=(
-# TODO: uncomment all
 	"/ZeroBias1/Run2017A-PromptReco-v1/AOD"
-#	"/ZeroBias2/Run2017A-PromptReco-v1/AOD"
-#	"/ZeroBias3/Run2017A-PromptReco-v1/AOD"
-#	"/ZeroBias4/Run2017A-PromptReco-v1/AOD"
-#	"/ZeroBias5/Run2017A-PromptReco-v1/AOD"
-#	"/ZeroBias6/Run2017A-PromptReco-v1/AOD"
-#	"/ZeroBias7/Run2017A-PromptReco-v1/AOD"
-#	"/ZeroBias8/Run2017A-PromptReco-v1/AOD"
-#	"/ZeroBias9/Run2017A-PromptReco-v1/AOD"
-#	"/ZeroBias10/Run2017A-PromptReco-v1/AOD"
+	"/ZeroBias2/Run2017A-PromptReco-v1/AOD"
+	"/ZeroBias3/Run2017A-PromptReco-v1/AOD"
+	"/ZeroBias4/Run2017A-PromptReco-v1/AOD"
+	"/ZeroBias5/Run2017A-PromptReco-v1/AOD"
+	"/ZeroBias6/Run2017A-PromptReco-v1/AOD"
+	"/ZeroBias7/Run2017A-PromptReco-v1/AOD"
+	"/ZeroBias8/Run2017A-PromptReco-v1/AOD"
+	"/ZeroBias9/Run2017A-PromptReco-v1/AOD"
+	"/ZeroBias10/Run2017A-PromptReco-v1/AOD"
 )
 
-files_per_block="1"
+files_per_block="10"
 
 output_dir="/eos/totem/data/ctpps/reconstruction/2017/alignment_run_May/version1"
 
