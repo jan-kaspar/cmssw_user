@@ -20,7 +20,7 @@ process.MessageLogger = cms.Service("MessageLogger",
 
 # misalignments and alignment corrections
 process.load("Geometry.VeryForwardGeometryBuilder.ctppsIncludeAlignments_cfi")
-process.ctppsIncludeAlignments.RealFiles = cms.vstring("Alignment/CTPPS/data/2017_07_08_fill5912/sr+el/version1/45.xml", "Alignment/CTPPS/data/2017_07_08_fill5912/sr+el/version1/56.xml")
+process.ctppsIncludeAlignments.RealFiles = cms.vstring($alignment_files)
 
 # pixel mappings
 process.load("CondFormats.CTPPSReadoutObjects.CTPPSPixelDAQMappingESSourceXML_cfi")
