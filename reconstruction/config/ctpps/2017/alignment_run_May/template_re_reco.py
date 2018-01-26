@@ -4,9 +4,6 @@ from Configuration.StandardSequences.Eras import eras
 process = cms.Process("CTPPSReRecoWithAlignmentAndPixel", eras.ctpps_2016)
 
 # import of standard configurations
-#process.load('Configuration.StandardSequences.Services_cff')
-#process.load('FWCore.MessageService.MessageLogger_cfi')
-#process.load('Configuration.EventContent.EventContent_cff')
 process.load('Configuration.StandardSequences.FrontierConditions_GlobalTag_cff')
 
 # minimum of logs
@@ -65,9 +62,9 @@ process.p = cms.Path(
 from RecoCTPPS.Configuration.RecoCTPPS_EventContent_cff import RecoCTPPSAOD
 process.output = cms.OutputModule("PoolOutputModule",
   fileName = cms.untracked.string("$output_file"),
-  outputCommands = RecoCTPPSAOD.outputCommands + cms.vstring(
-    "keep CTPPSPixelClusteredmDetSetVector_*_*_*",
-    "keep CTPPSPixelRecHitedmDetSetVector_*_*_*",
+  outputCommands = cms.untracked.vstring(
+    "drop *",
+    'keep CTPPSLocalTrackLites_*_*_*'
   )
 )
 
