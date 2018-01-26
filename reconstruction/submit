@@ -153,6 +153,7 @@ function MakeConfig()
 		echo ""
 		echo "# run CMSSW"
 		echo "("
+		echo "    echo \"CMSSW version: \$CMSSW_VERSION\""
 		echo "    echo \"CMSSW installation: \$CMSSW_BASE\""
 		echo "    echo start: \`date\`"
 		echo "    echo \"--------------------\""
