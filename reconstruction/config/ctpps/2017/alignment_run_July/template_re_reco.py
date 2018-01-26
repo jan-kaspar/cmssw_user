@@ -15,10 +15,6 @@ process.MessageLogger = cms.Service("MessageLogger",
   )
 )
 
-# misalignments and alignment corrections
-process.load("Geometry.VeryForwardGeometryBuilder.ctppsIncludeAlignments_cfi")
-process.ctppsIncludeAlignments.RealFiles = cms.vstring($alignment_files)
-
 # pixel mappings
 process.load("CondFormats.CTPPSReadoutObjects.CTPPSPixelDAQMappingESSourceXML_cfi")
 
@@ -51,6 +47,9 @@ process.load("RecoCTPPS.Configuration.recoCTPPS_cff")
 del(process.XMLIdealGeometryESSource_CTPPS.geomXMLFiles[-1])
 process.XMLIdealGeometryESSource_CTPPS.geomXMLFiles.append("Geometry/VeryForwardData/data/2017_07_08_fill5912/RP_Dist_Beam_Cent.xml")
 
+# add alignment corrections
+process.ctppsIncludeAlignments.RealFiles += cms.vstring($alignment_files)
+
 # reconstruction sequences
 process.stripReProcessing = cms.Sequence(
   process.totemRPUVPatternFinder
@@ -64,7 +63,6 @@ process.p = cms.Path(
 )
 
 # output configuration
-from RecoCTPPS.Configuration.RecoCTPPS_EventContent_cff import RecoCTPPSAOD
 process.output = cms.OutputModule("PoolOutputModule",
   fileName = cms.untracked.string("$output_file"),
   outputCommands = cms.untracked.vstring(
