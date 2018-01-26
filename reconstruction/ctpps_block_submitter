@@ -25,7 +25,7 @@ do
 	do
 		echo "* querying input for run $run, dataset $dataset"
 
-		for file in `das_client --limit=0 --query "file dataset=$dataset run=$run"`
+		for file in `dasgoclient --limit=0 --query "file dataset=$dataset run=$run"`
 		do
 			buffer="$buffer $file"
 			let buffer_size+=1
