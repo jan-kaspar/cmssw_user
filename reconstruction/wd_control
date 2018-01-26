@@ -17,7 +17,8 @@ function PrintUsage()
 	echo "        finished            job has saved 'finished' file"
 	echo "        success             job has saved 'success' file"
 	echo "        crashed             job has saved 'finished' but no 'success' file"
-	echo "        unfinished          job has not saved 'finished' file"
+	echo "        unsubmitted         job has not 'submitted' file"
+	echo "        unfinished          job has 'submitted' but not 'finished' file"
 	echo "    -queue <q>              use the specified LXBATCH queue"
 }
 
@@ -53,7 +54,7 @@ do
 			;;
          
         *)
-			echo "ERROR: command/option '$1 not understood."
+			echo "ERROR: command/option '$1' not understood."
 			PrintUsage
             exit 1
 	esac
@@ -79,7 +80,7 @@ fi
 
 # validate selection
 case "$selection" in
-	"finished" | "success" | "crashed" | "unfinished")
+	"finished" | "success" | "crashed" | "unsubmitted" | "unfinished")
 		;;
 	*)
 		echo "ERROR: selection '$selection' not understood."
@@ -121,6 +122,13 @@ do
 
 		"crashed")
 				if [ -f "$entry/finished" -a ! -f "$entry/success" ]
+				then
+					selected="t"
+				fi
+			;;
+
+		"unsubmitted")
+				if [ ! -f "$entry/submitted" ]
 				then
 					selected="t"
 				fi
