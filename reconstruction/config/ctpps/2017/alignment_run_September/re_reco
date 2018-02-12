@@ -1,7 +1,6 @@
 #!/bin/bash
 
 runs=(
-	303649
 	303652
 	303658
 	303665
@@ -22,9 +21,9 @@ datasets=(
 
 files_per_block="10"
 
-output_dir="/eos/totem/data/ctpps/reconstruction/2017/alignment_run_September/version1"
+output_dir="/eos/totem/data/ctpps/reconstruction/2017/alignment_run_September/version2"
 
-alignment_files=""
+alignment_files="\"Alignment/CTPPS/data/2017_postTS2/strip_packages_rotation.xml\""
 
 task_prefix="re_reco"
 task_suffix="_re_reco"

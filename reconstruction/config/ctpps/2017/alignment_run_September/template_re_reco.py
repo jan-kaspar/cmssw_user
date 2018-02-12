@@ -48,7 +48,7 @@ del(process.XMLIdealGeometryESSource_CTPPS.geomXMLFiles[-1])
 process.XMLIdealGeometryESSource_CTPPS.geomXMLFiles.append("Geometry/VeryForwardData/data/2017_09_21_fill6228/RP_Dist_Beam_Cent.xml")
 
 # add alignment corrections
-process.ctppsIncludeAlignments.RealFiles += cms.vstring($alignment_files)
+process.ctppsIncludeAlignmentsFromXML.RealFiles += cms.vstring($alignment_files)
 
 # reconstruction sequences
 process.stripReProcessing = cms.Sequence(
