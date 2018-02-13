@@ -1,0 +1,17 @@
+<!--
+Shifts in um, rotations in mrad.
+-->
+
+<xml DocumentType="AlignmentDescription">
+	<!-- strip RP 103  -->
+	<!-- plane 0 --> <det id="1998061568" sh_z="+40600" rot_x="3141.593" rot_z="-279.253" />
+	<!-- plane 1 --> <det id="1998094336" sh_z="+31400" rot_x="3141.593" rot_z="-279.253" />
+	<!-- plane 2 --> <det id="1998127104" sh_z="+22600" rot_x="3141.593" rot_z="-279.253" />
+	<!-- plane 3 --> <det id="1998159872" sh_z="+13400" rot_x="3141.593" rot_z="-279.253" />
+	<!-- plane 4 --> <det id="1998192640" sh_z=" +4600" rot_x="3141.593" rot_z="-279.253" />
+	<!-- plane 5 --> <det id="1998225408" sh_z=" -4600" rot_x="3141.593" rot_z="-279.253" />
+	<!-- plane 6 --> <det id="1998258176" sh_z="-13400" rot_x="3141.593" rot_z="-279.253" />
+	<!-- plane 7 --> <det id="1998290944" sh_z="-22600" rot_x="3141.593" rot_z="-279.253" />
+	<!-- plane 8 --> <det id="1998323712" sh_z="-31400" rot_x="3141.593" rot_z="-279.253" />
+	<!-- plane 9 --> <det id="1998356480" sh_z="-40600" rot_x="3141.593" rot_z="-279.253" />
+</xml>

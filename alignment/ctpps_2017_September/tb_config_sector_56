@@ -1,0 +1,60 @@
+#!/bin/bash
+
+# what to optimise
+sector="56"
+z0="+210000"
+rps="103,104,105,123,124,125"
+
+excludePlanes=""
+
+# event selection
+minimumHitsPerProjectionPerRP=3
+requireNumberOfUnits="2"
+requireOverlap="False"
+requireAtLeast3PotsInOverlap="True"
+
+additionalAcceptedRPSets=""
+
+# even number limit
+#maxEvents="-1" # process all events
+maxEvents="1000000" # TODO
+
+# iteration settings
+iterations=4
+#optimize=("s" "s" "sr")
+optimize=("s")
+maxResidualToSigma=(100 10 3)
+chiSqPerNdfCut=(5000 50 5)
+maxTrackAx=("1E-3")
+maxTrackAy=("1E-3")
+
+# constraint settings
+constraintsType="standard" # nothing else enabled
+constraintsLabel="std"
+final_constraints_units="101,121"
+
+# diagonistics
+iterationsWithDiagnostics="0"
+
+# input settings
+reco_dir="/eos/totem/data/ctpps/reconstruction/2017/alignment_run_September/version2"
+
+# geometry settings
+geometry="2017_09_21_fill6228"
+
+initial_alignment=(
+	"initial_alignment/strip_packages_rotation_56.xml"
+)
+
+# output settings
+subdir="tb,round1"
+label=""  # for non-standard settings, e.g. ",test"
+
+NewDataSet
+tasks=(
+	303652
+	303658
+	303665
+)
+
+SubmitTrackBasedAlignment
