@@ -23,7 +23,7 @@ files_per_block="10"
 
 output_dir="/eos/totem/data/ctpps/reconstruction/2017/alignment_run_September/version3"
 
-alignment_dir="Alignment/CTPPS/data/2017_postTS2/s/version1"
+alignment_dir="alignment/2017_postTS2/s/version1"
 alignment_files="\"$alignment_dir/45.xml\", \"$alignment_dir/56.xml\""
 
 task_prefix="re_reco"
