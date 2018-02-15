@@ -5,7 +5,7 @@ cwd=`pwd -P`
 cd "/afs/cern.ch/work/j/jkaspar/software/ctpps/development/ctpps_relative_alignment_10_0_0/CMSSW_10_0_0"
 source environment
 
-export CMSSW_SEARCH_PATH="$CMSSW_SEARCH_PATH:$cwd"
+export CMSSW_SEARCH_PATH="$CMSSW_SEARCH_PATH:/afs/cern.ch/work/j/jkaspar/software/ctpps/user/data"
 export CMSSW_DATA_PATH="/afs"
 
 compName=$(uname -n)

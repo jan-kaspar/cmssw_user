@@ -43,7 +43,7 @@ reco_dir="/eos/totem/data/ctpps/reconstruction/2017/alignment_run_September/vers
 geometry="2017_09_21_fill6228"
 
 initial_alignment=(
-	"initial_alignment/strip_packages_rotation_56.xml"
+	"alignment/2017_postTS2/initial_alignment/strip_packages_rotation_56.xml"
 )
 
 # output settings

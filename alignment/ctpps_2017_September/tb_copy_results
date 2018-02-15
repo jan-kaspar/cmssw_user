@@ -3,6 +3,7 @@
 result_file="results_cumulative_factored_Jan.xml"
 
 # before elastic alignment
-output_dir="/afs/cern.ch/work/j/jkaspar/software/ctpps/development/ctpps_relative_alignment_10_0_0/CMSSW_10_0_0/src/Alignment/CTPPS/data/2017_postTS2/s/version1"
+output_dir="/afs/cern.ch/work/j/jkaspar/software/ctpps/user/data/alignment/2017_postTS2/s/version1"
+mkdir -p "$output_dir"
 cp "tb,round1/303658/3,4,5,23,24,25-excl1981939712,1982332928,1982365696,1982398464,1982431232/s,std,3pl,1rotzIt=0,units=2,overlap=f,3potsInO=t,eMuMvRot=f/iteration4/$result_file" "$output_dir/45.xml"
 cp "tb,round1/303658/103,104,105,123,124,125/s,std,3pl,1rotzIt=0,units=2,overlap=f,3potsInO=t,eMuMvRot=f/iteration4/$result_file" "$output_dir/56.xml"
