@@ -23,11 +23,19 @@ runs=(
 )
 
 datasets=(
-	"/Totem1/Commissioning2018-PromptReco-v1/AOD"
-	#"/ZeroBias1/Commissioning2018-26Apr2018-v1/AOD"
+	"/ZeroBias1/Commissioning2018-26Apr2018-v1/AOD"
+	"/ZeroBias2/Commissioning2018-26Apr2018-v1/AOD"
+	"/ZeroBias3/Commissioning2018-26Apr2018-v1/AOD"
+	"/ZeroBias4/Commissioning2018-26Apr2018-v1/AOD"
+	"/ZeroBias5/Commissioning2018-26Apr2018-v1/AOD"
+	"/ZeroBias6/Commissioning2018-26Apr2018-v1/AOD"
+	"/ZeroBias7/Commissioning2018-26Apr2018-v1/AOD"
+	"/ZeroBias8/Commissioning2018-26Apr2018-v1/AOD"
+	"/ZeroBias9/Commissioning2018-26Apr2018-v1/AOD"
+	"/ZeroBias10/Commissioning2018-26Apr2018-v1/AOD"
 )
 
-files_per_block="1"
+files_per_block="5"
 
 output_dir="/eos/totem/data/ctpps/reconstruction/2018/alignment_run_April/version1"
 
