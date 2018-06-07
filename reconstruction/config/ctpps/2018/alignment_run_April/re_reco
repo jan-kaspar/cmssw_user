@@ -29,7 +29,7 @@ datasets=(
 
 files_per_block="1"
 
-output_dir="/eos/totem/data/ctpps/reconstruction/2018/alignment_run_April/version4"
+output_dir="/eos/totem/data/ctpps/reconstruction/2018/alignment_run_April/version1"
 
 alignment_files=""
 
