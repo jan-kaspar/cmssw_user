@@ -1,0 +1,3 @@
+cp "/afs/cern.ch/work/j/jkaspar/software/ctpps/user/alignment/ctpps_2018_April/tb,round1/314269/3,4,5,23,24,25-excl1981939712,1982332928,1982365696,1982398464,1982431232/s,std,3pl,1rotzIt=0,units=2,overlap=f,3potsInO=t,eMuMvRot=f/iteration4/results_cumulative_factored_Jan.xml" "45.xml"
+
+cp "/afs/cern.ch/work/j/jkaspar/software/ctpps/user/alignment/ctpps_2018_April/tb,round1/314269/103,104,105,123,124,125/s,std,3pl,1rotzIt=0,units=2,overlap=f,3potsInO=t,eMuMvRot=f/iteration4/results_cumulative_factored_Jan.xml" "56.xml"
