@@ -1,0 +1,70 @@
+#!/bin/bash
+
+# what to optimise
+sector="45"
+z0="-210000"
+rps="3,4,5,23,24,25"
+
+# planes 4.4, 5.0, 5.1, 5.2, 5.3
+excludePlanes="1981939712,1982332928,1982365696,1982398464,1982431232"
+
+# event selection
+minimumHitsPerProjectionPerRP=3
+requireNumberOfUnits="2"
+requireOverlap="False"
+requireAtLeast3PotsInOverlap="True"
+
+additionalAcceptedRPSets=""
+
+# even number limit
+#maxEvents="-1" # process all events
+maxEvents="100000" # TODO
+
+# iteration settings
+iterations=4
+#optimize=("s" "s" "sr")
+optimize=("s")
+maxResidualToSigma=(10 3)
+chiSqPerNdfCut=(100 5)
+maxTrackAx=("0.5E-3")
+maxTrackAy=("0.5E-3")
+
+# constraint settings
+constraintsType="standard" # nothing else enabled
+constraintsLabel="std"
+final_constraints_units="1,21"
+
+# diagonistics
+iterationsWithDiagnostics="0"
+
+# input settings
+reco_dir="/eos/totem/data/ctpps/reconstruction/2018/alignment_run_April/version1"
+
+# geometry settings
+geometry="data/geometry/2018_April/2018_04_13_fill6554"
+
+initial_alignment=("alignment/ctpps_2018_April/tb_init/45.xml")
+
+# output settings
+subdir="tb,round1"
+label=""  # for non-standard settings, e.g. ",test"
+
+NewDataSet
+tasks=(
+	# xangle-160-beta-30
+	314247
+
+	# xangle-131-beta-30
+	314250
+	314255
+
+	# xangle-130-beta-30
+	314269
+	314272
+
+	# xangle-130-beta-25
+	314274
+	314276
+)
+
+SubmitTrackBasedAlignment
