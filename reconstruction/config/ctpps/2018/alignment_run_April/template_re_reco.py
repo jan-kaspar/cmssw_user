@@ -24,6 +24,8 @@ process.source = cms.Source("PoolSource",
 $input_files
   ),
 
+  lumisToProcess = cms.untracked.VLuminosityBlockRange('$run:1-$run:max'),
+
   inputCommands = cms.untracked.vstring(
     'keep *',
     'drop TotemRPUVPatternedmDetSetVector_*_*_*',
@@ -46,7 +48,7 @@ process.load("RecoCTPPS.Configuration.recoCTPPS_DD_cff")
 
 # use the correct geometry
 del(process.XMLIdealGeometryESSource_CTPPS.geomXMLFiles[-1])
-process.XMLIdealGeometryESSource_CTPPS.geomXMLFiles.append("Geometry/VeryForwardData/data/2018_04_13_fill6554/RP_Dist_Beam_Cent.xml")
+process.XMLIdealGeometryESSource_CTPPS.geomXMLFiles.append("data/geometry/2018_April/2018_04_13_fill6554/RP_Dist_Beam_Cent.xml")
 
 # add alignment corrections
 process.ctppsIncludeAlignmentsFromXML.RealFiles += cms.vstring($alignment_files)
