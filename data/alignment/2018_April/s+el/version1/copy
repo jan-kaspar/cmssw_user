@@ -1,0 +1,2 @@
+cp "/afs/cern.ch/work/j/jkaspar/software/ctpps/user/alignment/ctpps_2018_April/global,round1/output_45.xml" "45.xml"
+cp "/afs/cern.ch/work/j/jkaspar/software/ctpps/user/alignment/ctpps_2018_April/global,round1/output_56.xml" "56.xml"
