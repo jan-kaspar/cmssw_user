@@ -154,10 +154,30 @@ function MakeCfgFiles()
     # build input file list
 	prefix=""
     file_list=""
+	ls_list=""
 
 	runs=($task)
-	for run in "${runs[@]}"
+	for runLsSpec in "${runs[@]}"
     do
+		local run="${runLsSpec%.*}"
+		local lsSpec="${runLsSpec#*.}"
+
+		echo "$run, $lsSpec"
+
+        if [ -n "$ls_list" ]
+        then
+            ls_list="$ls_list, "
+        fi
+
+		if [ "$lsSpec" == "$runLsSpec" ]
+		then
+			ls_list="${ls_list}\"$run:1-$run:999999\""
+		else
+			local ls_min="${lsSpec%-*}"
+			local ls_max="${lsSpec#*-}"
+			ls_list="${ls_list}\"$run:${ls_min}-$run:${ls_max}\""
+		fi
+
         AddInputFiles "$run" 
     done
 
@@ -228,8 +248,8 @@ function MakeCfgFiles()
 
 		# fill in template
 		cat "$top_dir/$template" | sed "\
-				s|\$runsWithoutHorizontalRPs|$runsWithoutHorizontalRPs|;\
 				s|\$inputFiles|$file_list|;\
+				s|\$lsList|$ls_list|;\
 				s|\$optimize|$optimize_value|;\
 				s|\$rps|$rps|;\
 				s|\$excludePlanes|$excludePlanes|;\
@@ -243,7 +263,6 @@ function MakeCfgFiles()
 				s|\$fixed_planes_values_rotz|$fixed_planes_values_rotz|;\
 				s|\$geometry|$geometry|;\
 				s|\$reco_dir|$reco_dir|;\
-				s|\$files_in_run|$files_in_run|;\
 				s|\$results_dir|$job_dir/$dir|;\
 				s|\$chiSqPerNdfCut|$chiSqPerNdfCut_value|;\
 				s|\$alignmentFiles|$alignmentFiles|;\

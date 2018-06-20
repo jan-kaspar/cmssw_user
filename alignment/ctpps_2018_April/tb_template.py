@@ -16,7 +16,8 @@ process.source = cms.Source("PoolSource",
     skipBadFiles = cms.untracked.bool(True),
     fileNames = cms.untracked.vstring(
 $inputFiles
-    )
+    ),
+    lumisToProcess = cms.untracked.VLuminosityBlockRange($lsList)
 )
 
 # geometry
