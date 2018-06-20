@@ -162,8 +162,6 @@ function MakeCfgFiles()
 		local run="${runLsSpec%.*}"
 		local lsSpec="${runLsSpec#*.}"
 
-		echo "$run, $lsSpec"
-
         if [ -n "$ls_list" ]
         then
             ls_list="$ls_list, "
