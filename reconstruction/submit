@@ -216,6 +216,7 @@ function MakeScript()
 			s|\$alignment_files|$alignment_files|g;\
 			s|\$ntuple_file|ntuple.root|;\
 			s|\$output_file|$output_file|;\
+			s|\$lv1Bits|$lv1Bits|;\
 		" > "$dir/$config_file"
 }
 
@@ -268,6 +269,7 @@ do
 
 	# set per-block variables
 	run="${input_block_runs[$idx]}"
+	lv1Bits="${input_block_lv1Bits[$idx]}"
 
 	# make work directory
 	dir="$work_dir/$input_tag"
