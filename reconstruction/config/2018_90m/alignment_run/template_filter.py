@@ -33,10 +33,11 @@ $input_files
 
 # filter
 process.lv1BitFilter = cms.EDFilter("L1BitFilter",
-    lv1Bits = cms.vuint32($lv1Bits)
+    lv1Bits = cms.vuint32($lv1Bits),
+    verbosity = cms.untracked.uint32(0)
 )
 
-process.p = cms.Path(
+process.path_filter = cms.Path(
   process.lv1BitFilter
 )
 
@@ -50,6 +51,9 @@ process.output = cms.OutputModule("PoolOutputModule",
     'keep *BXVector_*_*_*',
     'keep l1t*_*_*_*',
     'keep L1GlobalTriggerReadoutRecord_*_*_*'
+  ),
+  SelectEvents = cms.untracked.PSet(
+    SelectEvents = cms.vstring('path_filter')
   )
 )
 
