@@ -1,0 +1,36 @@
+#!/bin/bash
+
+runs=(
+	318546
+	318547
+	318548
+	318549
+	318550
+	318551
+)
+
+datasets=(
+	"/TOTEM10/Run2018B-v1/RAW"
+	"/TOTEM11/Run2018B-v1/RAW"
+	"/TOTEM12/Run2018B-v1/RAW"
+	"/TOTEM13/Run2018B-v1/RAW"
+)
+
+files_per_block="1"
+
+output_dir="/eos/totem/user/j/jkaspar/reco/2018_90m/TOTEM1/version2"
+
+alignment_files=""
+
+task_prefix="reco_TOTEM1"
+task_suffix="_reco"
+
+queue="8nh"
+
+#----------------------------------------------------------------------------------------------------
+
+template_file="config/2018_90m/alignment_run/template_reco.py"
+
+#----------------------------------------------------------------------------------------------------
+
+source ctpps_block_submitter

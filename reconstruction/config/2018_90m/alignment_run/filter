@@ -1,0 +1,62 @@
+#!/bin/bash
+
+source ctpps_block_submitter_new
+
+runs=(
+	318546
+	318547
+	318548
+	318549
+	318550
+	318551
+)
+
+bits=(
+	347
+	348
+	349
+	350
+)
+
+files_per_block="1"
+
+alignment_files=""
+
+output_dir="/eos/totem/user/j/jkaspar/reco/2018_90m/version3"
+
+queue="8nh"
+
+template_file="config/2018_90m/alignment_run/template_filter.py"
+
+#----------------------------------------------------------------------------------------------------
+
+datasets=(
+	"/TOTEM10/Run2018B-PromptReco-v2/MINIAOD"
+	"/TOTEM11/Run2018B-PromptReco-v2/MINIAOD"
+	"/TOTEM12/Run2018B-PromptReco-v2/MINIAOD"
+	"/TOTEM13/Run2018B-PromptReco-v2/MINIAOD"
+)
+
+for bit in ${bits[*]}
+do
+	lv1Bits="$bit"
+	task_prefix="filter_TOTEM1_bit$bit"
+	task_suffix="_filter_TOTEM1_bit${bit}"
+
+	SubmitBlocks
+done
+
+#----------------------------------------------------------------------------------------------------
+
+datasets=(
+	"/TOTEM3/Run2018B-PromptReco-v2/MINIAOD"
+)
+
+for bit in ${bits[*]}
+do
+	lv1Bits="$bit"
+	task_prefix="filter_TOTEM3_bit$bit"
+	task_suffix="_filter_TOTEM3_bit${bit}"
+
+	SubmitBlocks
+done
