@@ -33,11 +33,13 @@ $input_files
     'keep CTPPSPixelRecHitedmDetSetVector_*_*_*',
     'keep CTPPSDiamondRecHitedmDetSetVector_*_*_*',
     'keep CTPPSDiamondLocalTrackedmDetSetVector_*_*_*',
+    'keep edmTriggerResults_*_*_*',
+    'keep GlobalAlgBlkBXVector_*_*_*',
   )
 )
 
 #process.maxEvents = cms.untracked.PSet(
-#  input = cms.untracked.int32(10)
+#  input = cms.untracked.int32(100)
 #)
 
 # define global tag
@@ -65,7 +67,7 @@ process.pixelReProcessing = cms.Sequence(
   process.ctppsPixelLocalTracks
 )
 
-process.p = cms.Path(
+process.path_reco = cms.Path(
   #process.dump *
   process.stripReProcessing
   * process.pixelReProcessing
@@ -73,17 +75,25 @@ process.p = cms.Path(
   #* process.dump
 )
 
+# filter
+process.lv1BitFilter = cms.EDFilter("L1BitFilter",
+    lv1Bits = cms.vuint32($lv1Bits),
+    verbosity = cms.untracked.uint32(0)
+)
+
+process.path_filter = cms.Path(
+  process.lv1BitFilter
+)
+
 # output configuration
 process.output = cms.OutputModule("PoolOutputModule",
   fileName = cms.untracked.string("$output_file"),
-  outputCommands = cms.untracked.vstring(
-    "drop *",
-    'keep TotemRPRecHitedmDetSetVector_*_*_*',
-    'keep TotemRPUVPatternedmDetSetVector_*_*_*',
-    'keep CTPPSPixelRecHitedmDetSetVector_*_*_*',
-    'keep CTPPSDiamondRecHitedmDetSetVector_*_*_*',
-    'keep CTPPSLocalTrackLites_*_*_*',
+  SelectEvents = cms.untracked.PSet(
+    SelectEvents = cms.vstring('path_filter')
   )
 )
 
-process.outpath = cms.EndPath(process.output)
+process.path_output = cms.EndPath(process.output)
+
+# schedule
+process.schedule = cms.Schedule(process.path_reco, process.path_filter, process.path_output)
