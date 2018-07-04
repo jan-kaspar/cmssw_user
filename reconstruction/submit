@@ -120,10 +120,11 @@ CheckVariableDefined "input_blocks"
 CheckVariableDefined "input_block_labels"
 CheckVariableDefined "input_block_runs"
 CheckVariableDefined "input_block_output_tags"
-
-CheckVariableDefined "template_file"
-
-CheckVariableDefined "output_dir"
+CheckVariableDefined "input_block_lv1Bits"
+CheckVariableDefined "input_block_geometries"
+CheckVariableDefined "input_block_alignment_files"
+CheckVariableDefined "input_block_template_files"
+CheckVariableDefined "input_block_output_dirs"
 
 #----------------------------------------------------------------------------------------------------
 #----------------------------------------------------------------------------------------------------
@@ -270,6 +271,10 @@ do
 	# set per-block variables
 	run="${input_block_runs[$idx]}"
 	lv1Bits="${input_block_lv1Bits[$idx]}"
+	geometry="${input_block_geometries[$idx]}"
+	alignment_files="${input_block_alignment_files[$idx]}"
+	template_file="${input_block_template_files[$idx]}"
+	output_dir="${input_block_output_dirs[$idx]}"
 
 	# make work directory
 	dir="$work_dir/$input_tag"
