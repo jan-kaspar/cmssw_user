@@ -18,7 +18,7 @@ bits=(
 
 files_per_block="1"
 
-output_dir="/eos/totem/user/j/jkaspar/reco/2018_90m/version6"
+output_dir="/eos/totem/user/j/jkaspar/reco/2018_90m/version8"
 
 queue="8nh"
 
@@ -35,9 +35,8 @@ runs=(
 
 geometry="data/geometry/2018_90m/2018_06_25_fill6837_align/RP_Dist_Beam_Cent.xml"
 
-#alignment_dir="data/alignment/XYZ"
-#alignment_files="\"$alignment_dir/45.xml\", \"$alignment_dir/56.xml\""
-alignment_files=""
+alignment_dir="data/alignment/2018_90m/alignment_position/s/version2"
+alignment_files="\"$alignment_dir/45.xml\", \"$alignment_dir/56.xml\""
 
 for bit in ${bits[*]}
 do
@@ -50,22 +49,22 @@ done
 
 #----------------------------------------------------------------------------------------------------
 
-runs=(
-	318550
-	318551
-)
-
-geometry="data/geometry/2018_90m/2018_06_25_fill6837_phys/RP_Dist_Beam_Cent.xml"
-
-#alignment_dir="data/alignment/XYZ"
-#alignment_files="\"$alignment_dir/45.xml\", \"$alignment_dir/56.xml\""
-alignment_files=""
-
-for bit in ${bits[*]}
-do
-	lv1Bits="$bit"
-	task_prefix="filter_TOTEM1_bit$bit"
-	task_suffix="_filter_TOTEM1_bit${bit}"
-
-	SubmitBlocks
-done
+#runs=(
+#	318550
+#	318551
+#)
+#
+#geometry="data/geometry/2018_90m/2018_06_25_fill6837_phys/RP_Dist_Beam_Cent.xml"
+#
+##alignment_dir="data/alignment/XYZ"
+##alignment_files="\"$alignment_dir/45.xml\", \"$alignment_dir/56.xml\""
+#alignment_files=""
+#
+#for bit in ${bits[*]}
+#do
+#	lv1Bits="$bit"
+#	task_prefix="filter_TOTEM1_bit$bit"
+#	task_suffix="_filter_TOTEM1_bit${bit}"
+#
+#	SubmitBlocks
+#done
