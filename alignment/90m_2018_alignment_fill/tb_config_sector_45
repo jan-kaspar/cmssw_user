@@ -1,0 +1,79 @@
+#!/bin/bash
+
+# what to optimise
+sector="45"
+z0="-210000"
+rps="3,4,5,23,24,25"
+
+# planes 4.4
+excludePlanes="1981939712,2023555072"
+
+# event selection
+minimumHitsPerProjectionPerRP=3
+requireNumberOfUnits="2"
+requireOverlap="False"
+requireAtLeast3PotsInOverlap="True"
+
+additionalAcceptedRPSets=""
+
+# even number limit
+#maxEvents="-1" # process all events
+maxEvents="100000" # TODO
+
+# iteration settings
+iterations=3
+#optimize=("s" "s" "sr")
+optimize=("s")
+maxResidualToSigma=(10 3)
+chiSqPerNdfCut=(50 5)
+maxTrackAx=("0.7E-3")
+maxTrackAy=("0.5E-3")
+
+# constraint settings
+constraintsType="standard" # nothing else enabled
+constraintsLabel="std"
+final_constraints_units="1,21"
+
+# diagonistics
+iterationsWithDiagnostics="3"
+
+# input settings
+reco_dir="/eos/totem/user/j/jkaspar/reco/2018_90m/version6"
+
+# output settings
+subdir="tb,round1-short"
+label=""  # for non-standard settings, e.g. ",test"
+
+#--------------------
+
+# geometry settings
+geometry="data/geometry/2018_90m/2018_06_25_fill6837_align"
+initial_alignment=("data/alignment/2018_90m/init/45.xml")
+
+NewDataSet
+tasks=(
+	318546.1-80
+	318546.81-163
+	318547
+	318548
+	318549
+)
+
+SubmitTrackBasedAlignment
+
+#--------------------
+
+requireOverlap="True"
+
+# geometry settings
+geometry="data/geometry/2018_90m/2018_06_25_fill6837_phys"
+initial_alignment=("data/alignment/2018_90m/init/45.xml")
+
+NewDataSet
+tasks=(
+	318550.1-35
+	318550.36-71
+	318551
+)
+
+#SubmitTrackBasedAlignment
