@@ -18,7 +18,7 @@ bits=(
 
 files_per_block="1"
 
-output_dir="/eos/totem/user/j/jkaspar/reco/2018_90m/version8"
+output_dir="/eos/totem/user/j/jkaspar/reco/2018_90m/version9"
 
 queue="8nh"
 
@@ -35,7 +35,7 @@ runs=(
 
 geometry="data/geometry/2018_90m/2018_06_25_fill6837_align/RP_Dist_Beam_Cent.xml"
 
-alignment_dir="data/alignment/2018_90m/alignment_position/s/version2"
+alignment_dir="data/alignment/2018_90m/alignment_position/s+el/version1"
 alignment_files="\"$alignment_dir/45.xml\", \"$alignment_dir/56.xml\""
 
 for bit in ${bits[*]}
