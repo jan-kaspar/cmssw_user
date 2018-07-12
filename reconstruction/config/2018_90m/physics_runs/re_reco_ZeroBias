@@ -1,0 +1,87 @@
+#!/bin/bash
+
+source ctpps_block_submitter_new
+
+datasets=(
+	"/ZeroBias/Run2018B-PromptReco-v2/AOD"
+)
+
+files_per_block="5"
+
+output_dir="/eos/totem/user/j/jkaspar/reco/2018_90m/10sigma-ZeroBias-version1"
+
+queue="8nh"
+
+template_file="config/2018_90m/physics_runs/template_re_reco_ZeroBias.py"
+
+#----------------------------------------------------------------------------------------------------
+
+runs=(
+	# fill 6877
+	319097
+	319098
+	319099
+	319100
+	319101
+	319103
+	319104
+	
+	# fill 6879
+	319124
+	319125
+	
+	# fill 6881
+	319159
+	319160
+	
+	# fill 6882
+	319173
+	319174
+	319175
+	319176
+	319177
+	
+	# fill 6884
+	319189
+	319190
+	
+	# fill 6885
+	319222
+	319223
+	
+	# fill 6890
+	319254
+	319255
+	319256
+	319260
+	319262
+	319263
+	319264
+	319265
+	319266
+	319267
+	319268
+	319270
+	319271
+	319272
+	319273
+	319274
+	
+	# fill 6891
+	319300
+	
+	# fill 6892
+	319310
+	319311
+)
+
+geometry="data/geometry/2018_90m/10sigma/RP_Dist_Beam_Cent.xml"
+
+#alignment_dir="data/alignment/2018_90m/alignment_position/s+el/version1"
+#alignment_files="\"$alignment_dir/45.xml\", \"$alignment_dir/56.xml\""
+alignment_files=""
+
+task_prefix="re_reco_ZeroBias"
+task_suffix="_re_reco_ZeroBias"
+
+SubmitBlocks

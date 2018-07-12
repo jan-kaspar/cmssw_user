@@ -1,0 +1,80 @@
+#!/bin/bash
+
+source ctpps_block_submitter_new
+
+datasets=(
+	"/TOTEM10/Run2018B-PromptReco-v2/AOD"
+	"/TOTEM11/Run2018B-PromptReco-v2/AOD"
+	"/TOTEM12/Run2018B-PromptReco-v2/AOD"
+	"/TOTEM13/Run2018B-PromptReco-v2/AOD"
+)
+
+bits=(
+	347
+	#348
+	#349
+	#350
+)
+
+files_per_block="5"
+
+output_dir="/eos/totem/user/j/jkaspar/reco/2018_90m/10sigma-TOTEM1-version1"
+
+queue="8nh"
+
+template_file="config/2018_90m/physics_runs/template_re_reco_TOTEM1.py"
+
+#----------------------------------------------------------------------------------------------------
+
+runs=(
+	# fill 6877
+	319097.37-136,169-171
+	319099.1-13
+	319100.1-20
+	319101.1-26
+	319104.1-21
+
+	# fill6879
+	319124.125-148
+
+	# fill 6881
+	319159.1-3,164-201
+
+	# fill 6882
+	319173.1-4
+	319174.1-22
+	319177.1-10
+
+	# fill 6884
+	319190.18-38
+
+	# fill 6885
+	319222.1-3,171-190
+	319223.1-4
+
+	# fill 6890
+	319254.154-167
+
+	# fill 6891
+	319300.26-47
+	319273.1-9
+	319274.1-7
+
+	# fill 6892
+	319311.1-6,27-49
+)
+
+geometry="data/geometry/2018_90m/10sigma/RP_Dist_Beam_Cent.xml"
+
+#alignment_dir="data/alignment/2018_90m/alignment_position/s+el/version1"
+#alignment_files="\"$alignment_dir/45.xml\", \"$alignment_dir/56.xml\""
+alignment_files=""
+
+for bit in ${bits[*]}
+do
+	lv1Bits="$bit"
+	task_prefix="filter_TOTEM1_bit$bit"
+	task_suffix="_filter_TOTEM1_bit${bit}"
+
+	SubmitBlocks
+done
