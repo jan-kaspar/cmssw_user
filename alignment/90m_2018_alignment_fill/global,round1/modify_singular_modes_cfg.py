@@ -19,8 +19,8 @@ y_56_220_fr = -0.533
 geometry_file = "data/geometry/2018_90m/2018_06_25_fill6837_align/RP_Dist_Beam_Cent.xml"
 
 # initial alignment files
-alignment_file_45 = "data/alignment/2018_90m/alignment_position/s/version2/45.xml"
-alignment_file_56 = "data/alignment/2018_90m/alignment_position/s/version2/56.xml"
+alignment_file_45 = "data/alignment/2018_90m/4sigma/s/version2/45.xml"
+alignment_file_56 = "data/alignment/2018_90m/4sigma/s/version2/56.xml"
 
 #----------------------------------------------------------------------------------------------------
 
