@@ -1,0 +1,102 @@
+#!/bin/bash
+
+# what to optimise
+sector="56"
+z0="+210000"
+rps="103,104,105,123,124,125"
+
+# nothing to exclude
+excludePlanes=""
+
+# event selection
+minimumHitsPerProjectionPerRP=3
+requireNumberOfUnits="2"
+requireAtLeast3PotsInOverlap="True"
+
+additionalAcceptedRPSets=""
+
+# even number limit
+maxEvents="-1" # process all events
+#maxEvents="10000" # TODO
+
+# iteration settings
+iterations=3
+#optimize=("s" "s" "sr")
+optimize=("s")
+maxResidualToSigma=(10 3)
+chiSqPerNdfCut=(50 5)
+maxTrackAx=("0.7E-3")
+maxTrackAy=("0.5E-3")
+
+# constraint settings
+constraintsType="standard" # nothing else enabled
+constraintsLabel="std"
+final_constraints_units="101,121"
+
+# diagonistics
+iterationsWithDiagnostics="3"
+
+# input settings
+reco_dir="/eos/totem/user/j/jkaspar/reco/2018_90m/10sigma-TOTEM1-version1"
+
+# output settings
+subdir="tb,round1"
+label=""  # for non-standard settings, e.g. ",test"
+
+# geometry settings
+geometry="data/geometry/2018_90m/10sigma"
+initial_alignment=("data/alignment/2018_90m/alignment_position/s+el/version1/56.xml")
+
+NewDataSet
+tasks=(
+	# fill 6877
+	319097.37-136
+	#319099.1-13
+	#319100.1-20
+	#319101.1-26
+	319104.1-21
+
+	# fill 6879
+	319124.125-135
+	319124.136-148
+
+	# fill 6881
+	319159.1-3
+	319159.164-201
+
+	# fill 6882
+	#319173.1-4
+	319174.1-22
+	319177.1-10
+
+	# fill 6884
+	319190.18-28
+	319190.29-38
+
+	# fill 6885
+	319222.171-190
+	319223.1-4
+
+	# fill 6890
+	319254.154-164
+	319254.165-167
+
+	# fill 6891
+	319300.26-47
+	#319273.1-9
+	319274.1-7
+
+	# fill 6892
+	319311.1-6
+	319311.27-49
+)
+
+#--------------------
+
+requireOverlap="False"
+iterationsWithDiagnostics="0"
+SubmitTrackBasedAlignment
+
+requireOverlap="True"
+iterationsWithDiagnostics="2"
+SubmitTrackBasedAlignment
