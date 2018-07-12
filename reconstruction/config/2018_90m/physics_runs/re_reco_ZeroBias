@@ -8,7 +8,7 @@ datasets=(
 
 files_per_block="5"
 
-output_dir="/eos/totem/user/j/jkaspar/reco/2018_90m/10sigma-ZeroBias-version1"
+output_dir="/eos/totem/user/j/jkaspar/reco/2018_90m/10sigma-ZeroBias-version2"
 
 queue="8nh"
 
@@ -77,9 +77,8 @@ runs=(
 
 geometry="data/geometry/2018_90m/10sigma/RP_Dist_Beam_Cent.xml"
 
-#alignment_dir="data/alignment/2018_90m/alignment_position/s+el/version1"
-#alignment_files="\"$alignment_dir/45.xml\", \"$alignment_dir/56.xml\""
-alignment_files=""
+alignment_dir="data/alignment/2018_90m/10sigma/s/version1"
+alignment_files="\"$alignment_dir/45.xml\", \"$alignment_dir/56.xml\""
 
 task_prefix="re_reco_ZeroBias"
 task_suffix="_re_reco_ZeroBias"
