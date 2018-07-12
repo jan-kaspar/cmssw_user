@@ -17,15 +17,18 @@ process.source = cms.Source("PoolSource",
     fileNames = cms.untracked.vstring(
       #"root://eostotem.cern.ch//eos/totem/user/j/jkaspar/reco/2018_90m/version9/run_318546.0_filter_TOTEM1_bit347.root",
       #"root://eostotem.cern.ch//eos/totem/user/j/jkaspar/reco/2018_90m/version9/run_318547.0_filter_TOTEM1_bit347.root",
-      "root://eostotem.cern.ch//eos/totem/user/j/jkaspar/reco/2018_90m/version9/run_318548.0_filter_TOTEM1_bit347.root",
+      #"root://eostotem.cern.ch//eos/totem/user/j/jkaspar/reco/2018_90m/version9/run_318548.0_filter_TOTEM1_bit347.root",
       #"root://eostotem.cern.ch//eos/totem/user/j/jkaspar/reco/2018_90m/version9/run_318549.0_filter_TOTEM1_bit347.root",
+
+      "root://eostotem.cern.ch//eos/totem/user/j/jkaspar/reco/2018_90m/version9/run_318550.1_filter_TOTEM1_bit347.root",
+      #"root://eostotem.cern.ch//eos/totem/user/j/jkaspar/reco/2018_90m/version9/run_318551.0_filter_TOTEM1_bit347.root",
     )
 )
 
 process.CTPPSFastSimulationValidator = cms.EDAnalyzer("CTPPSFastSimulationValidator",
     simuTracksTag = cms.InputTag("ctppsLocalTrackLiteProducer", "", "RECO"),
     recoTracksTag = cms.InputTag("ctppsLocalTrackLiteProducer", "", "ReRecoWithAlignment"),
-    outputFile = cms.string("output_318548.root")
+    outputFile = cms.string("output_318550.0.root")
 )
 
 # processing sequence
