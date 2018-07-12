@@ -119,6 +119,7 @@ source "$input_config"
 CheckVariableDefined "input_blocks"
 CheckVariableDefined "input_block_labels"
 CheckVariableDefined "input_block_runs"
+CheckVariableDefined "input_block_ls_selections"
 CheckVariableDefined "input_block_output_tags"
 CheckVariableDefined "input_block_lv1Bits"
 CheckVariableDefined "input_block_geometries"
@@ -211,6 +212,7 @@ function MakeScript()
 {
 	cat "$template_file" | sed -e "\
 			s|\$run|$run|g;\
+			s|\$ls_selection|$ls_selection|g;\
 			s|\$input_files|$input_files|;\
 			s|\$mapping|$mapping|g;\
 			s|\$geometry|$geometry|g;\
@@ -270,6 +272,7 @@ do
 
 	# set per-block variables
 	run="${input_block_runs[$idx]}"
+	ls_selection="${input_block_ls_selections[$idx]}"
 	lv1Bits="${input_block_lv1Bits[$idx]}"
 	geometry="${input_block_geometries[$idx]}"
 	alignment_files="${input_block_alignment_files[$idx]}"

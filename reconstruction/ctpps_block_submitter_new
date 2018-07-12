@@ -6,6 +6,7 @@
 input_blocks=()
 input_block_labels=()
 input_block_runs=()
+input_block_ls_selections=()
 input_block_output_tags=()
 input_block_lv1Bits=()
 input_block_geometries=()
@@ -20,6 +21,7 @@ function FlushBlock()
 	input_blocks+=("$buffer")
 	input_block_labels+=("${task_prefix}/$run/$block_idx")
 	input_block_runs+=("$run")
+	input_block_ls_selections+=("$ls_sel")
 	input_block_output_tags+=("run_${run}.${block_idx}${task_suffix}")
 	input_block_lv1Bits+=("$lv1Bits")
 	input_block_geometries+=("$geometry")
@@ -30,6 +32,36 @@ function FlushBlock()
 	buffer=""
 	let buffer_size=0
 	let block_idx+=1
+}
+
+#----------------------------------------------------------------------------------------------------
+
+function ParseLSList()
+{
+	ls_sel=""
+
+	while [ 1 ]
+	do
+		bit=${ls_spec%%,*}
+		rest=${ls_spec#*,}
+
+		ls_beg=${bit%-*}
+		ls_end=${bit#*-}
+
+		if [ -n "$ls_sel" ]
+		then
+			ls_sel="$ls_sel, "
+		fi
+
+		ls_sel="$ls_sel\"$run:$ls_beg-$run:$ls_end\""
+
+		if [ "$rest" == "$ls_spec" ]
+		then
+			break
+		fi
+
+		ls_spec="$rest"
+	done
 }
 
 #----------------------------------------------------------------------------------------------------
@@ -47,8 +79,18 @@ function SubmitBlocks()
 	CheckVariableDefined "output_dir"
 
 	# process input
-	for run in ${runs[*]}
+	for run_ls in ${runs[*]}
 	do
+		# extract run number and list of lumisections
+		run=${run_ls%.*}
+		ls_spec=${run_ls#*.}
+		if [ "$ls_spec" == "$run" ]
+		then
+			ls_sel="\"$run:1-$run:max\""
+		else
+			ParseLSList
+		fi
+
 		buffer=""
 		buffer_size="0"
 
