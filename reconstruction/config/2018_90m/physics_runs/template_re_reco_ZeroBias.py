@@ -34,8 +34,8 @@ $input_files
     'keep CTPPSDiamondRecHitedmDetSetVector_*_*_*',
     'keep CTPPSDiamondLocalTrackedmDetSetVector_*_*_*',
     'keep edmTriggerResults_*_*_*',
-    'keep GlobalAlgBlkBXVector_*_*_*'
-    #'keep CTPPSLocalTrackLites_*_*_*',
+    'keep GlobalAlgBlkBXVector_*_*_*',
+    'keep CTPPSLocalTrackLites_*_*_*'
   )
 )
 
