@@ -1,69 +1,81 @@
 #!/bin/bash
 
-function CheckVariableDefined()
+#----------------------------------------------------------------------------------------------------
+
+# defaults
+input_blocks=()
+input_block_labels=()
+input_block_runs=()
+input_block_ls_selections=()
+input_block_output_tags=()
+input_block_lv1Bits=()
+input_block_geometries=()
+input_block_alignment_files=()
+input_block_template_files=()
+input_block_output_dirs=()
+
+#----------------------------------------------------------------------------------------------------
+
+function FlushBlock()
 {
-	local varName="$1"
-	if [ -z "${!varName+x}" ]
-	then
-		echo "ERROR in standard_block_submitter: variable '$varName' not defined"
-		exit 1
-	fi
+	input_blocks+=("$buffer")
+	input_block_labels+=("${task_prefix}/$run/$block_idx")
+	input_block_runs+=("$run")
+	input_block_ls_selections+=("$ls_sel")
+	input_block_output_tags+=("run_${run}.${block_idx}${task_suffix}")
+	input_block_lv1Bits+=("$lv1Bits")
+	input_block_geometries+=("$geometry")
+	input_block_alignment_files+=("$alignment_files")
+	input_block_template_files+=("$template_file")
+	input_block_output_dirs+=("$output_dir")
+
+	buffer=""
+	let buffer_size=0
+	let block_idx+=1
 }
 
 #----------------------------------------------------------------------------------------------------
 
-CheckVariableDefined "runs"
-CheckVariableDefined "input_dir"
-CheckVariableDefined "input_filter_command"
-CheckVariableDefined "task_prefix"
-CheckVariableDefined "task_suffix"
-CheckVariableDefined "files_per_block"
+function SubmitBlocks()
+{
+	# check input
+	CheckVariableDefined "runs"
+	CheckVariableDefined "task_prefix"
+	CheckVariableDefined "task_suffix"
+	CheckVariableDefined "files_per_block"
+	CheckVariableDefined "geometry"
+	CheckVariableDefined "alignment_files"
+	CheckVariableDefined "template_file"
+	CheckVariableDefined "output_dir"
+	CheckVariableDefined "input_dir"
+	CheckVariableDefined "input_filter_command"
 
-#----------------------------------------------------------------------------------------------------
-
-input_blocks=()
-input_block_labels=()
-input_block_runs=()
-input_block_output_tags=()
-
-for run in ${runs[*]}
-do
-	buffer=""
-	buffer_size="0"
-
-	block_idx="0"
-
-	com="eos ls "$input_dir" $input_filter_command"
-	com_exp=$(eval "echo \"$com\"")
-	raw_file_list=$(eval "$com_exp")
-
-	for file in $raw_file_list
+	# process input
+	for run in ${runs[*]}
 	do
-		buffer="$buffer root://eostotem.cern.ch/$input_dir/$file"
-		let buffer_size+=1
-	
-		if [ "$buffer_size" -ge "$files_per_block" ]
+		buffer=""
+		buffer_size="0"
+
+		block_idx="0"
+
+		com="eos ls "$input_dir" $input_filter_command"
+		com_exp=$(eval "echo \"$com\"")
+		raw_file_list=$(eval "$com_exp")
+
+		for file in $raw_file_list
+		do
+			buffer="$buffer root://eostotem.cern.ch/$input_dir/$file"
+			let buffer_size+=1
+
+			if [ "$buffer_size" -ge "$files_per_block" ]
+			then
+				FlushBlock
+			fi
+		done
+
+		if [ "$buffer_size" -gt "0" ]
 		then
-			input_blocks+=("$buffer")
-			input_block_labels+=("${task_prefix}/$run/$block_idx")
-			input_block_runs+=("$run")
-			input_block_output_tags+=("run_${run}.${block_idx}${task_suffix}")
-	
-			buffer=""
-			let buffer_size=0
-			let block_idx+=1
+			FlushBlock
 		fi
 	done
-
-	if [ "$buffer_size" -gt "0" ]
-	then
-		input_blocks+=("$buffer")
-		input_block_labels+=("${task_prefix}/$run/$block_idx")
-		input_block_runs+=("$run")
-		input_block_output_tags+=("run_${run}.${block_idx}${task_suffix}")
-	
-		buffer=""
-		let buffer_size=0
-		let block_idx+=1
-	fi
-done
+}
