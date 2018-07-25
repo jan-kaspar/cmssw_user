@@ -40,12 +40,15 @@ $input_files
 from Configuration.AlCa.GlobalTag import GlobalTag
 process.GlobalTag = GlobalTag(process.GlobalTag, '94X_dataRun2_ReReco_EOY17_v2', '')
 
-# load reco sequences
-process.load("RecoCTPPS.Configuration.recoCTPPS_cff")
-
 # use the correct geometry
+process.load("Geometry.VeryForwardGeometry.geometryRPFromDD_2017_cfi")
+
 del(process.XMLIdealGeometryESSource_CTPPS.geomXMLFiles[-1])
-process.XMLIdealGeometryESSource_CTPPS.geomXMLFiles.append("Geometry/VeryForwardData/data/2017_09_21_fill6228/RP_Dist_Beam_Cent.xml")
+process.XMLIdealGeometryESSource_CTPPS.geomXMLFiles.append("$geometry")
+
+# load reco sequences
+process.load("RecoCTPPS.Configuration.recoCTPPS_sequences_cff")
+process.recoCTPPS = cms.Sequence(process.recoCTPPSdets)
 
 # add alignment corrections
 process.ctppsIncludeAlignmentsFromXML.RealFiles += cms.vstring($alignment_files)
