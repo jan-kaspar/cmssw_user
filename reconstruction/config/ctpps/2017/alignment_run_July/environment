@@ -5,6 +5,9 @@ cwd=`pwd`
 cd "/afs/cern.ch/work/j/jkaspar/software/ctpps/production/CMSSW_9_4_0"
 source environment
 
+export CMSSW_SEARCH_PATH="$CMSSW_SEARCH_PATH:/afs/cern.ch/work/j/jkaspar/software/ctpps/user"
+export CMSSW_DATA_PATH="/afs"
+
 compName=$(uname -n)
 export compName="${compName%%.*}"
 

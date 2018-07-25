@@ -45,7 +45,7 @@ process.load("RecoCTPPS.Configuration.recoCTPPS_cff")
 
 # use the correct geometry
 del(process.XMLIdealGeometryESSource_CTPPS.geomXMLFiles[-1])
-process.XMLIdealGeometryESSource_CTPPS.geomXMLFiles.append("Geometry/VeryForwardData/data/2017_07_08_fill5912/RP_Dist_Beam_Cent.xml")
+process.XMLIdealGeometryESSource_CTPPS.geomXMLFiles.append("$geometry")
 
 # add alignment corrections
 process.ctppsIncludeAlignments.RealFiles += cms.vstring($alignment_files)
