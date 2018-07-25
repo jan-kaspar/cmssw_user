@@ -1,0 +1,32 @@
+#!/bin/bash
+
+source totem_block_submitter
+
+runs=(
+	10077
+	10079
+	10080
+	10081
+	10082
+)
+
+files_per_block="10"
+
+input_dir="/eos/totem/data/rawdata/2016"
+input_filter_command="|grep .srs"
+
+output_dir="/eos/totem/data/ctpps/reconstruction/2016/preTS2_alignment_run/version2"
+
+geometry="data/geometry/2016_04_20_fill4828/RP_Dist_Beam_Cent.xml"
+
+queue="8nh"
+
+template_file="config/ctpps/2016/alig/template_reco.py"
+
+alignment_dir="data/alignment/2016_04_20_fill4828/version1/sr+el"
+alignment_files="\"$alignment_dir/45.xml\", \"$alignment_dir/56.xml\""
+
+task_prefix="reco"
+task_suffix="_reco"
+
+SubmitBlocks

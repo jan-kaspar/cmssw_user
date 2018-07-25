@@ -1,0 +1,107 @@
+#!/bin/bash
+
+#----------------------------------------------------------------------------------------------------
+
+# defaults
+input_blocks=()
+input_block_labels=()
+input_block_runs=()
+input_block_ls_selections=()
+input_block_output_tags=()
+input_block_lv1Bits=()
+input_block_geometries=()
+input_block_alignment_files=()
+input_block_template_files=()
+input_block_output_dirs=()
+
+#----------------------------------------------------------------------------------------------------
+
+function FlushBlock()
+{
+	input_blocks+=("$buffer")
+	input_block_labels+=("${task_prefix}/$run/$block_idx")
+	input_block_runs+=("$run")
+	input_block_ls_selections+=("$ls_sel")
+	input_block_output_tags+=("run_${run}.${block_idx}${task_suffix}")
+	input_block_lv1Bits+=("$lv1Bits")
+	input_block_geometries+=("$geometry")
+	input_block_alignment_files+=("$alignment_files")
+	input_block_template_files+=("$template_file")
+	input_block_output_dirs+=("$output_dir")
+
+	buffer=""
+	let buffer_size=0
+	let block_idx+=1
+}
+
+#----------------------------------------------------------------------------------------------------
+
+function SubmitBlocks()
+{
+	# check input
+	CheckVariableDefined "runs"
+	CheckVariableDefined "task_prefix"
+	CheckVariableDefined "task_suffix"
+	CheckVariableDefined "files_per_block"
+	CheckVariableDefined "geometry"
+	CheckVariableDefined "alignment_files"
+	CheckVariableDefined "template_file"
+	CheckVariableDefined "output_dir"
+	CheckVariableDefined "input_dir"
+
+	# process input
+	for run in ${runs[*]}
+	do
+		buffer=""
+		buffer_size="0"
+
+		block_idx="0"
+
+		for d in `eos ls $input_dir/$run`
+		do
+			file="$d/reco.root"
+
+			buffer="$buffer root://eostotem.cern.ch/$input_dir/$run/$file"
+			let buffer_size+=1
+		
+			if [ "$buffer_size" -ge "$files_per_block" ]
+			then
+				FlushBlock
+			fi
+		done
+
+		if [ "$buffer_size" -gt "0" ]
+		then
+			FlushBlock
+		fi
+	done
+}
+
+#----------------------------------------------------------------------------------------------------
+
+runs=(
+	10077
+	10079
+	10080
+	10081
+	10082
+)
+
+files_per_block="1"
+
+input_dir="/eos/totem/data/ctpps/reconstruction/alignment_run_version2"
+
+output_dir="/eos/totem/data/ctpps/reconstruction/2016/preTS2_alignment_run/version2"
+
+geometry="" # not used
+
+queue="8nh"
+
+template_file="config/ctpps/2016/alig/template_lite_reco.py"
+
+alignment_files="" # not used
+
+task_prefix="lite_reco"
+task_suffix="_lite_reco"
+
+SubmitBlocks
