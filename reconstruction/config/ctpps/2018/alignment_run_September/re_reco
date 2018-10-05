@@ -1,0 +1,53 @@
+#!/bin/bash
+
+source ctpps_block_submitter_new
+
+datasets=(
+	"/ZeroBias1/Run2018D-PromptReco-v2/AOD"
+	"/ZeroBias2/Run2018D-PromptReco-v2/AOD"
+	"/ZeroBias3/Run2018D-PromptReco-v2/AOD"
+	"/ZeroBias4/Run2018D-PromptReco-v2/AOD"
+	"/ZeroBias5/Run2018D-PromptReco-v2/AOD"
+	"/ZeroBias6/Run2018D-PromptReco-v2/AOD"
+	"/ZeroBias7/Run2018D-PromptReco-v2/AOD"
+	"/ZeroBias8/Run2018D-PromptReco-v2/AOD"
+	"/ZeroBias9/Run2018D-PromptReco-v2/AOD"
+	"/ZeroBias10/Run2018D-PromptReco-v2/AOD"
+)
+
+files_per_block="5"
+
+output_dir="/eos/totem/data/ctpps/reconstruction/2018/alignment_run_September/version1"
+
+geometry="data/geometry/2018_September/2018_09_22_fill7206/RP_Dist_Beam_Cent.xml"
+
+task_prefix="re_reco"
+task_suffix="_re_reco"
+
+queue="8nh"
+
+template_file="config/ctpps/2018/alignment_run_September/re_reco_template.py"
+
+#----------------------------------------------------------------------------------------------------
+
+#xangle=130, beta*=0.27
+runs=(
+	323311
+)
+
+#alignment_dir="data/alignment/2018_September/s/version1"
+#alignment_files="\"$alignment_dir/45.xml\", \"$alignment_dir/56.xml\""
+alignment_files=""
+
+SubmitBlocks
+
+#xangle=130, beta*=0.25
+runs=(
+	323316
+)
+
+#alignment_dir="data/alignment/2018_September/s/version1"
+#alignment_files="\"$alignment_dir/45.xml\", \"$alignment_dir/56.xml\""
+alignment_files=""
+
+SubmitBlocks
