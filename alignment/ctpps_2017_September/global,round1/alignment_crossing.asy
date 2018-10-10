@@ -42,6 +42,8 @@ for (int xai : xangles.keys)
 		
 		draw(xyswitch, RootGetObject(f, xangles[xai]+"/"+rps[rpi]+"/p_hor"), "d0,eb", black+1pt);
 
+		TF1_x_min = -2;
+		TF1_x_max = +7;
 		RootObject o_fit_h = RootGetObject(f, xangles[xai]+"/"+rps[rpi]+"/p_hor|ff");
 		draw(xyswitch, o_fit_h, "def", heavygreen+1pt);
 
