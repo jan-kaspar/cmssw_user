@@ -38,15 +38,15 @@ final_constraints_units="1,21"
 iterationsWithDiagnostics="0"
 
 # input settings
-reco_dir="/eos/totem/data/ctpps/reconstruction/2018/alignment_run_September/version1"
+reco_dir="/eos/totem/data/ctpps/reconstruction/2018/alignment_run_September/version2"
 
 # geometry settings
 geometry="data/geometry/2018_September/2018_09_22_fill7206"
 
-initial_alignment=("data/alignment/2018_September/init/45.xml")
+initial_alignment=("data/alignment/2018_September/s+el/version1/45.xml")
 
 # output settings
-subdir="tb,round1"
+subdir="tb,round2"
 label=""  # for non-standard settings, e.g. ",test"
 
 NewDataSet
@@ -54,8 +54,8 @@ tasks=(
 	# xangle=130, beta*=0.27
 	323311.1-91
 	323311.92-182
-	#323312.1-60
-	#323312.61-120
+	323312.1-60
+	323312.61-120
 
 	# xangle=130, beta*=0.25
 	323316.1-100
