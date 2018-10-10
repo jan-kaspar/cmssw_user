@@ -48,7 +48,7 @@ y_56_220_fr = +0.600
 # settings for sector 45
 process.ctppsModifySingularModes_45 = process.ctppsModifySingularModes.clone()
 
-process.ctppsModifySingularModes_45.inputFile = "data/alignment/2018_April/s/version1/45.xml"
+process.ctppsModifySingularModes_45.inputFile = "data/alignment/2018_September/s/version1/45.xml"
 process.ctppsModifySingularModes_45.outputFile = "output_45.xml"
 
 process.ctppsModifySingularModes_45.z1 = -213.000 * 1E3 # 45-210-fr-vr
@@ -66,7 +66,7 @@ process.ctppsModifySingularModes_45.de_rho2 = 0
 # settings for sector 56
 process.ctppsModifySingularModes_56 = process.ctppsModifySingularModes.clone()
 
-process.ctppsModifySingularModes_56.inputFile = "data/alignment/2018_April/s/version1/56.xml"
+process.ctppsModifySingularModes_56.inputFile = "data/alignment/2018_September/s/version1/56.xml"
 process.ctppsModifySingularModes_56.outputFile = "output_56.xml"
 
 process.ctppsModifySingularModes_56.z1 = 213.000 * 1E3 # 56-210-fr-vr
