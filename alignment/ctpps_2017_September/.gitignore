@@ -1,1 +1,7 @@
+*.pdf
+*.root
+.*
+
+!.gitignore
+
 tb,round*
