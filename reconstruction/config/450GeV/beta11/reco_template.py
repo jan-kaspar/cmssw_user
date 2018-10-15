@@ -6,6 +6,10 @@ process = cms.Process("CTPPSReconstructionChainTest", eras.ctpps_2016)
 # import of standard configurations
 process.load('Configuration.StandardSequences.FrontierConditions_GlobalTag_cff')
 
+# define global tag
+from Configuration.AlCa.GlobalTag import GlobalTag
+process.GlobalTag = GlobalTag(process.GlobalTag, '101X_dataRun2_HLT_v7', '')
+
 # minimum of logs
 process.MessageLogger = cms.Service("MessageLogger",
   statistics = cms.untracked.vstring(),
