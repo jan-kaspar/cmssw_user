@@ -1,7 +1,7 @@
 import FWCore.ParameterSet.Config as cms
-from Configuration.StandardSequences.Eras import eras
 
-process = cms.Process("CTPPSReconstructionChainTest", eras.ctpps_2016)
+from Configuration.StandardSequences.Eras import eras
+process = cms.Process("CTPPSReRecoWithAlignment", eras.ctpps_2016)
 
 # import of standard configurations
 process.load('Configuration.StandardSequences.FrontierConditions_GlobalTag_cff')
@@ -19,7 +19,7 @@ process.MessageLogger = cms.Service("MessageLogger",
   )
 )
 
-# raw data source
+# data source
 process.source = cms.Source("PoolSource",
   fileNames = cms.untracked.vstring(
 $input_files
