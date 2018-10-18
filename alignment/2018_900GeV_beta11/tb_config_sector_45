@@ -24,8 +24,8 @@ maxEvents="100000" # TODO
 iterations=4
 #optimize=("s" "s" "sr")
 optimize=("s")
-maxResidualToSigma=(100 10 3)
-chiSqPerNdfCut=(5000 50 5)
+maxResidualToSigma=(10 3)
+chiSqPerNdfCut=(50 5)
 maxTrackAx=("0.5E-3")
 maxTrackAy=("0.5E-3")
 
@@ -35,7 +35,7 @@ constraintsLabel="std"
 final_constraints_units="1,21"
 
 # diagonistics
-iterationsWithDiagnostics="2"
+iterationsWithDiagnostics="0"
 
 # input settings
 reco_dir="/eos/totem/data/offline/2018/450GeV/beta11/ZeroBias/version1"
@@ -43,8 +43,7 @@ reco_dir="/eos/totem/data/offline/2018/450GeV/beta11/ZeroBias/version1"
 # geometry settings
 geometry="data/geometry/2018_900GeV_beta11"
 
-#initial_alignment=("data/alignment/2018_September/s+el/version1/45.xml")
-initial_alignment=()
+initial_alignment=("data/alignment/2018_900GeV_beta11/init/45.xml")
 
 # output settings
 subdir="tb,round1"
