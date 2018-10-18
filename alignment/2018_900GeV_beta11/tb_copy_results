@@ -1,0 +1,15 @@
+#!/bin/bash
+
+# copy TB results
+result_file="results_cumulative_factored_Jan.xml"
+output_dir="/afs/cern.ch/work/j/jkaspar/software/ctpps/user/data/alignment/2018_900GeV_beta11/init"
+
+mkdir -p "$output_dir"
+cp "tb,round1/324579.1-45/3,4,5,23,24,25-excl1981939712,2023555072/s,std,3pl,1rotzIt=0,units=2,overlap=f,3potsInO=t,eMuMvRot=f/iteration4/$result_file" "$output_dir/45.xml"
+cp "tb,round1/324579.1-45/103,104,105,123,124,125/s,std,3pl,1rotzIt=0,units=2,overlap=f,3potsInO=t,eMuMvRot=f/iteration4/$result_file" "$output_dir/56.xml"
+
+# copy GLOBAL results
+#output_dir="/afs/cern.ch/work/j/jkaspar/software/ctpps/user/data/alignment/2017_postTS2/s+el/version1"
+#mkdir -p "$output_dir"
+#cp "global,round1/output_45.xml" "$output_dir/45.xml"
+#cp "global,round1/output_56.xml" "$output_dir/56.xml"
