@@ -37,5 +37,11 @@
 		<Constant name="RP_220_Right_Det_Dist_3" value="+42.221*mm"/> <!-- RESOLVER: +42.221, offset:  +0.000 -->
 		<Constant name="RP_220_Right_Det_Dist_4" value="+39.794*mm"/> <!-- RESOLVER: +39.794, offset:  +0.000 -->
 		<Constant name="RP_220_Right_Det_Dist_5" value="+41.592*mm"/> <!-- RESOLVER: +41.592, offset:  +0.000 -->
+
+    <!-- sector 45, diamond station -->
+    <Constant name="CTPPS_45_Det_Dist" value="3.0*mm"/>
+
+    <!-- sector 56, diamond station -->
+    <Constant name="CTPPS_56_Det_Dist" value="3.0*mm"/>
 	</ConstantsSection>
 </DDDefinition>
