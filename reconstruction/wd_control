@@ -9,7 +9,8 @@ function PrintUsage()
 	echo "USAGE: wd_control <option> <command> <option> ..."
 	echo "COMMANDS:"
 	echo "    print                   print directory name"
-	echo "    clean                   remove directory"
+	echo "    clean                   clean directory"
+	echo "    remove                  remove directory"
 	echo "    resubmit                resubmit"
 	echo "OPTIONS:"
 	echo "    -h, --help              print this help and exit"
@@ -19,7 +20,22 @@ function PrintUsage()
 	echo "        crashed             job has saved 'finished' but no 'success' file"
 	echo "        unsubmitted         job has not 'submitted' file"
 	echo "        unfinished          job has 'submitted' but not 'finished' file"
-	echo "    -queue <q>              use the specified LXBATCH queue"
+	echo "    -maxtime <v>            set max time to <v> seconds"
+}
+
+#----------------------------------------------------------------------------------------------------
+
+function CleanDirectory()
+{
+	local dir="$1"
+
+	rm -rf "$dir/out"
+	rm -rf "$dir/err"
+	rm -rf "$dir/log"
+
+	rm -rf "$dir/submitted"
+	rm -rf "$dir/finished"
+	rm -rf "$dir/success"
 }
 
 #----------------------------------------------------------------------------------------------------
@@ -28,7 +44,9 @@ function PrintUsage()
 selection=""
 comm=""
 
-queue="1nd"
+max_time="7200" # s
+
+condor_file="$work_dir/condor.resub"
 
 # parse command line
 while [ -n "$1" ]
@@ -44,12 +62,12 @@ do
             selection="$1"
             ;;
 
-        "-queue")
+        "-maxtime")
 			shift
-            queue="$1"
+            max_time="$1"
             ;;
 
-		"print" | "clean" | "resubmit")
+		"print" | "clean" | "resubmit" | "remove")
 			comm="$1"
 			;;
          
@@ -87,6 +105,27 @@ case "$selection" in
 		PrintUsage
 		exit 1
 esac
+
+# preparations
+if [ "$comm" == "resubmit" ]
+then
+	cwd=`pwd -P`
+
+	(
+		echo "executable = $cwd/\$(dir)/job"
+		echo "arguments = \$(ClusterId) \$(ProcId) \\\"\$(dir)\\\""
+		echo "output = $cwd/\$(dir)/out"
+		echo "error = $cwd/\$(dir)/err"
+		echo "log = $cwd/$work_dir/condor.log"
+
+		echo "+MaxRuntime = $max_time"
+
+		echo "+JobBatchName = resubmission"
+
+		#echo "requirements = (OpSysAndVer =?= \"SLCern6\")"
+
+	) > "$condor_file"
+fi
 
 # process all directory entries
 find "$work_dir" -type d|while read entry
@@ -155,18 +194,30 @@ do
 			;;
 
 		"clean")
-				echo "deleting: $entry"
+				echo "cleaning: $entry"
+				CleanDirectory "$entry"
+			;;
+
+		"remove")
+				echo "removing: $entry"
 				rm -rf "$entry"
 			;;
 
 		"resubmit")
 				echo "resubmitting: $entry"
+				CleanDirectory "$entry"
 
-				cwd=`pwd -P`
-				result=`bsub -q "$queue" -o /dev/null -e /dev/null "$cwd/$entry/job"`
-				echo "    $result"
-				echo "$result" > "$entry/submitted"
-				rm -f "$entry/finished"
+				(
+					echo ""
+					echo "dir=$entry"
+					echo "queue"
+				) >> "$condor_file"
 			;;
 	esac
 done
+
+# finalisations
+if [ "$comm" == "resubmit" ]
+then
+	condor_submit "$condor_file"
+fi
