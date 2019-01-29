@@ -252,7 +252,7 @@ function InitCondorScript()
 		echo "error = $work_dir_base_full/\$(dir)/err"
 		echo "log = $work_dir_base_full/condor.log"
 
-		echo "+MaxRuntime = 7200" # in s
+		echo "+MaxRuntime = $max_time"
 
 		#echo "+JobBatchName = \"$job_name\""
 
