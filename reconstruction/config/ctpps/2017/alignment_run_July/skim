@@ -38,7 +38,7 @@ alignment_files=""
 task_prefix="skim"
 task_suffix="_skim"
 
-max_time="7200"
+max_time="14400"
 
 template_file="config/ctpps/2017/alignment_run_July/skim_template.py"
 

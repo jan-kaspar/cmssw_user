@@ -21,7 +21,7 @@ datasets=(
 	"/ZeroBias10/Run2017E-PromptReco-v1/AOD"
 )
 
-files_per_block="10"
+files_per_block="5"
 
 output_dir="/eos/totem/data/ctpps/reconstruction/2017/alignment_run_September/AOD_skim"
 
