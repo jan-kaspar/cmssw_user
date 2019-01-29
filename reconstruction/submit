@@ -31,24 +31,21 @@ function CheckVariableDefined()
 # default values
 
 cwd=`pwd -P`
-reconstruction_dir="$cwd"
-work_dir="work_dir"
-template_file="reconstruction_template_RP_cfg.py"
-check_template_file="CheckRootFile_template"
+work_dir_base="work_dir"
+work_dir_base_full="$cwd/work_dir"
 
-reco_dir_base="/pool"
-output_dir_base=""
+template_file=""
+check_template_file="CheckRootFile_template"
 
 config_file="cfg.py"
 log_file="log"
-job_log_file="job_log"
 check_file="CheckRootFile.cc"
 
 submitted_file="submitted"
 finished_file="finished"
 success_file="success"
 
-condor_file="$cwd/$work_dir/condor.sub"
+condor_file="$cwd/$work_dir_base/condor.sub"
 
 test_only="y"
 
@@ -134,12 +131,16 @@ function MakeConfig()
 		echo "#!/bin/sh"
 		echo "export HOME=\"/afs/cern.ch/exp/totem/scratch/jkaspar\""
 		echo ""
+		echo "work_dir=\"$work_dir_base_full/$input_tag\""
+		echo ""
+		echo "date > \"\$work_dir/$submitted_file\""
+		echo ""
+		echo "job_dir=\`pwd -P\`"
+		echo "echo \"job_dir=\$job_dir\""
+		echo ""
 		echo "source \"/cvmfs/cms.cern.ch/cmsset_default.sh\""
 		echo "cd \"$CMSSW_BASE\""
 		echo "cmsenv"
-		echo "cd \"$reconstruction_dir/$dir\""
-		echo ""
-		echo "date > \"$submitted_file\""
 		echo ""
 		echo "export CMSSW_SEARCH_PATH=\"\$CMSSW_SEARCH_PATH:/afs/cern.ch/work/j/jkaspar/software/ctpps/user/data\""
 		echo "export CMSSW_DATA_PATH=\"/afs/cern.ch/work/j/jkaspar\""
@@ -147,12 +148,13 @@ function MakeConfig()
 		echo "# grid proxy configuration"
 		echo "export X509_USER_PROXY=\"/afs/cern.ch/user/j/jkaspar/x509up_u2177\""
 		echo ""
-		cat "common_job_code"
-		echo ""
 		echo "voms-proxy-info"
 		echo ""
-		echo "# prepare directory for reco"
-		echo "mkdir -p \"$reco_dir\""
+		cat "common_job_code"
+		echo ""
+		echo "exec_dir=\"\$job_dir/$input_tag\"" # TODO
+		echo "mkdir -p \"\$exec_dir\""
+		echo "cd \"\$exec_dir\""
 		echo ""
 		echo "# run CMSSW"
 		echo "("
@@ -161,22 +163,22 @@ function MakeConfig()
 		echo "    echo \"CMSSW installation: \$CMSSW_BASE\""
 		echo "    echo start: \`date\`"
 		echo "    echo \"--------------------\""
-		echo "    cmsRun \"$config_file\""
+		echo "    cmsRun \"\$work_dir/$config_file\""
 		echo "    rc=\$?"
 		echo "    echo \"--------------------\""
 		echo "    echo end: \`date\`"
 		echo "    exit \$rc"
-		echo ") &> \"$log_file\""
+		echo ") &> \"\$work_dir/$log_file\""
 		echo "rc=\$?"
 		echo "if [ "\$rc" -ne 0 ]"
 		echo "then"
 		echo "    echo \"cmsRun crashed: return code = \$rc\""
-		echo "    ls -l > \"$finished_file\""
+		echo "    date > \"\$work_dir/$finished_file\""
 		echo "    exit 1"
 		echo "fi"
 		echo ""
 		echo "# check ROOT file consistency"
-		echo "root -b -q -l \"$check_file\" 2> /dev/null"
+		echo "root -b -q -l \"\$work_dir/$check_file\" 2> /dev/null"
 		echo "if [ \$? -eq 0 ]"
 		echo "then"
 		echo "    # workaround for problems with eos cp"
@@ -185,21 +187,21 @@ function MakeConfig()
 		echo "    success=1"
 		echo "    outputDir=\"$output_dir\""
 		echo "    RemoteMkdir \"\$outputDir\""
-    	echo "    SafeCmd RemoteCopy \"$config_file\" \"\$outputDir/${output_tag}_cfg.py\" || success=0"
-    	echo "    SafeCmd RemoteCopy \"$log_file\" \"\$outputDir/${output_tag}.log\" || success=0"
-    	echo "    SafeCmd RemoteCopy \"$output_file\" \"\$outputDir/${output_tag}.root\" || success=0"
+		echo "    SafeCmd RemoteCopy \"\$work_dir/$config_file\" \"\$outputDir/${output_tag}_cfg.py\" || success=0"
+		echo "    SafeCmd RemoteCopy \"\$work_dir/$log_file\" \"\$outputDir/${output_tag}.log\" || success=0"
+		echo "    SafeCmd RemoteCopy \"$output_file\" \"\$outputDir/${output_tag}.root\" || success=0"
 		echo "    if [ \$success -eq 1 ]"
 		echo "    then"
-		echo "        touch \"$success_file\""
+		echo "        date > \"\$work_dir/$success_file\""
 		echo "    fi"
 		echo "else"
 		echo "    echo \"The reco file is corrupted, you will need to rerun this job.\""
 		echo "fi"
 		echo ""
-		echo "ls -l > \"$finished_file\""
-	) > "$dir/job"
+		echo "date > \"\$work_dir/$finished_file\""
+	) > "$work_dir_base/$dir/job"
 
-	chmod u+x "$dir/job"
+	chmod u+x "$work_dir_base/$dir/job"
 }
 
 #----------------------------------------------------------------------------------------------------
@@ -216,16 +218,16 @@ function MakeScript()
 			s|\$ntuple_file|ntuple.root|;\
 			s|\$output_file|$output_file|;\
 			s|\$lv1Bits|$lv1Bits|;\
-		" > "$dir/$config_file"
+		" > "$work_dir_base/$dir/$config_file"
 }
 
 #----------------------------------------------------------------------------------------------------
 
 function MakeCheckScript()
 {
-    cat "$check_template_file" | sed "\
-        s|\$file|$output_file|;\
-      " > "$dir/$check_file"
+	cat "$check_template_file" | sed "\
+			s|\$file|$output_file|;\
+		" > "$work_dir_base/$dir/$check_file"
 }
 
 #----------------------------------------------------------------------------------------------------
@@ -243,14 +245,12 @@ function Submit()
 
 function InitCondorScript()
 {
-	local base_dir="$reconstruction_dir"
-
 	(
-		echo "executable = $base_dir/\$(dir)/job"
+		echo "executable = $work_dir_base_full/\$(dir)/job"
 		echo "arguments = \$(ClusterId) \$(ProcId) \\\"\$(dir)\\\""
-		echo "output = $base_dir/\$(dir)/out"
-		echo "error = $base_dir/\$(dir)/err"
-		echo "log = $base_dir/$work_dir/condor.log"
+		echo "output = $work_dir_base_full/\$(dir)/out"
+		echo "error = $work_dir_base_full/\$(dir)/err"
+		echo "log = $work_dir_base_full/condor.log"
 
 		echo "+MaxRuntime = 7200" # in s
 
@@ -296,15 +296,12 @@ do
 	output_dir="${input_block_output_dirs[$idx]}"
 
 	# make work directory
-	dir="$work_dir/$input_tag"
-	mkdir -p "$dir"
+	dir="$input_tag"
+	mkdir -p "$work_dir_base/$dir"
 
-	# define output dir
+	# define output
 	output_tag="${input_block_output_tags[$idx]}"
-
-	# define reco dir and file
-	reco_dir="$reco_dir_base/$input_tag"
-	output_file="$reco_dir/output.root"
+	output_file="output.root"
 	
 	# make config
 	MakeConfig
@@ -315,7 +312,7 @@ do
 	# make check script
 	MakeCheckScript
 
-	# submit to batch queue
+	# add entry to submission script
 	Submit
 done
 
