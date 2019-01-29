@@ -1,5 +1,7 @@
 #!/bin/bash
 
+source das_block_submitter
+
 runs=(
 	303719
 
@@ -39,4 +41,4 @@ template_file="config/ctpps/2017/phys_postTS2/template_re_reco.py"
 
 #----------------------------------------------------------------------------------------------------
 
-source ctpps_block_submitter
+SubmitBlocks

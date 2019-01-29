@@ -1,5 +1,0 @@
-#!/bin/bash
-
-source ctpps_block_submitter_new
-
-SubmitBlocks

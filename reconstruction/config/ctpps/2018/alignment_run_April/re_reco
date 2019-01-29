@@ -1,6 +1,6 @@
 #!/bin/bash
 
-source ctpps_block_submitter_new
+source das_block_submitter
 
 datasets=(
 	"/ZeroBias1/Commissioning2018-26Apr2018-v1/AOD"

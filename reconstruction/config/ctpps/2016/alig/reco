@@ -1,6 +1,6 @@
 #!/bin/bash
 
-source totem_block_submitter
+source eos_block_submitter
 
 runs=(
 	10077
