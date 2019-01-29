@@ -1,0 +1,39 @@
+#!/bin/bash
+
+source das_block_submitter
+
+runs=(
+	303652
+	303658
+	303665
+)
+
+datasets=(
+	"/ZeroBias1/Run2017E-PromptReco-v1/AOD"
+	"/ZeroBias2/Run2017E-PromptReco-v1/AOD"
+	"/ZeroBias3/Run2017E-PromptReco-v1/AOD"
+	"/ZeroBias4/Run2017E-PromptReco-v1/AOD"
+	"/ZeroBias5/Run2017E-PromptReco-v1/AOD"
+	"/ZeroBias6/Run2017E-PromptReco-v1/AOD"
+	"/ZeroBias7/Run2017E-PromptReco-v1/AOD"
+	"/ZeroBias8/Run2017E-PromptReco-v1/AOD"
+	"/ZeroBias9/Run2017E-PromptReco-v1/AOD"
+	"/ZeroBias10/Run2017E-PromptReco-v1/AOD"
+)
+
+files_per_block="10"
+
+output_dir="/eos/totem/data/ctpps/reconstruction/2017/alignment_run_September/AOD_skim"
+
+geometry=""
+
+alignment_files=""
+
+task_prefix="skim"
+task_suffix="_skim"
+
+max_time="14400"
+
+template_file="config/ctpps/2017/alignment_run_September/skim_template.py"
+
+SubmitBlocks
