@@ -72,7 +72,7 @@ output_dir="/eos/totem/data/ctpps/reconstruction/2016/preTS2_alignment_data/vers
 
 geometry="" # not used
 
-queue="8nh"
+max_time="14400"
 
 template_file="config/ctpps/2016/phys_preTS2/template_reduction.py"
 

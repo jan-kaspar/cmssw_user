@@ -19,7 +19,7 @@ output_dir="/eos/totem/data/ctpps/reconstruction/2016/preTS2_alignment_run/versi
 
 geometry="data/geometry/2016_04_20_fill4828/RP_Dist_Beam_Cent.xml"
 
-queue="8nh"
+max_time="14400"
 
 template_file="config/ctpps/2016/alig/template_reco.py"
 

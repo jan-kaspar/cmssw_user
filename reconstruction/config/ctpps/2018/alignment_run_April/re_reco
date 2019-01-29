@@ -24,7 +24,7 @@ geometry="" # not used
 task_prefix="re_reco"
 task_suffix="_re_reco"
 
-queue="8nh"
+max_time="14400"
 
 template_file="config/ctpps/2018/alignment_run_April/template_re_reco.py"
 

@@ -39,7 +39,7 @@ alignment_files="\"$alignment_dir/45.xml\", \"$alignment_dir/56.xml\""
 task_prefix="re_reco"
 task_suffix="_re_reco"
 
-queue="8nh"
+max_time="14400"
 
 #----------------------------------------------------------------------------------------------------
 
