@@ -1,10 +1,12 @@
 import FWCore.ParameterSet.Config as cms
 
 from Configuration.StandardSequences.Eras import eras
-process = cms.Process("CTPPSReRecoWithAlignmentAndPixel", eras.ctpps_2016)
+process = cms.Process("CTPPSReRecoWithAlignment", eras.ctpps_2016)
 
-# import of standard configurations
+# define global tag
 process.load('Configuration.StandardSequences.FrontierConditions_GlobalTag_cff')
+from Configuration.AlCa.GlobalTag import GlobalTag
+process.GlobalTag = GlobalTag(process.GlobalTag, '94X_dataRun2_ReReco17_forValidation', '')
 
 # minimum of logs
 process.MessageLogger = cms.Service("MessageLogger",
@@ -15,10 +17,6 @@ process.MessageLogger = cms.Service("MessageLogger",
   )
 )
 
-# misalignments and alignment corrections
-process.load("Geometry.VeryForwardGeometryBuilder.ctppsIncludeAlignments_cfi")
-process.ctppsIncludeAlignments.RealFiles = cms.vstring()
-
 # pixel mappings
 process.load("CondFormats.CTPPSReadoutObjects.CTPPSPixelDAQMappingESSourceXML_cfi")
 
@@ -28,11 +26,12 @@ process.source = cms.Source("PoolSource",
 $input_files
   ),
 
+  dropDescendantsOfDroppedBranches = cms.untracked.bool(False),
   inputCommands = cms.untracked.vstring(
-    'keep *',
-    'drop TotemRPUVPatternedmDetSetVector_*_*_*',
-    'drop TotemRPLocalTrackedmDetSetVector_*_*_*',
-    'drop CTPPSLocalTrackLites_*_*_*'
+    'drop *',
+    'keep TotemRPRecHitedmDetSetVector_*_*_*',
+    'keep CTPPSDiamondLocalTrackedmDetSetVector_*_*_*',
+    'keep CTPPSPixelDigiedmDetSetVector_*_*_*'
   )
 )
 
@@ -40,30 +39,35 @@ $input_files
 #  input = cms.untracked.int32(100)
 #)
 
-# define global tag
-from Configuration.AlCa.GlobalTag import GlobalTag
-process.GlobalTag = GlobalTag(process.GlobalTag, '94X_dataRun2_ReReco17_forValidation', '')
+# use the correct geometry
+process.load("Geometry.VeryForwardGeometry.geometryRPFromDD_2017_cfi")
+del(process.XMLIdealGeometryESSource_CTPPS.geomXMLFiles[-1])
+process.XMLIdealGeometryESSource_CTPPS.geomXMLFiles.append("$geometry")
+
+# load reco sequences
+process.load("RecoCTPPS.Configuration.recoCTPPS_sequences_cff")
+process.recoCTPPS = cms.Sequence(process.recoCTPPSdets)
+
+# add alignment corrections
+process.ctppsIncludeAlignmentsFromXML.RealFiles += cms.vstring($alignment_files)
 
 # reconstruction sequences
-process.load("RecoCTPPS.Configuration.recoCTPPS_cff")
-
-process.stripReProcessing = cms.Sequence(
+process.p = cms.Path(
   process.totemRPUVPatternFinder
   * process.totemRPLocalTrackFitter
-)
 
-process.p = cms.Path(
-  process.stripReProcessing
   * process.ctppsPixelLocalReconstruction
   * process.ctppsLocalTrackLiteProducer
 )
 
 # output configuration
-from RecoCTPPS.Configuration.RecoCTPPS_EventContent_cff import RecoCTPPSAOD
 process.output = cms.OutputModule("PoolOutputModule",
   fileName = cms.untracked.string("$output_file"),
   outputCommands = cms.untracked.vstring(
     "drop *",
+    #'keep TotemRPUVPatternedmDetSetVector_*_*_*',
+    #'keep CTPPSDiamondRecHitedmDetSetVector_*_*_*',
+    #'keep CTPPSPixelRecHitedmDetSetVector_*_*_*',
     'keep CTPPSLocalTrackLites_*_*_*'
   )
 )

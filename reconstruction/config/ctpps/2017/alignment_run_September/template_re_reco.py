@@ -3,8 +3,10 @@ import FWCore.ParameterSet.Config as cms
 from Configuration.StandardSequences.Eras import eras
 process = cms.Process("CTPPSReRecoWithAlignmentAndPixel", eras.ctpps_2016)
 
-# import of standard configurations
+# define global tag
 process.load('Configuration.StandardSequences.FrontierConditions_GlobalTag_cff')
+from Configuration.AlCa.GlobalTag import GlobalTag
+process.GlobalTag = GlobalTag(process.GlobalTag, '94X_dataRun2_ReReco_EOY17_v2', '')
 
 # minimum of logs
 process.MessageLogger = cms.Service("MessageLogger",
@@ -24,11 +26,12 @@ process.source = cms.Source("PoolSource",
 $input_files
   ),
 
+  dropDescendantsOfDroppedBranches = cms.untracked.bool(False),
   inputCommands = cms.untracked.vstring(
-    'keep *',
-    'drop TotemRPUVPatternedmDetSetVector_*_*_*',
-    'drop TotemRPLocalTrackedmDetSetVector_*_*_*',
-    'drop CTPPSLocalTrackLites_*_*_*'
+    'drop *',
+    'keep TotemRPRecHitedmDetSetVector_*_*_*',
+    'keep CTPPSDiamondLocalTrackedmDetSetVector_*_*_*',
+    'keep CTPPSPixelDigiedmDetSetVector_*_*_*'
   )
 )
 
@@ -36,13 +39,8 @@ $input_files
 #  input = cms.untracked.int32(100)
 #)
 
-# define global tag
-from Configuration.AlCa.GlobalTag import GlobalTag
-process.GlobalTag = GlobalTag(process.GlobalTag, '94X_dataRun2_ReReco_EOY17_v2', '')
-
 # use the correct geometry
 process.load("Geometry.VeryForwardGeometry.geometryRPFromDD_2017_cfi")
-
 del(process.XMLIdealGeometryESSource_CTPPS.geomXMLFiles[-1])
 process.XMLIdealGeometryESSource_CTPPS.geomXMLFiles.append("$geometry")
 
@@ -51,16 +49,16 @@ process.load("RecoCTPPS.Configuration.recoCTPPS_sequences_cff")
 process.recoCTPPS = cms.Sequence(process.recoCTPPSdets)
 
 # add alignment corrections
-process.ctppsIncludeAlignmentsFromXML.RealFiles += cms.vstring($alignment_files)
+process.ctppsIncludeAlignmentsFromXML.RealFiles = cms.vstring($alignment_files)
 
 # reconstruction sequences
 process.stripReProcessing = cms.Sequence(
-  process.totemRPUVPatternFinder
-  * process.totemRPLocalTrackFitter
 )
 
 process.p = cms.Path(
-  process.stripReProcessing
+  process.totemRPUVPatternFinder
+  * process.totemRPLocalTrackFitter
+
   * process.ctppsPixelLocalReconstruction
   * process.ctppsLocalTrackLiteProducer
 )
@@ -70,9 +68,9 @@ process.output = cms.OutputModule("PoolOutputModule",
   fileName = cms.untracked.string("$output_file"),
   outputCommands = cms.untracked.vstring(
     "drop *",
-    'keep TotemRPUVPatternedmDetSetVector_*_*_*',
-    'keep CTPPSDiamondRecHitedmDetSetVector_*_*_*',
-    'keep CTPPSPixelRecHitedmDetSetVector_*_*_*',
+    #'keep TotemRPUVPatternedmDetSetVector_*_*_*',
+    #'keep CTPPSDiamondRecHitedmDetSetVector_*_*_*',
+    #'keep CTPPSPixelRecHitedmDetSetVector_*_*_*',
     'keep CTPPSLocalTrackLites_*_*_*'
   )
 )
