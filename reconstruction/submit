@@ -1,18 +1,14 @@
 #!/bin/bash
 
-# load EOS configuration
-#source "/afs/cern.ch/project/eos/installation/totem/etc/setup.sh"
-#shopt -s expand_aliases
-
 #----------------------------------------------------------------------------------------------------
 
 function PrintUsage()
 {
 	echo "USAGE: submit <options> [config]"
 	echo "OPTIONS:"
-	echo "    -submit     really submit jobs"
-	echo "    -test       make files but do not submit jobs"
-	echo "    -queue <q>  use queue <q>"
+	echo "    -submit       really submit jobs"
+	echo "    -test         make files but do not submit jobs"
+	echo "    -maxtime <v>  set max time to <v> seconds"
 }
 
 #----------------------------------------------------------------------------------------------------
@@ -34,7 +30,8 @@ function CheckVariableDefined()
 
 # default values
 
-reconstruction_dir=`pwd -P`
+cwd=`pwd -P`
+reconstruction_dir="$cwd"
 work_dir="work_dir"
 template_file="reconstruction_template_RP_cfg.py"
 check_template_file="CheckRootFile_template"
@@ -46,15 +43,16 @@ config_file="cfg.py"
 log_file="log"
 job_log_file="job_log"
 check_file="CheckRootFile.cc"
+
+submitted_file="submitted"
 finished_file="finished"
 success_file="success"
 
+condor_file="$cwd/$work_dir/condor.sub"
+
 test_only="y"
 
-queue="8nh"
-
-bsub_options="pool>5000"	# require more than 5 GB of space in the pool directory
-#bsub_options="mem>2000"	# at least 2 GB of memory
+max_time="7200" # s
 
 input_config=""
 
@@ -77,9 +75,9 @@ do
 			test_only="n"
 			;;
 
-		"-queue")
+		"-maxtime")
 			shift
-			queue="$1"
+			max_time="$1"
 			;;
 
 		-*)
@@ -141,6 +139,8 @@ function MakeConfig()
 		echo "cmsenv"
 		echo "cd \"$reconstruction_dir/$dir\""
 		echo ""
+		echo "date > \"$submitted_file\""
+		echo ""
 		echo "export CMSSW_SEARCH_PATH=\"\$CMSSW_SEARCH_PATH:/afs/cern.ch/work/j/jkaspar/software/ctpps/user/data\""
 		echo "export CMSSW_DATA_PATH=\"/afs/cern.ch/work/j/jkaspar\""
 		echo ""
@@ -148,8 +148,6 @@ function MakeConfig()
 		echo "export X509_USER_PROXY=\"/afs/cern.ch/user/j/jkaspar/x509up_u2177\""
 		echo ""
 		cat "common_job_code"
-		echo ""
-		echo "("
 		echo ""
 		echo "voms-proxy-info"
 		echo ""
@@ -199,8 +197,6 @@ function MakeConfig()
 		echo "fi"
 		echo ""
 		echo "ls -l > \"$finished_file\""
-		echo ""
-		echo ") &> \"$job_log_file\""
 	) > "$dir/job"
 
 	chmod u+x "$dir/job"
@@ -236,19 +232,39 @@ function MakeCheckScript()
 
 function Submit()
 {
-	if [ "$test_only" == "y" ]
-	then
-		echo "    would be submitted (bsub -R "$bsub_options" -q $queue)"
-	else
-		cwd=`pwd -P`
-		result=`bsub -R "$bsub_options" -q $queue -o /dev/null -e /dev/null "$cwd/$dir/job"`
-		echo "    $result"
-		echo "$result" > "$dir/submitted"
-	fi
+	(
+		echo ""
+		echo "dir=$dir"
+		echo "queue"
+	) >> "$condor_file"
+}
+
+#----------------------------------------------------------------------------------------------------
+
+function InitCondorScript()
+{
+	local base_dir="$reconstruction_dir"
+
+	(
+		echo "executable = $base_dir/\$(dir)/job"
+		echo "arguments = \$(ClusterId) \$(ProcId) \\\"\$(dir)\\\""
+		echo "output = $base_dir/\$(dir)/out"
+		echo "error = $base_dir/\$(dir)/err"
+		echo "log = $base_dir/$work_dir/condor.log"
+
+		echo "+MaxRuntime = 7200" # in s
+
+		#echo "+JobBatchName = \"$job_name\""
+
+		#echo "requirements = (OpSysAndVer =?= \"SLCern6\")"
+
+	) > "$condor_file"
 }
 
 #----------------------------------------------------------------------------------------------------
 #----------------------------------------------------------------------------------------------------
+
+InitCondorScript
 
 # process input
 for idx in ${!input_blocks[*]} 
@@ -302,3 +318,13 @@ do
 	# submit to batch queue
 	Submit
 done
+
+# do submission
+if [ "$test_only" == "y" ]
+then
+	echo "In order to submit, run:"
+	echo "    condor_submit \"$condor_file\""
+else
+	echo "Submitting ..."
+	condor_submit "$condor_file"
+fi
