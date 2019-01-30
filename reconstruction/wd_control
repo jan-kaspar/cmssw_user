@@ -15,6 +15,7 @@ function PrintUsage()
 	echo "OPTIONS:"
 	echo "    -h, --help              print this help and exit"
 	echo "    -s <selection>          set directory selection rule:"
+	echo "        all                 all jobs"
 	echo "        finished            job has saved 'finished' file"
 	echo "        success             job has saved 'success' file"
 	echo "        crashed             job has saved 'finished' but no 'success' file"
@@ -44,7 +45,7 @@ function CleanDirectory()
 selection=""
 comm=""
 
-max_time="7200" # s
+max_time="14400" # s
 
 condor_file="$work_dir/condor.resub"
 
@@ -98,7 +99,7 @@ fi
 
 # validate selection
 case "$selection" in
-	"finished" | "success" | "crashed" | "unsubmitted" | "unfinished")
+	"all" | "finished" | "success" | "crashed" | "unsubmitted" | "unfinished")
 		;;
 	*)
 		echo "ERROR: selection '$selection' not understood."
@@ -145,6 +146,10 @@ do
 	# is selected ?
 	selected="f"
 	case "$selection" in
+		"all")
+				selected="t"
+			;;
+
 		"finished")
 				if [ -f "$entry/finished" ]
 				then
@@ -167,6 +172,9 @@ do
 			;;
 
 		"unsubmitted")
+				# TODO: this could possibly use the presence of out and err files
+				# which are created at the moment of submission, unlike the "submitted" file
+				# which is only created when job executed
 				if [ ! -f "$entry/submitted" ]
 				then
 					selected="t"
