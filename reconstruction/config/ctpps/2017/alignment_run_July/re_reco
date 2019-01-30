@@ -1,7 +1,5 @@
 #!/bin/bash
 
-source das_block_submitter
-
 runs=(
 	# crossing angle 140 urad
 	298593
@@ -14,22 +12,29 @@ runs=(
 	298597
 )
 
-datasets=(
-	"/ZeroBias1/Run2017B-PromptReco-v2/AOD"
-	"/ZeroBias2/Run2017B-PromptReco-v2/AOD"
-	#"/ZeroBias3/Run2017B-PromptReco-v2/AOD"
-	#"/ZeroBias4/Run2017B-PromptReco-v2/AOD"
-	#"/ZeroBias5/Run2017B-PromptReco-v2/AOD"
-	#"/ZeroBias6/Run2017B-PromptReco-v2/AOD"
-	#"/ZeroBias7/Run2017B-PromptReco-v2/AOD"
-	#"/ZeroBias8/Run2017B-PromptReco-v2/AOD"
-	#"/ZeroBias9/Run2017B-PromptReco-v2/AOD"
-	#"/ZeroBias10/Run2017B-PromptReco-v2/AOD"
-)
+# when run from DAS
+##  source das_block_submitter
+##  datasets=(
+##  	"/ZeroBias1/Run2017B-PromptReco-v2/AOD"
+##  	"/ZeroBias2/Run2017B-PromptReco-v2/AOD"
+##  	"/ZeroBias3/Run2017B-PromptReco-v2/AOD"
+##  	"/ZeroBias4/Run2017B-PromptReco-v2/AOD"
+##  	"/ZeroBias5/Run2017B-PromptReco-v2/AOD"
+##  	"/ZeroBias6/Run2017B-PromptReco-v2/AOD"
+##  	"/ZeroBias7/Run2017B-PromptReco-v2/AOD"
+##  	"/ZeroBias8/Run2017B-PromptReco-v2/AOD"
+##  	"/ZeroBias9/Run2017B-PromptReco-v2/AOD"
+##  	"/ZeroBias10/Run2017B-PromptReco-v2/AOD"
+##  )
+##  files_per_block="10"
 
-files_per_block="10"
+# when run from EOS
+source eos_block_submitter
+input_dir="/eos/totem/data/ctpps/reconstruction/2017/alignment_run_July/AOD_skim"
+input_filter_command="|grep _skim.root"
+files_per_block="1"
 
-output_dir="/eos/totem/data/ctpps/reconstruction/2017/alignment_run_July/version7-short"
+output_dir="/eos/totem/data/ctpps/reconstruction/2017/alignment_run_July/version7-test"
 
 geometry="data/geometry/2017_preTS2/2017_07_08_fill5912/RP_Dist_Beam_Cent.xml"
 
@@ -41,10 +46,6 @@ task_suffix="_re_reco"
 
 max_time="14400"
 
-#----------------------------------------------------------------------------------------------------
-
 template_file="config/ctpps/2017/alignment_run_July/re_reco_template.py"
-
-#----------------------------------------------------------------------------------------------------
 
 SubmitBlocks
