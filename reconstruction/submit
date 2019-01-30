@@ -1,5 +1,17 @@
 #!/bin/bash
 
+# note about directory naming
+# * work_dir: where cfg, job, log, ... files are stored for a give job, typically
+#     /afs/.../work_dir/<input_tag>
+# * work_dir_base: common base for work_dir's, typically
+#     work_dir/
+# * work_dir_base_full: work_dir_base with absolute path prefix
+#     /afs/.../work_dir
+# * job_dir: where job is executed (on remote host), typically
+#     /pool/...
+# * exec_dir: where cmsRun is executed, typically
+#     /pool/.../<input_tag>/
+
 #----------------------------------------------------------------------------------------------------
 
 function PrintUsage()
