@@ -1,0 +1,28 @@
+#!/bin/bash
+
+source json_submitter
+
+streams=(
+	"SingleMuon"
+	"DoubleEG"
+	"ZeroBias"
+)
+
+dataset_exts=(
+	"Run2017E-17Nov2017-v1/AOD"
+	"Run2017F-17Nov2017-v1/AOD"
+)
+
+input_dir="/afs/cern.ch/work/j/jkaspar/analyses/ctpps/alignment/2017_postTS2/master/reduction/dataset_definition/json_selected"
+input_filter_command="| grep xangle_1[135]0"
+
+output_dir="/eos/totem/data/ctpps/reconstruction/2017/postTS2_alignment_data/version5"
+
+task_prefix="reduction_2017_postTS2"
+task_suffix="_reduction"
+
+max_time="14400"
+
+template_file="config/ctpps/2017/physics_fills_postTS2/reduction_template.py"
+
+Submit

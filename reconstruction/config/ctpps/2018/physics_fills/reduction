@@ -1,0 +1,45 @@
+#!/bin/bash
+
+source json_submitter
+
+streams=(
+	"Commissioning"
+	"EGamma"
+	"SingleMuon"
+	"ZeroBias"
+)
+
+dataset_exts=(
+	"Commissioning2018-PromptReco-v1/MINIAOD"
+
+	"Run2018A-PromptReco-v3/MINIAOD"
+	"Run2018A-PromptReco-v2/MINIAOD"
+	"Run2018A-PromptReco-v1/MINIAOD"
+
+	"Run2018B-PromptReco-v2/MINIAOD"
+	"Run2018B-PromptReco-v1/MINIAOD"
+
+	"Run2018C-PromptReco-v3/MINIAOD"
+	"Run2018C-PromptReco-v2/MINIAOD"
+	"Run2018C-PromptReco-v1/MINIAOD"
+
+	"Run2018D-PromptReco-v2/MINIAOD"
+	"Run2018D-PromptReco-v1/MINIAOD"
+)
+
+input_dir="/afs/cern.ch/work/j/jkaspar/analyses/ctpps/alignment/2018/reduction/dataset_definition/json_selected"
+input_filter_command=""
+
+output_dir="/eos/totem/data/ctpps/reconstruction/2018/physics_runs/version3"
+
+geometry=""
+alignment_files=""
+
+task_prefix="reduction_2018"
+task_suffix="_reduction"
+
+max_time="14400"
+
+template_file="config/ctpps/2018/physics_fills/reduction_template.py"
+
+Submit
