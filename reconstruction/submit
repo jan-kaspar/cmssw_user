@@ -224,6 +224,7 @@ function MakeScript()
 			s|\$run|$run|g;\
 			s|\$ls_selection|$ls_selection|g;\
 			s|\$input_files|$input_files|;\
+			s|\$input_file_commands|$input_file_commands|;\
 			s|\$mapping|$mapping|g;\
 			s|\$geometry|$geometry|g;\
 			s|\$alignment_files|$alignment_files|g;\
@@ -288,6 +289,7 @@ do
 
 	# collect files
 	input_files=""
+	input_file_commands=""
 	for file in ${input_blocks[$idx]}
 	do
 		if [ -n "$input_files" ]
@@ -296,6 +298,7 @@ do
 		fi
 
 		input_files="${input_files}\t\t\"$file\""
+		input_file_commands="${input_file_commands}\nprocess.source.fileNames.append(\"$file\")"
 	done
 
 	# set per-block variables
