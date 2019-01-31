@@ -1,0 +1,138 @@
+#!/bin/bash
+
+cache_dir="input_file_cache"
+
+#----------------------------------------------------------------------------------------------------
+
+# defaults
+input_blocks=()
+input_block_labels=()
+input_block_runs=()
+input_block_ls_selections=()
+input_block_output_tags=()
+input_block_lv1Bits=()
+input_block_geometries=()
+input_block_alignment_files=()
+input_block_template_files=()
+input_block_output_dirs=()
+
+#----------------------------------------------------------------------------------------------------
+
+function GetInputFiles()
+{
+	# NB: currently, there is a problem in DAS which doesn't seem to account for the "run in [...]" statement
+	# a workaround below
+
+	# get list of files
+	input_files=""
+	runs=""
+	for run in `cat "$input_dir/$f_in" | grep -Po '".*?"' | sed 's/"//g'`
+	do
+		cache_file="${cache_dir}/${stream}_${run}"
+		if [ ! -f "$cache_file" ]
+		then
+			for ext in ${dataset_exts[*]}
+			do
+				echo "    dasgoclient --query \"file dataset=/$stream/$ext run=$run\""
+				dasgoclient --query "file dataset=/$stream/$ext run=$run" > "$cache_file"
+
+				if [ -s "$cache_file" ]
+				then
+					break
+				fi
+			done
+		fi
+
+		if [ ! -s "$cache_file" ]
+		then
+			echo "WARNING: empty cache file $cache_file"
+		else
+			if [ -n "$input_files" ]
+			then
+				input_files="${input_files} "
+			fi
+
+			input_files="$input_files`cat $cache_file`"
+		fi
+	done
+}
+
+#----------------------------------------------------------------------------------------------------
+
+function ProcessOne()
+{
+	# query input files
+	GetInputFiles
+
+	if [ "$input_files" == "" ]
+	then
+		echo "WARNING: no input files for $f_in"
+		return
+	fi
+
+	# remove duplicates
+	input_files_uniq=`echo $input_files|sort|uniq`
+
+	# add block
+	input_blocks+=("$input_files")
+	input_block_labels+=("${task_prefix}/fill$fill/xangle${xangle}_beta${beta}_$stream")
+	input_block_runs+=("")
+	input_block_ls_selections+=("$input_dir/$f_in")
+	input_block_output_tags+=("fill${fill}_xangle${xangle}_beta${beta}_$stream")
+	input_block_lv1Bits+=("")
+	input_block_geometries+=("")
+	input_block_alignment_files+=("")
+	input_block_template_files+=("$template_file")
+	input_block_output_dirs+=("$output_dir")
+}
+
+#----------------------------------------------------------------------------------------------------
+
+function Submit()
+{
+	# check input
+	CheckVariableDefined "streams"
+	CheckVariableDefined "dataset_exts"
+	CheckVariableDefined "input_dir"
+	CheckVariableDefined "input_filter_command"
+	CheckVariableDefined "output_dir"
+	CheckVariableDefined "task_prefix"
+	CheckVariableDefined "task_suffix"
+	CheckVariableDefined "template_file"
+
+	com="ls "$input_dir" $input_filter_command"
+	com_exp=$(eval "echo \"$com\"")
+	json_file_list=$(eval "$com_exp")
+
+	# process input
+	for f_in in $json_file_list
+	do
+		# skip empty files
+		size=$(wc -c <"$input_dir/$f_in")
+		if [ "$size" -le 3 ]
+		then
+			continue
+		fi
+
+		# parse file name
+		tag=${f_in##*/}
+		tag=${tag%.*}
+
+		tag=${tag#fill_}
+		fill=${tag%%_*}
+
+		tag=${tag#*_xangle_}
+		xangle=${tag%%_*}
+
+		tag=${tag#*_betast_}
+		beta=${tag%%_*}
+
+		for stream in ${streams[*]}
+		do
+			ProcessOne
+		done
+
+		# TODO
+		#break
+	done
+}
