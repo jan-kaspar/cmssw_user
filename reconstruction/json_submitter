@@ -131,8 +131,5 @@ function Submit()
 		do
 			ProcessOne
 		done
-
-		# TODO
-		#break
 	done
 }
