@@ -229,3 +229,8 @@ if [ "$comm" == "resubmit" ]
 then
 	condor_submit "$condor_file"
 fi
+
+if [ "$comm" == "remove" ]
+then
+	find "$work_dir" -type d -empty | while read d; do rm -rf "$d"; done
+fi
