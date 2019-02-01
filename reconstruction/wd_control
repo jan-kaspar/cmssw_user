@@ -22,6 +22,7 @@ function PrintUsage()
 	echo "        unsubmitted         job has not 'submitted' file"
 	echo "        unfinished          job has 'submitted' but not 'finished' file"
 	echo "    -maxtime <v>            set max time to <v> seconds"
+	echo "    -wd <dir>               set work_dir to <dir>"
 }
 
 #----------------------------------------------------------------------------------------------------
@@ -66,6 +67,11 @@ do
         "-maxtime")
 			shift
             max_time="$1"
+            ;;
+
+        "-wd")
+			shift
+            work_dir="$1"
             ;;
 
 		"print" | "clean" | "resubmit" | "remove")
