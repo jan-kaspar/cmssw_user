@@ -34,7 +34,7 @@ input_dir="/eos/totem/data/ctpps/reconstruction/2017/alignment_run_July/AOD_skim
 input_filter_command="|grep _skim.root"
 files_per_block="1"
 
-output_dir="/eos/totem/data/ctpps/reconstruction/2017/alignment_run_July/version7-test"
+output_dir="/eos/totem/data/ctpps/reconstruction/2017/alignment_run_July/version7"
 
 geometry="data/geometry/2017_preTS2/2017_07_08_fill5912/RP_Dist_Beam_Cent.xml"
 

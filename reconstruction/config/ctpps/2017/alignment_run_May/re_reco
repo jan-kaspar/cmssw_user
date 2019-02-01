@@ -29,7 +29,7 @@ input_dir="/eos/totem/data/ctpps/reconstruction/2017/alignment_run_May/AOD_skim"
 input_filter_command="|grep _skim.root"
 files_per_block="1"
 
-output_dir="/eos/totem/data/ctpps/reconstruction/2017/alignment_run_May/version2-test"
+output_dir="/eos/totem/data/ctpps/reconstruction/2017/alignment_run_May/version2"
 
 geometry=""
 alignment_files=""
