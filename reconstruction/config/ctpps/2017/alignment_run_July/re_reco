@@ -36,12 +36,12 @@ files_per_block="1"
 
 output_dir="/eos/totem/data/ctpps/reconstruction/2017/alignment_run_July/version7"
 
-geometry="data/geometry/2017_preTS2/2017_07_08_fill5912/RP_Dist_Beam_Cent.xml"
+geometry="geometry/2017_preTS2/2017_07_08_fill5912/RP_Dist_Beam_Cent.xml"
 
-alignment_dir="data/alignment/2017_preTS2/sr+el/version1"
+alignment_dir="alignment/2017_preTS2/sr+el/version1"
 alignment_files="\"$alignment_dir/45.xml\", \"$alignment_dir/56.xml\""
 
-task_prefix="re_reco"
+task_prefix="re_reco_alig_2017_July"
 task_suffix="_re_reco"
 
 max_time="14400"

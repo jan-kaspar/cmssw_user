@@ -1,44 +1,39 @@
 #!/bin/bash
 
-source das_block_submitter
-
 runs=(
 	303652
 	303658
 	303665
 )
 
+# when run from DAS
+source das_block_submitter
 datasets=(
-	#"/ZeroBias1/Run2017E-PromptReco-v1/AOD"
-	#"/ZeroBias2/Run2017E-PromptReco-v1/AOD"
+	"/ZeroBias1/Run2017E-PromptReco-v1/AOD"
+	"/ZeroBias2/Run2017E-PromptReco-v1/AOD"
 	"/ZeroBias3/Run2017E-PromptReco-v1/AOD"
 	"/ZeroBias4/Run2017E-PromptReco-v1/AOD"
 	"/ZeroBias5/Run2017E-PromptReco-v1/AOD"
-	#"/ZeroBias6/Run2017E-PromptReco-v1/AOD"
+	"/ZeroBias6/Run2017E-PromptReco-v1/AOD"
 	"/ZeroBias7/Run2017E-PromptReco-v1/AOD"
-	#"/ZeroBias8/Run2017E-PromptReco-v1/AOD"
-	#"/ZeroBias9/Run2017E-PromptReco-v1/AOD"
+	"/ZeroBias8/Run2017E-PromptReco-v1/AOD"
+	"/ZeroBias9/Run2017E-PromptReco-v1/AOD"
 	"/ZeroBias10/Run2017E-PromptReco-v1/AOD"
 )
-
 files_per_block="5"
 
 output_dir="/eos/totem/data/ctpps/reconstruction/2017/alignment_run_September/version8"
 
-geometry="data/geometry/2017_postTS2/2017_09_21_fill6228/RP_Dist_Beam_Cent.xml"
+geometry="geometry/2017_postTS2/2017_09_21_fill6228/RP_Dist_Beam_Cent.xml"
 
-alignment_dir="data/alignment/2017_postTS2/s+el/version1"
+alignment_dir="alignment/2017_postTS2/s+el/version1"
 alignment_files="\"$alignment_dir/45.xml\", \"$alignment_dir/56.xml\""
 
-task_prefix="re_reco_v8"
-task_suffix="_re_reco_v8"
+task_prefix="re_reco_alig_2017_September"
+task_suffix="_re_reco"
 
 max_time="14400"
 
-#----------------------------------------------------------------------------------------------------
-
 template_file="config/ctpps/2017/alignment_run_September/re_reco_template.py"
-
-#----------------------------------------------------------------------------------------------------
 
 SubmitBlocks
