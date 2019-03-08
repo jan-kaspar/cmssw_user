@@ -31,9 +31,9 @@ files_per_block="1"
 
 output_dir="/eos/totem/data/offline/2018/450GeV/beta11/ZeroBias/version2"
 
-geometry="data/geometry/2018_900GeV_beta11/RP_Dist_Beam_Cent.xml"
+geometry="geometry/2018_900GeV_beta11/RP_Dist_Beam_Cent.xml"
 
-alignment_dir="data/alignment/2018_900GeV_beta11/s/version1"
+alignment_dir="alignment/2018_900GeV_beta11/s/version1"
 alignment_files="\"$alignment_dir/45.xml\", \"$alignment_dir/56.xml\""
 
 task_prefix="re_reco_ZeroBias"

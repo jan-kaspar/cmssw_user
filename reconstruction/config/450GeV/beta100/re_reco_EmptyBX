@@ -18,7 +18,7 @@ files_per_block="1"
 
 output_dir="/eos/totem/data/offline/2018/450GeV/beta100/EmptyBX/version1"
 
-geometry="data/geometry/2018_900GeV_beta100/RP_Dist_Beam_Cent.xml"
+geometry="geometry/2018_900GeV_beta100/RP_Dist_Beam_Cent.xml"
 alignment_files=""
 
 task_prefix="re_reco_EmptyBX"
