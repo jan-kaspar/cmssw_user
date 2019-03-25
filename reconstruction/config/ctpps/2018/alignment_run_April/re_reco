@@ -35,7 +35,7 @@ runs=(
 	314247
 )
 
-alignment_dir="data/alignment/2018_April/s/version2/xangle-160-beta-30"
+alignment_dir="alignment/2018_April/s/version2/xangle-160-beta-30"
 alignment_files="\"$alignment_dir/45.xml\", \"$alignment_dir/56.xml\""
 
 SubmitBlocks
@@ -48,7 +48,7 @@ runs=(
 	314267
 )
 
-alignment_dir="data/alignment/2018_April/s/version2/xangle-131-beta-30"
+alignment_dir="alignment/2018_April/s/version2/xangle-131-beta-30"
 alignment_files="\"$alignment_dir/45.xml\", \"$alignment_dir/56.xml\""
 
 SubmitBlocks
@@ -61,7 +61,7 @@ runs=(
 	314273
 )
 
-alignment_dir="data/alignment/2018_April/s/version2/xangle-130-beta-30"
+alignment_dir="alignment/2018_April/s/version2/xangle-130-beta-30"
 alignment_files="\"$alignment_dir/45.xml\", \"$alignment_dir/56.xml\""
 
 SubmitBlocks
@@ -73,7 +73,7 @@ runs=(
 	314276
 )
 
-alignment_dir="data/alignment/2018_April/s/version2/xangle-130-beta-25"
+alignment_dir="alignment/2018_April/s/version2/xangle-130-beta-25"
 alignment_files="\"$alignment_dir/45.xml\", \"$alignment_dir/56.xml\""
 
 SubmitBlocks

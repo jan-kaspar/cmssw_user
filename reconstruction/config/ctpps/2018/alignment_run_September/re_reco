@@ -19,7 +19,7 @@ files_per_block="5"
 
 output_dir="/eos/totem/data/ctpps/reconstruction/2018/alignment_run_September/version4"
 
-geometry="data/geometry/2018_September/2018_09_22_fill7206/RP_Dist_Beam_Cent.xml"
+geometry="geometry/2018_September/2018_09_22_fill7206/RP_Dist_Beam_Cent.xml"
 
 task_prefix="re_reco"
 task_suffix="_re_reco"
@@ -36,7 +36,7 @@ runs=(
 	323312
 )
 
-alignment_dir="data/alignment/2018_September/s+el/version2"
+alignment_dir="alignment/2018_September/s+el/version2"
 alignment_files="\"$alignment_dir/45.xml\", \"$alignment_dir/56.xml\""
 
 SubmitBlocks
@@ -46,7 +46,7 @@ runs=(
 	323316
 )
 
-alignment_dir="data/alignment/2018_September/s+el/version2"
+alignment_dir="alignment/2018_September/s+el/version2"
 alignment_files="\"$alignment_dir/45.xml\", \"$alignment_dir/56.xml\""
 
 SubmitBlocks
