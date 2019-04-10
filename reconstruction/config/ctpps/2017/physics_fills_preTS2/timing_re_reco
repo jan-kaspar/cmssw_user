@@ -1,0 +1,35 @@
+#!/bin/bash
+
+source json_submitter
+
+streams=(
+	"SingleMuon"
+)
+
+dataset_label="AOD"
+
+dataset_exts=(
+	"Run2017B-17Nov2017-v1/AOD"
+	"Run2017C-17Nov2017-v1/AOD"
+	"Run2017D-17Nov2017-v1/AOD"
+)
+
+input_dir="/afs/cern.ch/work/j/jkaspar/analyses/ctpps/alignment_timing_RP/2017_preTS2/reduction/dataset_definition/json_selected"
+input_filter_command=""
+
+#output_dir="/eos/totem/data/ctpps/reconstruction/2017/physics_runs/timing-version1" # default SW, no alignment
+output_dir="/eos/totem/data/ctpps/reconstruction/2017/physics_runs/timing-version2" # SW with geometry fix, no alignment
+
+geometry=""
+
+alignment_files=""
+#alignment_files="\"alignment/timing_RP/timing_RP_2017_preTS2.xml\""
+
+task_prefix="timing_re_reco_2017_preTS2"
+task_suffix="_re_reco"
+
+max_time="64800"
+
+template_file="config/ctpps/2017/physics_fills_preTS2/timing_re_reco_template.py"
+
+Submit

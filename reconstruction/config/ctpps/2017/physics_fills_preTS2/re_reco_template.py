@@ -1,12 +1,7 @@
 import FWCore.ParameterSet.Config as cms
 from Configuration.StandardSequences.Eras import eras
 
-process = cms.Process("PixelReRecoAndReduction", eras.ctpps_2016)
-
-# define global tag
-process.load('Configuration.StandardSequences.FrontierConditions_GlobalTag_cff')
-from Configuration.AlCa.GlobalTag import GlobalTag
-process.GlobalTag = GlobalTag(process.GlobalTag, '94X_dataRun2_ReReco_EOY17_v2', '')
+process = cms.Process("ReReco", eras.ctpps_2016)
 
 # minimum of logs
 process.MessageLogger = cms.Service("MessageLogger",
@@ -21,12 +16,14 @@ process.MessageLogger = cms.Service("MessageLogger",
 process.source = cms.Source("PoolSource",
   fileNames = cms.untracked.vstring(),
   skipBadFiles = cms.untracked.bool(True),
+  duplicateCheckMode = cms.untracked.string("checkAllFilesOpened"),
   dropDescendantsOfDroppedBranches = cms.untracked.bool(False),
+
   inputCommands = cms.untracked.vstring(
     'drop *',
-    'keep TotemRPLocalTrackedmDetSetVector_*_*_*',
-    'keep CTPPSDiamondLocalTrackedmDetSetVector_*_*_*',
-    'keep CTPPSPixelRecHitedmDetSetVector_*_*_*'
+    'keep TotemRPDigiedmDetSetVector_*_*_*',
+    'keep CTPPSPixelDigiedmDetSetVector_*_*_*',
+    'keep CTPPSDiamondDigiedmDetSetVector_*_*_*',
   )
 )
 $input_file_commands
@@ -43,17 +40,26 @@ JSONfile = '$ls_selection'
 myLumis = LumiList.LumiList(filename = JSONfile).getCMSSWString().split(',')
 process.source.lumisToProcess.extend(myLumis)
 
-# geometry
+# define global tag
+process.load('Configuration.StandardSequences.FrontierConditions_GlobalTag_cff')
+from Configuration.AlCa.GlobalTag import GlobalTag
+process.GlobalTag = GlobalTag(process.GlobalTag, "auto:run2_data")
+
+# load geometry from XML files
 process.load("Geometry.VeryForwardGeometry.geometryRPFromDD_2017_cfi")
 
 # load reco sequences
 process.load("RecoCTPPS.Configuration.recoCTPPS_sequences_cff")
 
-#process.dump = cms.EDAnalyzer("EventContentAnalyzer")
+# add alignment corrections
+process.ctppsRPAlignmentCorrectionsDataESSourceXML.RealFiles = cms.vstring($alignment_files)
 
-process.p = cms.Path(
-    process.ctppsPixelLocalTracks *
-    process.ctppsLocalTrackLiteProducer
+# processing sequence
+process.path = cms.Path(
+  process.totemRPLocalReconstruction
+  * process.ctppsDiamondLocalReconstruction
+  * process.ctppsPixelLocalReconstruction
+  * process.ctppsLocalTrackLiteProducer
 )
 
 # output configuration
@@ -61,6 +67,10 @@ process.output = cms.OutputModule("PoolOutputModule",
   fileName = cms.untracked.string("$output_file"),
   outputCommands = cms.untracked.vstring(
     "drop *",
+    'keep TotemRPRecHitedmDetSetVector_*_*_*',
+    'keep CTPPSPixelRecHitedmDetSetVector_*_*_*',
+    'keep CTPPSDiamondDigiedmDetSetVector_*_*_*',
+    'keep CTPPSDiamondRecHitedmDetSetVector_*_*_*',
     'keep CTPPSLocalTrackLites_*_*_*'
   )
 )
