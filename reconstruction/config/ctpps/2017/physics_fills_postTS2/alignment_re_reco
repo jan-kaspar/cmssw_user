@@ -16,12 +16,12 @@ dataset_exts=(
 )
 
 input_dir="/afs/cern.ch/work/j/jkaspar/analyses/ctpps/alignment/2017_postTS2/master/reduction/dataset_definition/json_selected"
-input_filter_command="| grep xangle_1[135]0" #TODO
+input_filter_command="| grep xangle_1[135]0"
 
 output_dir="/eos/totem/data/ctpps/reconstruction/2017/physics_runs_postTS2/alignment-version1"
 
 geometry=""
-alignment_files=""
+alignment_files="\"CalibPPS/ESProducers/data/alignment/RPixGeometryCorrections-2017-2018.xml\""
 
 task_prefix="alignment_re_reco_2017_postTS2"
 task_suffix="_alignment_re_reco"
@@ -29,5 +29,7 @@ task_suffix="_alignment_re_reco"
 max_time="64800"
 
 template_file="config/ctpps/2017/physics_fills_postTS2/alignment_re_reco_template.py"
+
+required_system="SLCern6"
 
 Submit

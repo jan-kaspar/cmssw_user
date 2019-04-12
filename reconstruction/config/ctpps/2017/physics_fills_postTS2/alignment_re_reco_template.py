@@ -52,7 +52,7 @@ process.load("Geometry.VeryForwardGeometry.geometryRPFromDD_2017_cfi")
 process.load("RecoCTPPS.Configuration.recoCTPPS_sequences_cff")
 
 # add alignment corrections
-process.ctppsRPAlignmentCorrectionsDataESSourceXML.RealFiles = cms.vstring($alignment_files)
+process.ctppsIncludeAlignmentsFromXML.RealFiles = cms.vstring($alignment_files)
 
 # processing sequence
 process.p = cms.Path(
