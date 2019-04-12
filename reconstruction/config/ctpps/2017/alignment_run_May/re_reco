@@ -1,9 +1,12 @@
 #!/bin/bash
 
 runs=(
+	# crossing angle 150 urad
 	294736
 	294737
 	294739
+
+	# crossing angle 120 urad
 	294741
 )
 
@@ -29,10 +32,10 @@ input_dir="/eos/totem/data/ctpps/reconstruction/2017/alignment_run_May/AOD_skim"
 input_filter_command="|grep _skim.root"
 files_per_block="1"
 
-output_dir="/eos/totem/data/ctpps/reconstruction/2017/alignment_run_May/version2"
+output_dir="/eos/totem/data/ctpps/reconstruction/2017/alignment_run_May/version3"
 
 geometry=""
-alignment_files=""
+alignment_files="\"CalibPPS/ESProducers/data/alignment/RPixGeometryCorrections-2017-2018.xml\""
 
 task_prefix="re_reco_alig_2017_May"
 task_suffix="_re_reco"
@@ -40,5 +43,7 @@ task_suffix="_re_reco"
 max_time="14400"
 
 template_file="config/ctpps/2017/alignment_run_May/re_reco_template.py"
+
+required_system="SLCern6"
 
 SubmitBlocks

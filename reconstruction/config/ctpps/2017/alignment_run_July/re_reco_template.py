@@ -6,7 +6,7 @@ process = cms.Process("CTPPSReRecoWithAlignment", eras.ctpps_2016)
 # define global tag
 process.load('Configuration.StandardSequences.FrontierConditions_GlobalTag_cff')
 from Configuration.AlCa.GlobalTag import GlobalTag
-process.GlobalTag = GlobalTag(process.GlobalTag, '94X_dataRun2_ReReco17_forValidation', '')
+process.GlobalTag = GlobalTag(process.GlobalTag, "auto:run2_data")
 
 # minimum of logs
 process.MessageLogger = cms.Service("MessageLogger",
@@ -49,7 +49,7 @@ process.load("RecoCTPPS.Configuration.recoCTPPS_sequences_cff")
 process.recoCTPPS = cms.Sequence(process.recoCTPPSdets)
 
 # add alignment corrections
-process.ctppsIncludeAlignmentsFromXML.RealFiles += cms.vstring($alignment_files)
+process.ctppsIncludeAlignmentsFromXML.RealFiles = cms.vstring($alignment_files)
 
 # reconstruction sequences
 process.p = cms.Path(

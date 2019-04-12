@@ -34,12 +34,12 @@ input_dir="/eos/totem/data/ctpps/reconstruction/2017/alignment_run_July/AOD_skim
 input_filter_command="|grep _skim.root"
 files_per_block="1"
 
-output_dir="/eos/totem/data/ctpps/reconstruction/2017/alignment_run_July/version7"
+output_dir="/eos/totem/data/ctpps/reconstruction/2017/alignment_run_July/version8"
 
 geometry="geometry/2017_preTS2/2017_07_08_fill5912/RP_Dist_Beam_Cent.xml"
 
 alignment_dir="alignment/2017_preTS2/sr+el/version1"
-alignment_files="\"$alignment_dir/45.xml\", \"$alignment_dir/56.xml\""
+alignment_files="\"CalibPPS/ESProducers/data/alignment/RPixGeometryCorrections-2017-2018.xml\", \"$alignment_dir/45.xml\", \"$alignment_dir/56.xml\""
 
 task_prefix="re_reco_alig_2017_July"
 task_suffix="_re_reco"
@@ -47,5 +47,7 @@ task_suffix="_re_reco"
 max_time="14400"
 
 template_file="config/ctpps/2017/alignment_run_July/re_reco_template.py"
+
+required_system="SLCern6"
 
 SubmitBlocks
