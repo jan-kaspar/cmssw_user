@@ -28,7 +28,11 @@ function GetInputFiles()
 	runs=""
 	for run in `cat "$input_dir/$f_in" | grep -Po '".*?"' | sed 's/"//g'`
 	do
-		cache_file="${cache_dir}/${stream}_${run}"
+		cache_sub_dir="${cache_dir}/${dataset_label}/${stream}"
+		mkdir -p "$cache_sub_dir"
+
+		cache_file="${cache_sub_dir}/${run}"
+
 		if [ ! -f "$cache_file" ]
 		then
 			for ext in ${dataset_exts[*]}
@@ -81,7 +85,7 @@ function ProcessOne()
 	input_block_output_tags+=("fill${fill}_xangle${xangle}_beta${beta}_$stream")
 	input_block_lv1Bits+=("")
 	input_block_geometries+=("")
-	input_block_alignment_files+=("")
+	input_block_alignment_files+=("$alignment_files")
 	input_block_template_files+=("$template_file")
 	input_block_output_dirs+=("$output_dir")
 }
@@ -92,12 +96,14 @@ function Submit()
 {
 	# check input
 	CheckVariableDefined "streams"
+	CheckVariableDefined "dataset_label"
 	CheckVariableDefined "dataset_exts"
 	CheckVariableDefined "input_dir"
 	CheckVariableDefined "input_filter_command"
 	CheckVariableDefined "output_dir"
 	CheckVariableDefined "task_prefix"
 	CheckVariableDefined "task_suffix"
+	CheckVariableDefined "alignment_files"
 	CheckVariableDefined "template_file"
 
 	com="ls "$input_dir" $input_filter_command"
