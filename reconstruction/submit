@@ -220,11 +220,13 @@ function MakeConfig()
 
 function MakeScript()
 {
+	echo -e "$input_file_commands" > "$work_dir_base/$dir/input_file_commands"
+
 	cat "$template_file" | sed -e "\
 			s|\$run|$run|g;\
 			s|\$ls_selection|$ls_selection|g;\
 			s|\$input_files|$input_files|;\
-			s|\$input_file_commands|$input_file_commands|;\
+			/\$input_file_commands/ { r $work_dir_base/$dir/input_file_commands" -e " d };\
 			s|\$mapping|$mapping|g;\
 			s|\$geometry|$geometry|g;\
 			s|\$alignment_files|$alignment_files|g;\
@@ -269,7 +271,11 @@ function InitCondorScript()
 
 		#echo "+JobBatchName = \"$job_name\""
 
-		#echo "requirements = (OpSysAndVer =?= \"SLCern6\")"
+		# typical values: SLCern6, CentOS7
+		if [ -n "$required_system" ]
+		then
+			echo "requirements = (OpSysAndVer =?= \"$required_system\")"
+		fi
 
 	) > "$condor_file"
 }
