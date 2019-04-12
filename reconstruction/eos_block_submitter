@@ -58,7 +58,7 @@ function SubmitBlocks()
 
 		block_idx="0"
 
-		com="eos ls "$input_dir" $input_filter_command"
+		com="eos ls "$input_dir"|grep "run_${run}" $input_filter_command"
 		com_exp=$(eval "echo \"$com\"")
 		raw_file_list=$(eval "$com_exp")
 
