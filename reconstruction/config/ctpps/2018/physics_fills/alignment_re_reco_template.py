@@ -1,7 +1,7 @@
 import FWCore.ParameterSet.Config as cms
 from Configuration.StandardSequences.Eras import eras
 
-process = cms.Process("reduction", eras.ctpps_2016)
+process = cms.Process("UniformPixelReRecoAndReduction", eras.ctpps_2016)
 
 # minimum of logs
 process.MessageLogger = cms.Service("MessageLogger",
@@ -21,7 +21,9 @@ process.source = cms.Source("PoolSource",
 
   inputCommands = cms.untracked.vstring(
     'drop *',
-    'keep CTPPSLocalTrackLites_*_*_*'
+    'keep TotemRPLocalTrackedmDetSetVector_*_*_*',
+    'keep CTPPSDiamondLocalTrackedmDetSetVector_*_*_*',
+    'keep CTPPSPixelRecHitedmDetSetVector_*_*_*'
   )
 )
 $input_file_commands
@@ -38,10 +40,33 @@ JSONfile = '$ls_selection'
 myLumis = LumiList.LumiList(filename = JSONfile).getCMSSWString().split(',')
 process.source.lumisToProcess.extend(myLumis)
 
+# define global tag
+process.load('Configuration.StandardSequences.FrontierConditions_GlobalTag_cff')
+from Configuration.AlCa.GlobalTag import GlobalTag
+process.GlobalTag = GlobalTag(process.GlobalTag, "auto:run2_data")
+
+# load geometry from XML files
+process.load("Geometry.VeryForwardGeometry.geometryRPFromDD_2018_cfi")
+
+# load reco sequences
+process.load("RecoCTPPS.Configuration.recoCTPPS_sequences_cff")
+
+# add alignment corrections
+process.ctppsIncludeAlignmentsFromXML.RealFiles = cms.vstring($alignment_files)
+
+# processing sequence
+process.p = cms.Path(
+    process.ctppsPixelLocalTracks *
+    process.ctppsLocalTrackLiteProducer
+)
 
 # output configuration
 process.output = cms.OutputModule("PoolOutputModule",
-  fileName = cms.untracked.string("$output_file")
+  fileName = cms.untracked.string("$output_file"),
+  outputCommands = cms.untracked.vstring(
+    "drop *",
+    'keep CTPPSLocalTrackLites_*_*_*'
+  )
 )
 
 process.outpath = cms.EndPath(process.output)
