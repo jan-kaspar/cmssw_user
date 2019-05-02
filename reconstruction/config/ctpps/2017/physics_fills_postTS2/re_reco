@@ -3,9 +3,9 @@
 source json_submitter
 
 streams=(
-	"SingleMuon"
+	#"SingleMuon"
 	"DoubleEG"
-	"ZeroBias"
+	#"ZeroBias"
 )
 
 dataset_label="AOD"
@@ -18,7 +18,8 @@ dataset_exts=(
 input_dir="/afs/cern.ch/work/j/jkaspar/analyses/ctpps/alignment/2017_postTS2/master/reduction/dataset_definition/json_selected"
 input_filter_command="| grep xangle_1[2345]0"
 
-output_dir="/eos/totem/data/ctpps/reconstruction/2017/physics_runs/rec-hit-version1" # 10_6, with timing-geometry fix, new pixel internal alignment
+#output_dir="/eos/totem/data/ctpps/reconstruction/2017/physics_runs/rec-hit-version1" # 10_6, with timing-geometry fix, new pixel internal alignment
+output_dir="/eos/totem/data/ctpps/reconstruction/2017/physics_runs/rec-hit-version2" # 10_6, with timing-geometry fix, new pixel internal alignment; version1 disappeared from EOS
 
 geometry=""
 
