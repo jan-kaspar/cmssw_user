@@ -1,0 +1,54 @@
+#!/bin/bash
+
+source json_submitter
+
+streams=(
+	"SingleMuon"
+	#"DoubleEG"
+	"ZeroBias"
+)
+
+dataset_label="AOD"
+
+output_dir="/eos/totem/data/ctpps/reconstruction/2016/physics_runs/rec-hit-version1" # 10_6
+
+geometry=""
+
+alignment_files=""
+
+task_prefix="re_reco_2016"
+task_suffix="_re_reco"
+
+max_time="64800"
+
+template_file="config/ctpps/2016/physics_fills/re_reco_template.py"
+
+#----------------------------------------------------------------------------------------------------
+
+input_dir="/afs/cern.ch/work/j/jkaspar/analyses/ctpps/alignment/2016_preTS2/reduction/dataset_definition/json_selected"
+input_filter_command=""
+
+dataset_exts=(
+	"Run2016B-07Aug17_ver2-v1/AOD"
+	#"Run2016B-07Aug17_ver2-v2/AOD" # for DoubleEG
+
+	"Run2016C-07Aug17-v1/AOD"
+	#"Run2016C-23Sep2016-v1/AOD" # for DoubleEG
+
+	"Run2016G-07Aug17-v1/AOD"
+	#"Run2016G-23Sep2016-v1/AOD" # for DoubleEG
+)
+
+Submit
+
+#----------------------------------------------------------------------------------------------------
+
+input_dir="/afs/cern.ch/work/j/jkaspar/analyses/ctpps/alignment/2016_postTS2/reduction/dataset_definition/json_selected"
+input_filter_command=""
+
+dataset_exts=(
+	"Run2016H-07Aug17-v1/AOD"
+	#"Run2016H-PromptReco-v2/AOD" # for DoubleEG
+)
+
+Submit
