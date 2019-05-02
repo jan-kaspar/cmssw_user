@@ -1,0 +1,34 @@
+#!/bin/bash
+
+source json_submitter
+
+streams=(
+	"EGamma"
+	"JetHT"
+	"SingleMuon"
+	"ZeroBias"
+)
+
+dataset_label="AOD"
+
+dataset_exts=(
+	"fake"
+)
+
+input_dir="/afs/cern.ch/work/j/jkaspar/analyses/ctpps/alignment/2018/reduction/dataset_definition/json_selected"
+input_filter_command="| grep xangle_1[36]0"
+
+output_dir="/eos/totem/data/ctpps/reconstruction/2018/physics_runs/rec-hit-version1" # 10_6, with timing-geometry fix, new pixel internal alignment
+
+geometry=""
+
+alignment_files="\"CalibPPS/ESProducers/data/alignment/RPixGeometryCorrections-2017-2018.xml\""
+
+task_prefix="re_reco_2018"
+task_suffix="_re_reco"
+
+max_time="64800"
+
+template_file="config/ctpps/2018/physics_fills/re_reco_template.py"
+
+Submit
