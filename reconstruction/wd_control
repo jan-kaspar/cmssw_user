@@ -23,6 +23,7 @@ function PrintUsage()
 	echo "        unfinished          job has 'submitted' but not 'finished' file"
 	echo "    -maxtime <v>            set max time to <v> seconds"
 	echo "    -wd <dir>               set work_dir to <dir>"
+	echo "    -system <spec>          set system requirements (SLCern6, CentOS7, ...)"
 }
 
 #----------------------------------------------------------------------------------------------------
@@ -50,6 +51,8 @@ max_time="14400" # s
 
 condor_file="$work_dir/condor.resub"
 
+required_system=""
+
 # parse command line
 while [ -n "$1" ]
 do
@@ -72,6 +75,11 @@ do
         "-wd")
 			shift
             work_dir="$1"
+            ;;
+
+        "-system")
+			shift
+            required_system="$1"
             ;;
 
 		"print" | "clean" | "resubmit" | "remove")
@@ -129,7 +137,11 @@ then
 
 		echo "+JobBatchName = resubmission"
 
-		#echo "requirements = (OpSysAndVer =?= \"SLCern6\")"
+		if [ -n "$required_system" ]
+		then
+			echo "requirements = (OpSysAndVer =?= \"$required_system\")"
+		fi
+
 
 	) > "$condor_file"
 fi
