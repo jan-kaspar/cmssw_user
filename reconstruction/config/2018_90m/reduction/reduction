@@ -1,0 +1,53 @@
+#!/bin/bash
+
+source das_block_submitter
+
+runs=(
+	319176
+	319256
+	319262
+	319263
+	319265
+	319268
+	319300
+	319311
+)
+
+files_per_block="3"
+
+geometry=""
+alignment_files=""
+
+max_time="10800"
+
+template_file="config/2018_90m/reduction/reduction_template.py"
+
+output_dir="/eos/totem/data/ctpps/reconstruction/2018/90m/AOD_skim/version4"
+
+#----------------------------------------------------------------------------------------------------
+
+task_prefix="reduction_TOTEM2"
+task_suffix="_reduction_TOTEM2"
+
+datasets=(
+	"/TOTEM20/Run2018B-PromptReco-v2/AOD"
+	"/TOTEM21/Run2018B-PromptReco-v2/AOD"
+	"/TOTEM22/Run2018B-PromptReco-v2/AOD"
+	"/TOTEM23/Run2018B-PromptReco-v2/AOD"
+)
+
+SubmitBlocks
+
+#----------------------------------------------------------------------------------------------------
+
+task_prefix="reduction_TOTEM4"
+task_suffix="_reduction_TOTEM4"
+
+datasets=(
+	"/TOTEM40/Run2018B-PromptReco-v2/AOD"
+	"/TOTEM41/Run2018B-PromptReco-v2/AOD"
+	"/TOTEM42/Run2018B-PromptReco-v2/AOD"
+	"/TOTEM43/Run2018B-PromptReco-v2/AOD"
+)
+
+SubmitBlocks
