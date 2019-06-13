@@ -1,27 +1,32 @@
 #!/bin/bash
 
-source das_block_submitter
+# when run from DAS
+###   source das_block_submitter
+###   datasets=(
+###   	"/ZeroBias1/Commissioning2018-26Apr2018-v1/AOD"
+###   	"/ZeroBias2/Commissioning2018-26Apr2018-v1/AOD"
+###   	"/ZeroBias3/Commissioning2018-26Apr2018-v1/AOD"
+###   	"/ZeroBias4/Commissioning2018-26Apr2018-v1/AOD"
+###   	"/ZeroBias5/Commissioning2018-26Apr2018-v1/AOD"
+###   	"/ZeroBias6/Commissioning2018-26Apr2018-v1/AOD"
+###   	"/ZeroBias7/Commissioning2018-26Apr2018-v1/AOD"
+###   	"/ZeroBias8/Commissioning2018-26Apr2018-v1/AOD"
+###   	"/ZeroBias9/Commissioning2018-26Apr2018-v1/AOD"
+###   	"/ZeroBias10/Commissioning2018-26Apr2018-v1/AOD"
+###   )
+###   files_per_block="5"
 
-datasets=(
-	"/ZeroBias1/Commissioning2018-26Apr2018-v1/AOD"
-	"/ZeroBias2/Commissioning2018-26Apr2018-v1/AOD"
-	"/ZeroBias3/Commissioning2018-26Apr2018-v1/AOD"
-	"/ZeroBias4/Commissioning2018-26Apr2018-v1/AOD"
-	"/ZeroBias5/Commissioning2018-26Apr2018-v1/AOD"
-	"/ZeroBias6/Commissioning2018-26Apr2018-v1/AOD"
-	"/ZeroBias7/Commissioning2018-26Apr2018-v1/AOD"
-	"/ZeroBias8/Commissioning2018-26Apr2018-v1/AOD"
-	"/ZeroBias9/Commissioning2018-26Apr2018-v1/AOD"
-	"/ZeroBias10/Commissioning2018-26Apr2018-v1/AOD"
-)
+# when run from EOS
+source eos_block_submitter
+input_dir="/eos/totem/data/ctpps/reconstruction/2018/alignment_run_April/AOD_skim"
+input_filter_command="|grep _skim.root"
+files_per_block="1"
 
-files_per_block="5"
+output_dir="/eos/totem/data/ctpps/reconstruction/2018/alignment_run_April/version6"
 
-output_dir="/eos/totem/data/ctpps/reconstruction/2018/alignment_run_April/version5"
+geometry="geometry/2018_April/2018_04_13_fill6554/RP_Dist_Beam_Cent.xml"
 
-geometry="" # not used
-
-task_prefix="re_reco"
+task_prefix="re_reco_2018_April"
 task_suffix="_re_reco"
 
 max_time="14400"
@@ -37,7 +42,7 @@ runs=(
 	314247
 )
 
-alignment_dir="alignment/2018_April/s/version2/xangle-160-beta-30"
+alignment_dir="alignment/2018_April/s+el/version2/xangle-160-beta-30"
 alignment_files="\"$alignment_dir/45.xml\", \"$alignment_dir/56.xml\""
 
 SubmitBlocks
@@ -50,7 +55,7 @@ runs=(
 	314267
 )
 
-alignment_dir="alignment/2018_April/s/version2/xangle-131-beta-30"
+alignment_dir="alignment/2018_April/s+el/version2/xangle-131-beta-30"
 alignment_files="\"$alignment_dir/45.xml\", \"$alignment_dir/56.xml\""
 
 SubmitBlocks
@@ -63,7 +68,7 @@ runs=(
 	314273
 )
 
-alignment_dir="alignment/2018_April/s/version2/xangle-130-beta-30"
+alignment_dir="alignment/2018_April/s+el/version2/xangle-130-beta-30"
 alignment_files="\"$alignment_dir/45.xml\", \"$alignment_dir/56.xml\""
 
 SubmitBlocks
@@ -75,7 +80,7 @@ runs=(
 	314276
 )
 
-alignment_dir="alignment/2018_April/s/version2/xangle-130-beta-25"
+alignment_dir="alignment/2018_April/s+el/version2/xangle-130-beta-25"
 alignment_files="\"$alignment_dir/45.xml\", \"$alignment_dir/56.xml\""
 
 SubmitBlocks

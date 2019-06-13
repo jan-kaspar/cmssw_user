@@ -1,27 +1,32 @@
 #!/bin/bash
 
-source das_block_submitter
+# when run from DAS
+###   source das_block_submitter
+###   datasets=(
+###   	"/ZeroBias1/Run2018D-PromptReco-v2/AOD"
+###   	"/ZeroBias2/Run2018D-PromptReco-v2/AOD"
+###   	"/ZeroBias3/Run2018D-PromptReco-v2/AOD"
+###   	"/ZeroBias4/Run2018D-PromptReco-v2/AOD"
+###   	"/ZeroBias5/Run2018D-PromptReco-v2/AOD"
+###   	"/ZeroBias6/Run2018D-PromptReco-v2/AOD"
+###   	"/ZeroBias7/Run2018D-PromptReco-v2/AOD"
+###   	"/ZeroBias8/Run2018D-PromptReco-v2/AOD"
+###   	"/ZeroBias9/Run2018D-PromptReco-v2/AOD"
+###   	"/ZeroBias10/Run2018D-PromptReco-v2/AOD"
+###   )
+###   files_per_block="5"
 
-datasets=(
-	"/ZeroBias1/Run2018D-PromptReco-v2/AOD"
-	"/ZeroBias2/Run2018D-PromptReco-v2/AOD"
-	"/ZeroBias3/Run2018D-PromptReco-v2/AOD"
-	"/ZeroBias4/Run2018D-PromptReco-v2/AOD"
-	"/ZeroBias5/Run2018D-PromptReco-v2/AOD"
-	"/ZeroBias6/Run2018D-PromptReco-v2/AOD"
-	"/ZeroBias7/Run2018D-PromptReco-v2/AOD"
-	"/ZeroBias8/Run2018D-PromptReco-v2/AOD"
-	"/ZeroBias9/Run2018D-PromptReco-v2/AOD"
-	"/ZeroBias10/Run2018D-PromptReco-v2/AOD"
-)
+# when run from EOS
+source eos_block_submitter
+input_dir="/eos/totem/data/ctpps/reconstruction/2018/alignment_run_September/AOD_skim"
+input_filter_command="|grep _skim.root"
+files_per_block="1"
 
-files_per_block="5"
-
-output_dir="/eos/totem/data/ctpps/reconstruction/2018/alignment_run_September/version4"
+output_dir="/eos/totem/data/ctpps/reconstruction/2018/alignment_run_September/version6"
 
 geometry="geometry/2018_September/2018_09_22_fill7206/RP_Dist_Beam_Cent.xml"
 
-task_prefix="re_reco"
+task_prefix="re_reco_2018_September"
 task_suffix="_re_reco"
 
 max_time="14400"
@@ -38,10 +43,8 @@ runs=(
 	323312
 )
 
-# TODO: use this or not?
-alignment_files="\"CalibPPS/ESProducers/data/alignment/RPixGeometryCorrections-2017-2018.xml\""
 
-alignment_dir="alignment/2018_September/s+el/version2"
+alignment_dir="alignment/2018_September/s+el/version2/xangle-130-beta-27"
 alignment_files="\"$alignment_dir/45.xml\", \"$alignment_dir/56.xml\""
 
 SubmitBlocks
@@ -51,7 +54,7 @@ runs=(
 	323316
 )
 
-alignment_dir="alignment/2018_September/s+el/version2"
+alignment_dir="alignment/2018_September/s+el/version2/xangle-130-beta-25"
 alignment_files="\"$alignment_dir/45.xml\", \"$alignment_dir/56.xml\""
 
 SubmitBlocks
