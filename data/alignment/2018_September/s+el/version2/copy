@@ -1,0 +1,23 @@
+#!/bin/bash
+
+srcDir="/afs/cern.ch/work/j/jkaspar/software/ctpps/user/alignment/ctpps_2018_September/tb,round3"
+
+function CopyOne()
+{
+	dir="$1"
+	src="$2"
+
+	mkdir -p "$dir"
+
+	file="results_cumulative_factored_Jan.xml"
+
+	# 45
+	cp "$srcDir/$src/3,4,5,23,24,25-excl1981939712,2023555072/s,std,3pl,1rotzIt=0,units=2,overlap=f,3potsInO=t,eMuMvRot=f/iteration3/$file" "$dir/45.xml"
+
+	# 56
+	cp "$srcDir/$src/103,104,105,123,124,125/s,std,3pl,1rotzIt=0,units=2,overlap=f,3potsInO=t,eMuMvRot=f/iteration3/$file" "$dir/56.xml"
+
+}
+
+CopyOne "xangle-130-beta-27" "323312.1-60"
+CopyOne "xangle-130-beta-25" "323316.101-200"
