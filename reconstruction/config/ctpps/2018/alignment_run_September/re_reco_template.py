@@ -3,8 +3,10 @@ import FWCore.ParameterSet.Config as cms
 from Configuration.StandardSequences.Eras import eras
 process = cms.Process("CTPPSReRecoWithAlignment", eras.ctpps_2016)
 
-# import of standard configurations
+# define global tag
 process.load('Configuration.StandardSequences.FrontierConditions_GlobalTag_cff')
+from Configuration.AlCa.GlobalTag import GlobalTag
+process.GlobalTag = GlobalTag(process.GlobalTag, "auto:run2_data")
 
 # minimum of logs
 process.MessageLogger = cms.Service("MessageLogger",

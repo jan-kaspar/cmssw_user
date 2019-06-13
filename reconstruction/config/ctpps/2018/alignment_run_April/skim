@@ -17,16 +17,18 @@ datasets=(
 
 files_per_block="5"
 
-output_dir="/eos/totem/data/ctpps/reconstruction/2018/alignment_run_April/version5"
+output_dir="/eos/totem/data/ctpps/reconstruction/2018/alignment_run_April/AOD_skim"
 
 geometry="" # not used
 
-task_prefix="re_reco"
-task_suffix="_re_reco"
+alignment_files="" # not used
+
+task_prefix="skim"
+task_suffix="_skim"
 
 max_time="14400"
 
-template_file="config/ctpps/2018/alignment_run_April/re_reco_template.py"
+template_file="config/ctpps/2018/alignment_run_April/skim_template.py"
 
 required_system="SLCern6"
 
@@ -36,9 +38,6 @@ required_system="SLCern6"
 runs=(
 	314247
 )
-
-alignment_dir="alignment/2018_April/s/version2/xangle-160-beta-30"
-alignment_files="\"$alignment_dir/45.xml\", \"$alignment_dir/56.xml\""
 
 SubmitBlocks
 
@@ -50,9 +49,6 @@ runs=(
 	314267
 )
 
-alignment_dir="alignment/2018_April/s/version2/xangle-131-beta-30"
-alignment_files="\"$alignment_dir/45.xml\", \"$alignment_dir/56.xml\""
-
 SubmitBlocks
 
 #xangle=130, beta*=0.3
@@ -63,9 +59,6 @@ runs=(
 	314273
 )
 
-alignment_dir="alignment/2018_April/s/version2/xangle-130-beta-30"
-alignment_files="\"$alignment_dir/45.xml\", \"$alignment_dir/56.xml\""
-
 SubmitBlocks
 
 #xangle=130, beta*=0.25
@@ -74,8 +67,5 @@ runs=(
 	314275
 	314276
 )
-
-alignment_dir="alignment/2018_April/s/version2/xangle-130-beta-25"
-alignment_files="\"$alignment_dir/45.xml\", \"$alignment_dir/56.xml\""
 
 SubmitBlocks
