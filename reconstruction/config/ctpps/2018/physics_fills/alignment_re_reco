@@ -4,44 +4,60 @@ source json_submitter
 
 streams=(
 	"BTagMu"
-	#"Commissioning"
+	"Commissioning"
 	"Charmonium"
+
 	"DoubleMuon"
 	"DoubleMuonLowMass"
-	#"EGamma"
-	"JetHT"
 	"MET"
 	"MuOnia"
 	"MuonEG"
-	#"SingleMuon"
+
+	"SingleMuon"
 	"Tau"
-	#"ZeroBias"
+	"ZeroBias"
 )
 
 dataset_label="AOD"
 
 dataset_exts=(
-	"Commissioning2018-PromptReco-v1/AOD"
+	#"Commissioning2018-PromptReco-v1/AOD"
 
-	"Run2018A-PromptReco-v3/AOD"
-	"Run2018A-PromptReco-v2/AOD"
-	"Run2018A-PromptReco-v1/AOD"
+	#"Run2018A-PromptReco-v3/AOD"
+	#"Run2018A-PromptReco-v2/AOD"
+	#"Run2018A-PromptReco-v1/AOD"
 
-	"Run2018B-PromptReco-v2/AOD"
-	"Run2018B-PromptReco-v1/AOD"
+	#"Run2018B-PromptReco-v2/AOD"
+	#"Run2018B-PromptReco-v1/AOD"
 
-	"Run2018C-PromptReco-v3/AOD"
-	"Run2018C-PromptReco-v2/AOD"
-	"Run2018C-PromptReco-v1/AOD"
+	#"Run2018C-PromptReco-v3/AOD"
+	#"Run2018C-PromptReco-v2/AOD"
+	#"Run2018C-PromptReco-v1/AOD"
 
-	"Run2018D-PromptReco-v2/AOD"
-	#"Run2018D-PromptReco-v1/AOD" # no longer listed on DAS
+	#"Run2018D-PromptReco-v2/AOD"
+	#"Run2018D-PromptReco-v1/AOD"
 )
 
-input_dir="/afs/cern.ch/work/j/jkaspar/analyses/ctpps/alignment/2018/reduction/dataset_definition/json_selected"
-input_filter_command=""
+#streams=("JetHT")
+#dataset_exts=(
+#	"Run2018A-17Sep2018-v1/AOD"
+#	"Run2018B-17Sep2018-v1/AOD"
+#	"Run2018C-17Sep2018-v1/AOD"
+#	"Run2018D-PromptReco-v1/AOD"
+#)
 
-output_dir="/eos/totem/data/ctpps/reconstruction/2018/physics_runs/alignment-version4"
+#streams=("EGamma")
+#dataset_exts=(
+#	"Run2018A-17Sep2018-v2/AOD"
+#	"Run2018B-17Sep2018-v1/AOD" # mostly on tape
+#	"Run2018C-17Sep2018-v1/AOD"
+#	"Run2018D-22Jan2019-v2/AOD"
+#)
+
+input_dir="/afs/cern.ch/work/j/jkaspar/analyses/ctpps/alignment/2018/reduction/dataset_definition/json_selected"
+input_filter_command="| grep xangle_1[36]0"
+
+output_dir="/eos/cms/store/group/phys_pps/reconstruction/2018/physics_runs/alignment-version4"
 
 geometry=""
 alignment_files="\"CalibPPS/ESProducers/data/alignment/RPixGeometryCorrections-2017-2018.xml\""
@@ -49,7 +65,7 @@ alignment_files="\"CalibPPS/ESProducers/data/alignment/RPixGeometryCorrections-2
 task_prefix="alignment_re_reco_2018"
 task_suffix="_alignment_re_reco"
 
-max_time="64800"
+max_time="86400"
 
 template_file="config/ctpps/2018/physics_fills/alignment_re_reco_template.py"
 

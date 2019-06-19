@@ -18,11 +18,11 @@
 
 # when run from EOS
 source eos_block_submitter
-input_dir="/eos/totem/data/ctpps/reconstruction/2018/alignment_run_September/AOD_skim"
+input_dir="/eos/cms/store/group/phys_pps/reconstruction/2018/alignment_run_September/AOD_skim"
 input_filter_command="|grep _skim.root"
-files_per_block="1"
+files_per_block="3"
 
-output_dir="/eos/totem/data/ctpps/reconstruction/2018/alignment_run_September/version6"
+output_dir="/eos/cms/store/group/phys_pps/reconstruction/2018/alignment_run_September/version6"
 
 geometry="geometry/2018_September/2018_09_22_fill7206/RP_Dist_Beam_Cent.xml"
 

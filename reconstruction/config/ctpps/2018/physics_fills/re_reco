@@ -3,10 +3,11 @@
 source json_submitter
 
 streams=(
-	"EGamma"
-	"JetHT"
-	"SingleMuon"
-	"ZeroBias"
+	#"EGamma"
+	#"JetHT"
+	#"SingleMuon"
+	#"ZeroBias"
+	#"Tau"
 )
 
 dataset_label="AOD"
@@ -15,10 +16,26 @@ dataset_exts=(
 	"fake"
 )
 
-input_dir="/afs/cern.ch/work/j/jkaspar/analyses/ctpps/alignment/2018/reduction/dataset_definition/json_selected"
-input_filter_command="| grep xangle_1[36]0"
+#dataset_exts=(
+#	"Run2018A-PromptReco-v3/AOD"
+#	"Run2018A-PromptReco-v2/AOD"
+#	"Run2018A-PromptReco-v1/AOD"
+#
+#	"Run2018B-PromptReco-v2/AOD"
+#	"Run2018B-PromptReco-v1/AOD"
+#
+#	"Run2018C-PromptReco-v3/AOD"
+#	"Run2018C-PromptReco-v2/AOD"
+#	"Run2018C-PromptReco-v1/AOD"
+#
+#	"Run2018D-PromptReco-v2/AOD"
+#	"Run2018D-PromptReco-v1/AOD"
+#)
 
-output_dir="/eos/totem/data/ctpps/reconstruction/2018/physics_runs/rec-hit-version1" # 10_6, with timing-geometry fix, new pixel internal alignment
+input_dir="/afs/cern.ch/work/j/jkaspar/analyses/ctpps/alignment/2018/reduction/dataset_definition/json_selected"
+input_filter_command="| grep xangle_1[3456]0"
+
+output_dir="/eos/cms/store/group/phys_pps/reconstruction/2018/physics_runs/rec-hit-version1" # 10_6, with timing-geometry fix, new pixel internal alignment
 
 geometry=""
 
