@@ -1,0 +1,19 @@
+#!/bin/bash
+
+srcDir="/afs/cern.ch/work/j/jkaspar/software/ctpps/user/alignment/ctpps_2018_April/global,round3"
+
+function CopyOne()
+{
+	dir="$1"
+
+	mkdir -p "$dir"
+
+	cp "$srcDir/$dir/output_45.xml" "$dir/45.xml"
+	cp "$srcDir/$dir/output_56.xml" "$dir/56.xml"
+
+}
+
+CopyOne "xangle-160-beta-30"
+CopyOne "xangle-131-beta-30"
+CopyOne "xangle-130-beta-30"
+CopyOne "xangle-130-beta-25"
