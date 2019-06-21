@@ -22,14 +22,15 @@ input_dir="/eos/cms/store/group/phys_pps/reconstruction/2018/alignment_run_Septe
 input_filter_command="|grep _skim.root"
 files_per_block="3"
 
-output_dir="/eos/cms/store/group/phys_pps/reconstruction/2018/alignment_run_September/version6"
+#output_dir="/eos/cms/store/group/phys_pps/reconstruction/2018/alignment_run_September/version6" # alignment s+el/version2
+output_dir="/eos/cms/store/group/phys_pps/reconstruction/2018/alignment_run_September/version7" # alignment s+el/version3
 
 geometry="geometry/2018_September/2018_09_22_fill7206/RP_Dist_Beam_Cent.xml"
 
 task_prefix="re_reco_2018_September"
 task_suffix="_re_reco"
 
-max_time="14400"
+max_time="43200"
 
 template_file="config/ctpps/2018/alignment_run_September/re_reco_template.py"
 
@@ -44,7 +45,7 @@ runs=(
 )
 
 
-alignment_dir="alignment/2018_September/s+el/version2/xangle-130-beta-27"
+alignment_dir="alignment/2018_September/s+el/version3/xangle-130-beta-27"
 alignment_files="\"$alignment_dir/45.xml\", \"$alignment_dir/56.xml\""
 
 SubmitBlocks
@@ -54,7 +55,7 @@ runs=(
 	323316
 )
 
-alignment_dir="alignment/2018_September/s+el/version2/xangle-130-beta-25"
+alignment_dir="alignment/2018_September/s+el/version3/xangle-130-beta-25"
 alignment_files="\"$alignment_dir/45.xml\", \"$alignment_dir/56.xml\""
 
 SubmitBlocks

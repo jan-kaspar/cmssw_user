@@ -22,14 +22,15 @@ input_dir="/eos/cms/store/group/phys_pps/reconstruction/2018/alignment_run_April
 input_filter_command="|grep _skim.root"
 files_per_block="3"
 
-output_dir="/eos/cms/store/group/phys_pps/reconstruction/2018/alignment_run_April/version6"
+#output_dir="/eos/cms/store/group/phys_pps/reconstruction/2018/alignment_run_April/version6" # alignment s+el/version2
+output_dir="/eos/cms/store/group/phys_pps/reconstruction/2018/alignment_run_April/version7" # alignment s+el/version3
 
 geometry="geometry/2018_April/2018_04_13_fill6554/RP_Dist_Beam_Cent.xml"
 
 task_prefix="re_reco_2018_April"
 task_suffix="_re_reco"
 
-max_time="14400"
+max_time="43200"
 
 template_file="config/ctpps/2018/alignment_run_April/re_reco_template.py"
 
@@ -42,7 +43,7 @@ runs=(
 	314247
 )
 
-alignment_dir="alignment/2018_April/s+el/version2/xangle-160-beta-30"
+alignment_dir="alignment/2018_April/s+el/version3/xangle-160-beta-30"
 alignment_files="\"$alignment_dir/45.xml\", \"$alignment_dir/56.xml\""
 
 SubmitBlocks
@@ -55,7 +56,7 @@ runs=(
 	314267
 )
 
-alignment_dir="alignment/2018_April/s+el/version2/xangle-131-beta-30"
+alignment_dir="alignment/2018_April/s+el/version3/xangle-131-beta-30"
 alignment_files="\"$alignment_dir/45.xml\", \"$alignment_dir/56.xml\""
 
 SubmitBlocks
@@ -68,7 +69,7 @@ runs=(
 	314273
 )
 
-alignment_dir="alignment/2018_April/s+el/version2/xangle-130-beta-30"
+alignment_dir="alignment/2018_April/s+el/version3/xangle-130-beta-30"
 alignment_files="\"$alignment_dir/45.xml\", \"$alignment_dir/56.xml\""
 
 SubmitBlocks
@@ -80,7 +81,7 @@ runs=(
 	314276
 )
 
-alignment_dir="alignment/2018_April/s+el/version2/xangle-130-beta-25"
+alignment_dir="alignment/2018_April/s+el/version3/xangle-130-beta-25"
 alignment_files="\"$alignment_dir/45.xml\", \"$alignment_dir/56.xml\""
 
 SubmitBlocks
