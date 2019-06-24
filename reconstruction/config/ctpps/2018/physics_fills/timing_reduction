@@ -1,0 +1,39 @@
+#!/bin/bash
+
+source json_submitter
+
+streams=(
+	"SingleMuon"
+	"ZeroBias"
+)
+
+dataset_label="AOD"
+
+dataset_exts=(
+	"Run2018A-PromptReco-v3/AOD"
+	"Run2018A-PromptReco-v2/AOD"
+	"Run2018A-PromptReco-v1/AOD"
+
+	"Run2018B-PromptReco-v2/AOD"
+	"Run2018B-PromptReco-v1/AOD"
+
+	"Run2018D-PromptReco-v2/AOD"
+	"Run2018D-PromptReco-v1/AOD"
+)
+
+input_dir="/afs/cern.ch/work/j/jkaspar/analyses/ctpps/alignment_timing_RP/2018/reduction/dataset_definition/json_selected"
+input_filter_command=""
+
+output_dir="/eos/totem/data/ctpps/reconstruction/2018/physics_runs/timing-version1"
+
+geometry=""
+alignment_files=""
+
+task_prefix="timing_reduction_2018"
+task_suffix="_reduction"
+
+max_time="14400"
+
+template_file="config/ctpps/2018/physics_fills/timing_reduction_template.py"
+
+Submit
