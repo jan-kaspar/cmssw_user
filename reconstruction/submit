@@ -154,7 +154,7 @@ function MakeConfig()
 		echo "cd \"$CMSSW_BASE\""
 		echo "cmsenv"
 		echo ""
-		echo "export CMSSW_SEARCH_PATH=\"\$CMSSW_SEARCH_PATH:/afs/cern.ch/work/j/jkaspar/software/ctpps/user/data\""
+		echo "export CMSSW_SEARCH_PATH=\"\$CMSSW_SEARCH_PATH:/afs/cern.ch/work/j/jkaspar/work/software/ctpps/user/data\""
 		echo "export CMSSW_DATA_PATH=\"/afs/cern.ch/work/j/jkaspar\""
 		echo ""
 		echo "# grid proxy configuration"
