@@ -51,14 +51,15 @@ process.load("Geometry.VeryForwardGeometry.geometryRPFromDD_2017_cfi") # NB: OK 
 # load reco sequences
 process.load("RecoCTPPS.Configuration.recoCTPPS_sequences_cff")
 
+process.ctppsLocalTrackLiteProducer.includePixels = False
+process.ctppsLocalTrackLiteProducer.includeDiamonds = False
+
 # add alignment corrections
 process.ctppsRPAlignmentCorrectionsDataESSourceXML.RealFiles = cms.vstring($alignment_files)
 
 # processing sequence
 process.path = cms.Path(
   process.totemRPLocalReconstruction
-  * process.ctppsDiamondLocalReconstruction
-  * process.ctppsPixelLocalReconstruction
   * process.ctppsLocalTrackLiteProducer
 )
 
