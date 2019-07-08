@@ -40,16 +40,16 @@ dataset_exts=(
 
 #streams=("JetHT")
 #dataset_exts=(
-#	"Run2018A-17Sep2018-v1/AOD"
-#	"Run2018B-17Sep2018-v1/AOD"
-#	"Run2018C-17Sep2018-v1/AOD"
-#	"Run2018D-PromptReco-v1/AOD"
+#	#"Run2018A-17Sep2018-v1/AOD"
+#	#"Run2018B-17Sep2018-v1/AOD"
+#	#"Run2018C-17Sep2018-v1/AOD"
+#	#"Run2018D-PromptReco-v2/AOD"
 #)
 
 #streams=("EGamma")
 #dataset_exts=(
 #	"Run2018A-17Sep2018-v2/AOD"
-#	"Run2018B-17Sep2018-v1/AOD" # mostly on tape
+#	"Run2018B-17Sep2018-v1/AOD"
 #	"Run2018C-17Sep2018-v1/AOD"
 #	"Run2018D-22Jan2019-v2/AOD"
 #)
