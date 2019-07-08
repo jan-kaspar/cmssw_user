@@ -3,9 +3,9 @@
 source json_submitter
 
 streams=(
-	#"SingleMuon"
+	"SingleMuon"
 	"DoubleEG"
-	#"ZeroBias"
+	"ZeroBias"
 )
 
 dataset_label="AOD"
