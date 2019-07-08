@@ -22,7 +22,9 @@ max_time="10800"
 
 template_file="config/2018_90m/reduction/reduction_template.py"
 
-output_dir="/eos/totem/data/ctpps/reconstruction/2018/90m/AOD_skim/version4"
+output_dir="/eos/cms/store/group/phys_pps/glueballs_2018/AOD_skim/version5"
+
+required_system="SLCern6"
 
 #----------------------------------------------------------------------------------------------------
 
