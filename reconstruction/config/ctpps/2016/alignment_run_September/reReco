@@ -1,0 +1,40 @@
+#!/bin/bash
+
+source eos_block_submitter
+
+runs=(
+	10332
+	10331
+	10329
+	10328
+	10327
+	10326
+	10325
+	10324
+	10322
+	10323
+)
+
+input_dir="/eos/cms/store/group/phys_pps/reconstruction/2016/alignment_run_September/digi_version2/"
+input_filter_command="|grep _rawToDigi.root"
+
+files_per_block="1"
+
+output_dir="/eos/cms/store/group/phys_pps/reconstruction/2016/alignment_run_September/version1-test2" # default geometry, no alignment, from digi_version2, with CMSSW_10_6_1
+
+geometry="geometry/2016_September/2016_09_24_fill5322/RP_Dist_Beam_Cent.xml"
+
+#alignment_dir="alignment/2018_September/s+el/version3/xangle-130-beta-27"
+#alignment_files="\"$alignment_dir/45.xml\", \"$alignment_dir/56.xml\""
+alignment_files=""
+
+task_prefix="re_reco_2016_alig_run_September"
+task_suffix="_re_reco"
+
+max_time="14400"
+
+template_file="config/ctpps/2016/alignment_run_September/reReco_template.py"
+
+required_system="CentOS7"
+
+SubmitBlocks
