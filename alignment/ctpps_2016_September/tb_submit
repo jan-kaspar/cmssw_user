@@ -6,6 +6,7 @@
 test_only="y"
 use_batch="n"
 max_time="14400" # s
+required_system="CentOS7"
 
 #----------------------------------------------------------------------------------------------------
 
@@ -19,6 +20,7 @@ function PrintUsage()
 	echo "    -batch, -batch    submit jobs to BATCH"
 	echo "    -submit           abbreviation of -run and -batch"
 	echo "    -maxtime <v>      set maxtime of the BATCH job"
+	echo "    -system <spec>    set system requirements (SLCern6, CentOS7, ...)"
 }
 
 #----------------------------------------------------------------------------------------------------
@@ -56,6 +58,11 @@ do
 			shift
 			max_time="$1"
 			;;
+
+        "-system")
+			shift
+            required_system="$1"
+            ;;
 
 		"-submit")
 			test_only="n"

@@ -350,8 +350,10 @@ function InitCondorScript()
 
 		#echo "+JobBatchName = \"$job_name\""
 
-		# typical values: SLCern6, CentOS7
-		echo "requirements = (OpSysAndVer =?= \"SLCern6\")"
+		if [ -n "$required_system" ]
+		then
+			echo "requirements = (OpSysAndVer =?= \"$required_system\")"
+		fi
 
 	) > "$condor_sub"
 }
