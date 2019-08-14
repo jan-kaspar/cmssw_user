@@ -1,0 +1,22 @@
+<!-- Shifts in um, rotations in mrad. -->
+<xml DocumentType="AlignmentDescription">
+	<iov first="-inf" last="+inf">
+	<!-- RP 0 -->
+	<rp  id="1979711488" sh_x="   +3.30" sh_y=" +249.07" />
+
+	<!-- RP 1 -->
+	<rp  id="1980235776" sh_x="   -3.31" sh_y=" -249.09" />
+
+	<!-- RP 2 -->
+	<rp  id="1980760064" sh_x=" +286.42" sh_y=" +783.80" />
+
+	<!-- RP 3 -->
+	<rp  id="1981284352" sh_x="-1278.16" sh_y=" +467.69" />
+
+	<!-- RP 4 -->
+	<rp  id="1981808640" sh_x=" -236.88" sh_y="  +54.27" />
+
+	<!-- RP 5 -->
+	<rp  id="1982332928" sh_x=" +250.07" sh_y="  -77.97" />
+	</iov>
+</xml>

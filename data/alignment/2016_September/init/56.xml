@@ -1,0 +1,17 @@
+<!-- Shifts in um, rotations in mrad. -->
+<xml DocumentType="AlignmentDescription">
+	<iov first="-inf" last="+inf">
+
+	<!-- RP 101 -->
+	<rp  id="" sh_x="-4.4E-03" sh_y="-1.2E-02" />
+
+	<!-- RP 103 -->
+	<rp  id="" sh_x=" -463.67" sh_y=" +569.02" />
+
+	<!-- RP 104 -->
+	<rp  id="" sh_x=" -282.44" sh_y=" +140.40" />
+
+	<!-- RP 105 -->
+	<rp  id="" sh_x=" +282.46" sh_y=" -140.40" />
+	</iov>
+</xml>
