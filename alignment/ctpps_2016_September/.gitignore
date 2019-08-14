@@ -1,0 +1,8 @@
+*.root
+*.pdf
+*.log
+
+.*
+!.gitignore
+
+tb,round*

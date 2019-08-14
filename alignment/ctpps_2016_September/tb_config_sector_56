@@ -1,0 +1,67 @@
+#!/bin/bash
+
+# what to optimise
+sector="56"
+z0="+210000"
+rps="101,103,104,105"
+
+# exclude planes 103.9
+excludePlanes="1998356480"
+
+# event selection
+minimumHitsPerProjectionPerRP=3
+requireNumberOfUnits="2"
+requireOverlap="False"
+requireAtLeast3PotsInOverlap="True"
+
+additionalAcceptedRPSets="103,104"
+
+# even number limit
+maxEvents="-1" # process all events
+#maxEvents="40000"
+
+# iteration settings
+iterations=4
+#optimize=("s" "s" "sr")
+optimize=("s")
+maxResidualToSigma=(50 10 3)
+#maxResidualToSigma=(10 3)
+chiSqPerNdfCut=(1000 50 5)
+#chiSqPerNdfCut=(50 5)
+maxTrackAx=("1.5E-3" "0.5E-3")
+maxTrackAy=("1.5E-3" "0.5E-3")
+
+# constraint settings
+constraintsType="final"
+constraintsLabel="fin"
+final_constraints_units="100, 101"
+
+# diagonistics
+iterationsWithDiagnostics="0"
+
+# input settings
+reco_dir="/eos/cms/store/group/phys_pps/reconstruction/2016/alignment_run_September/version1-test2"
+
+# geometry settings
+geometry="data/geometry/2016_September/2016_09_24_fill5322"
+
+initial_alignment=("data/alignment/2016_September/init/56.xml")
+
+# output settings
+subdir="tb,round1"
+label=""  # for non-standard settings, e.g. ",test"
+
+NewDataSet
+tasks=(
+	"10322"
+	"10324"
+	"10325"
+	"10326"
+	"10327"
+	"10328"
+	"10329"
+	"10331"
+	"10332"
+)
+
+SubmitTrackBasedAlignment
