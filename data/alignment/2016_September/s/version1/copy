@@ -1,0 +1,6 @@
+#!/bin/bash
+
+srcDir="/afs/cern.ch/work/j/jkaspar/work/software/ctpps/user/alignment/ctpps_2016_September/tb,round1"
+
+cp "$srcDir/10331/0,1,2,3,4,5-excl1981939712/s,fin,3pl,1rotzIt=0,units=2,overlap=f,3potsInO=t,eMuMvRot=f/iteration4/results_cumulative_factored_Jan.xml" "45.xml"
+cp "$srcDir/10331/101,103,104,105-excl1998356480/s,fin,3pl,1rotzIt=0,units=2,overlap=f,3potsInO=t,eMuMvRot=f/iteration4/results_cumulative_factored_Jan.xml" "56.xml"
