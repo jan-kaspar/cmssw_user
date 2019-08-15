@@ -20,13 +20,13 @@ input_filter_command="|grep _rawToDigi.root"
 
 files_per_block="1"
 
-output_dir="/eos/cms/store/group/phys_pps/reconstruction/2016/alignment_run_September/version1-test2" # default geometry, no alignment, from digi_version2, with CMSSW_10_6_1
+#output_dir="/eos/cms/store/group/phys_pps/reconstruction/2016/alignment_run_September/version1-test2" # default geometry, no alignment, from digi_version2 (some files missing), with CMSSW_10_6_1
+output_dir="/eos/cms/store/group/phys_pps/reconstruction/2016/alignment_run_September/version2" # alignment s/version1, from digi_version2 (some files still missing)
 
 geometry="geometry/2016_September/2016_09_24_fill5322/RP_Dist_Beam_Cent.xml"
 
-#alignment_dir="alignment/2018_September/s+el/version3/xangle-130-beta-27"
-#alignment_files="\"$alignment_dir/45.xml\", \"$alignment_dir/56.xml\""
-alignment_files=""
+alignment_dir="alignment/2016_September/s/version1"
+alignment_files="\"$alignment_dir/45.xml\", \"$alignment_dir/56.xml\""
 
 task_prefix="re_reco_2016_alig_run_September"
 task_suffix="_re_reco"
