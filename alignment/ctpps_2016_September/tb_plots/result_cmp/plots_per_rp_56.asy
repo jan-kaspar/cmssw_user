@@ -14,7 +14,7 @@ quantities.push("rp_shy"); quantity_labels.push("shift in $y\ung{\mu m}$");
 //quantities.push("rp_rotz"); quantity_labels.push("rotation about $z\ung{mrad}$");
 
 string prefix = "tb,round1/";
-string postfix = "/101,103,104,105-excl1998356480/s,fin,3pl,1rotzIt=0,units=2,overlap=t,3potsInO=t,eMuMvRot=f/iteration3";
+string postfix = "/101,103,104,105-excl1998356480/s,fin,3pl,1rotzIt=0,units=2,overlap=f,3potsInO=t,eMuMvRot=f/iteration3";
 
 inputs.push(prefix + "10322" + postfix); input_pens.push(black);
 inputs.push(prefix + "10324" + postfix); input_pens.push(blue);
