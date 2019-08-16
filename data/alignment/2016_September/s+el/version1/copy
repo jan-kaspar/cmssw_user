@@ -1,0 +1,6 @@
+#!/bin/bash
+
+srcDir="/afs/cern.ch/work/j/jkaspar/work/software/ctpps/user/alignment/ctpps_2016_September/global,round1"
+
+cp "$srcDir/output_45.xml" "45.xml"
+cp "$srcDir/output_56.xml" "56.xml"
