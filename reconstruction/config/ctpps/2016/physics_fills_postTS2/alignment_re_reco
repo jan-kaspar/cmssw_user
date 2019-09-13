@@ -7,7 +7,7 @@ dataset_label="AOD"
 input_dir="/afs/cern.ch/work/j/jkaspar/work/analyses/ctpps/alignment/2016_postTS2/reduction/dataset_definition/json"
 input_filter_command=""
 
-output_dir="/eos/cms/store/group/phys_pps/reconstruction/2016/physics_runs/rec-hit-version1" # with CMSSW_10_6_1, no alignment
+output_dir="/eos/cms/store/group/phys_pps/reconstruction/2016/physics_runs_post_TS2/version1" # with CMSSW_10_6_1, no alignment
 
 geometry="" # not used
 alignment_files="" # not used
@@ -21,7 +21,7 @@ required_system="CentOS7"
 
 #----------------------------------------------------------------------------------------------------
 
-template_file="config/ctpps/2016/physics_fills_postTS2/re_reco_template_old.py"
+template_file="config/ctpps/2016/physics_fills_postTS2/alignment_re_reco_template_old.py"
 
 streams=(
 	"Charmonium"
@@ -39,7 +39,7 @@ Submit
 
 #----------------------------------------------------------------------------------------------------
 
-template_file="config/ctpps/2016/physics_fills_postTS2/re_reco_template.py"
+template_file="config/ctpps/2016/physics_fills_postTS2/alignment_re_reco_template.py"
 
 streams=(
 	"BTagCSV"

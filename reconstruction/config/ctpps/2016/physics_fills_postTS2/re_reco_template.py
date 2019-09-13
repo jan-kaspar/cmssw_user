@@ -69,10 +69,7 @@ process.output = cms.OutputModule("PoolOutputModule",
   fileName = cms.untracked.string("$output_file"),
   outputCommands = cms.untracked.vstring(
     "drop *",
-    #'keep TotemRPRecHitedmDetSetVector_*_*_*',
-    #'keep CTPPSPixelRecHitedmDetSetVector_*_*_*',
-    #'keep CTPPSDiamondDigiedmDetSetVector_*_*_*',
-    #'keep CTPPSDiamondRecHitedmDetSetVector_*_*_*',
+    'keep TotemRPRecHitedmDetSetVector_*_*_*',
     'keep CTPPSLocalTrackLites_*_*_*'
   )
 )

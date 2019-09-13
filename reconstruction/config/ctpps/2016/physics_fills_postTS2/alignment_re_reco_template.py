@@ -55,8 +55,6 @@ process.load("Geometry.VeryForwardGeometry.geometryRPFromDD_2017_cfi") # NB: OK 
 process.load("RecoCTPPS.TotemRPLocal.totemRPLocalReconstruction_cff")
 process.load("RecoCTPPS.TotemRPLocal.ctppsLocalTrackLiteProducer_cff")
 
-process.totemRPClusterProducer.tagDigi = cms.InputTag("totemRPRawToDigi", "RP")
-
 process.ctppsLocalTrackLiteProducer.includePixels = False
 process.ctppsLocalTrackLiteProducer.includeDiamonds = False
 
@@ -71,7 +69,10 @@ process.output = cms.OutputModule("PoolOutputModule",
   fileName = cms.untracked.string("$output_file"),
   outputCommands = cms.untracked.vstring(
     "drop *",
-    'keep TotemRPRecHitedmDetSetVector_*_*_*',
+    #'keep TotemRPRecHitedmDetSetVector_*_*_*',
+    #'keep CTPPSPixelRecHitedmDetSetVector_*_*_*',
+    #'keep CTPPSDiamondDigiedmDetSetVector_*_*_*',
+    #'keep CTPPSDiamondRecHitedmDetSetVector_*_*_*',
     'keep CTPPSLocalTrackLites_*_*_*'
   )
 )
