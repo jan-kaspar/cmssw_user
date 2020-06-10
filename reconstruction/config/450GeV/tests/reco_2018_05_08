@@ -1,0 +1,40 @@
+#!/bin/bash
+
+source das_block_submitter
+
+runs=(
+	315922
+	315934
+	315956
+)
+
+datasets=(
+	#"/ZeroBias1/Run2018A-06Jun2018-v1/AOD"	tape
+	"/ZeroBias2/Run2018A-06Jun2018-v1/AOD"
+	"/ZeroBias3/Run2018A-06Jun2018-v1/AOD"
+	"/ZeroBias4/Run2018A-06Jun2018-v1/AOD"
+	#"/ZeroBias5/Run2018A-06Jun2018-v1/AOD"	tape
+	#"/ZeroBias6/Run2018A-06Jun2018-v1/AOD"	tape
+	#"/ZeroBias7/Run2018A-06Jun2018-v1/AOD"	tape
+	#"/ZeroBias8/Run2018A-06Jun2018-v1/AOD"	tape
+	#"/ZeroBias9/Run2018A-06Jun2018-v1/AOD"	tape
+	"/ZeroBias10/Run2018A-06Jun2018-v1/AOD"
+)
+
+files_per_block="1"
+
+output_dir="/eos/totem/data/offline/2018/450GeV/tests/ZeroBias/version1"
+
+geometry="geometry/2018_900GeV_beta100/RP_Dist_Beam_Cent.xml"
+
+alignment_dir=""
+alignment_files=""
+
+task_prefix="reco"
+task_suffix="_reco"
+
+queue="8nh"
+
+template_file="config/450GeV/tests/reco_aod_template.py"
+
+SubmitBlocks

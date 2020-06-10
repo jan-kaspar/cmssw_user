@@ -1,0 +1,35 @@
+#!/bin/bash
+
+source das_block_submitter
+
+runs=(
+	306373
+	306379
+	306380
+	306381
+	306402
+	306405
+	306406
+)
+
+datasets=(
+	"/ZeroBias/Run2017F-v1/RAW"
+)
+
+files_per_block="1"
+
+output_dir="/eos/totem/data/offline/2017/450GeV/tests/ZeroBias/version1"
+
+geometry="geometry/2018_900GeV_beta100/RP_Dist_Beam_Cent.xml"
+
+alignment_dir=""
+alignment_files=""
+
+task_prefix="reco"
+task_suffix="_reco"
+
+queue="8nh"
+
+template_file="config/450GeV/tests/reco_raw_template.py"
+
+SubmitBlocks
