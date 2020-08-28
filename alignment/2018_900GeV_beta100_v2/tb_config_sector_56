@@ -1,0 +1,69 @@
+#!/bin/bash
+
+# what to optimise
+sector="56"
+z0="+210000"
+rps="103,104,105,123,124,125"
+
+# nothing to exclude
+excludePlanes=""
+
+# event selection
+minimumHitsPerProjectionPerRP=3
+requireNumberOfUnits="2"
+requireOverlap="False"
+requireAtLeast3PotsInOverlap="True"
+
+additionalAcceptedRPSets=""
+
+# even number limit
+#maxEvents="-1" # process all events
+# TODO: 1E6 ??
+maxEvents="1E5"
+
+# iteration settings
+iterations=4
+optimize=("s" "sr")
+iterationsWithOneRotZPerPot=0
+maxResidualToSigma=(10 10 3)
+chiSqPerNdfCut=(50 50 5)
+maxTrackAx=("1.5E-3")
+maxTrackAy=("1.5E-3")
+
+# constraint settings
+constraintsType="standard" # nothing else enabled
+constraintsLabel="std"
+final_constraints_units="101,121"
+useEqualMeanUMeanVRotZConstraints="True"
+
+# diagonistics
+iterationsWithDiagnostics="0"
+
+# input settings
+reco_dir="/eos/totem/data/offline/2018/450GeV/beta100/ZeroBias/version1"
+
+# geometry settings
+geometry="data/geometry/2018_900GeV_beta100"
+
+initial_alignment=("data/alignment/2018_900GeV_beta100/init/56.xml")
+
+# output settings
+subdir="tb,round1"
+label=""  # for non-standard settings, e.g. ",test"
+
+NewDataSet
+tasks=(
+	# fill 7281
+	324462.166-251
+	324462.252-336
+	
+	# fill 7289
+	324532.399-459
+	324532.460-520
+
+	# fill 7291
+	324536.360-434
+	324536.435-509
+)
+
+SubmitTrackBasedAlignment

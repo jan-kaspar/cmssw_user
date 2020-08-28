@@ -1,0 +1,61 @@
+#!/bin/bash
+
+# what to optimise
+sector="56"
+z0="+210000"
+rps="103,104,105,123,124,125"
+
+# nothing to exclude
+excludePlanes=""
+
+# event selection
+minimumHitsPerProjectionPerRP=3
+requireNumberOfUnits="2"
+requireOverlap="False"
+requireAtLeast3PotsInOverlap="True"
+
+additionalAcceptedRPSets=""
+
+# even number limit
+#maxEvents="-1" # process all events
+maxEvents="1E5"
+
+# iteration settings
+iterations=4
+optimize=("s" "sr")
+iterationsWithOneRotZPerPot=0
+maxResidualToSigma=(10 10 3)
+chiSqPerNdfCut=(50 50 5)
+maxTrackAx=("0.5E-3")
+maxTrackAy=("0.5E-3")
+
+# constraint settings
+constraintsType="standard" # nothing else enabled
+constraintsLabel="std"
+final_constraints_units="101,121"
+useEqualMeanUMeanVRotZConstraints="True"
+
+# diagonistics
+iterationsWithDiagnostics="0"
+
+# input settings
+reco_dir="/eos/totem/data/offline/2018/450GeV/beta11/ZeroBias/version1"
+
+# geometry settings
+geometry="data/geometry/2018_900GeV_beta11"
+
+initial_alignment=("data/alignment/2018_900GeV_beta11/init/56.xml")
+
+# output settings
+subdir="tb,round1"
+label=""  # for non-standard settings, e.g. ",test"
+
+NewDataSet
+tasks=(
+	324579.1-25
+	324579.26-50
+	324579.51-75
+	324579.76-99
+)
+
+SubmitTrackBasedAlignment
