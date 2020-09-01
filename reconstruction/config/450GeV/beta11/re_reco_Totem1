@@ -1,6 +1,13 @@
 #!/bin/bash
 
-source das_block_submitter
+# when run from DAS
+#source das_block_submitter
+#datasets=("/Totem1/Run2018D-PromptReco-v2/AOD")
+
+# when run from EOS
+source eos_block_submitter
+input_dir="/eos/totem/data/offline/2018/450GeV/beta11/Totem1/version3"
+input_filter_command="|grep _re_reco_Totem1.root"
 
 runs=(
 	# fill 7301
@@ -12,10 +19,6 @@ runs=(
 	324579
 	324580
 	324581
-)
-
-datasets=(
-	"/Totem1/Run2018D-PromptReco-v2/AOD"
 )
 
 files_per_block="1"

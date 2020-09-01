@@ -1,14 +1,14 @@
 import FWCore.ParameterSet.Config as cms
 
 from Configuration.StandardSequences.Eras import eras
-process = cms.Process("CTPPSReRecoWithAlignment", eras.ctpps_2016)
+process = cms.Process("CTPPSReReRecoWithAlignment", eras.ctpps_2016)
 
 # import of standard configurations
 process.load('Configuration.StandardSequences.FrontierConditions_GlobalTag_cff')
 
 # define global tag
 from Configuration.AlCa.GlobalTag import GlobalTag
-process.GlobalTag = GlobalTag(process.GlobalTag, '101X_dataRun2_HLT_v7', '')
+process.GlobalTag = GlobalTag(process.GlobalTag, '106X_dataRun2_v28', '')
 
 # minimum of logs
 process.MessageLogger = cms.Service("MessageLogger",
@@ -25,15 +25,13 @@ process.source = cms.Source("PoolSource",
 $input_files
   ),
 
-  lumisToProcess = cms.untracked.VLuminosityBlockRange($ls_selection),
+  #lumisToProcess = cms.untracked.VLuminosityBlockRange($ls_selection),
 
   dropDescendantsOfDroppedBranches=cms.untracked.bool(False),
   inputCommands = cms.untracked.vstring(
     'drop *',
     'keep TotemRPRecHitedmDetSetVector_*_*_*',
     'keep CTPPSPixelRecHitedmDetSetVector_*_*_*',
-    'keep CTPPSDiamondRecHitedmDetSetVector_*_*_*',
-    'keep CTPPSDiamondLocalTrackedmDetSetVector_*_*_*',
     'keep edmTriggerResults_*_*_*',
     'keep GlobalAlgBlkBXVector_*_*_*',
   )
@@ -43,15 +41,23 @@ $input_files
 #  input = cms.untracked.int32(1000)
 #)
 
-# RP reconstruction chain with standard settings
-process.load("RecoCTPPS.Configuration.recoCTPPS_DD_cff")
-
-# use the correct geometry
+# geometry
+process.load("Geometry.VeryForwardGeometry.geometryRPFromDD_2018_cfi")
 del(process.XMLIdealGeometryESSource_CTPPS.geomXMLFiles[-1])
 process.XMLIdealGeometryESSource_CTPPS.geomXMLFiles.append("$geometry")
 
 # add alignment corrections
-process.ctppsIncludeAlignmentsFromXML.RealFiles += cms.vstring($alignment_files)
+process.load("CalibPPS.ESProducers.ctppsRPAlignmentCorrectionsDataESSourceXML_cfi")
+process.ctppsRPAlignmentCorrectionsDataESSourceXML.RealFiles += cms.vstring($alignment_files)
+process.ap = cms.ESPrefer("CTPPSRPAlignmentCorrectionsDataESSourceXML", "ctppsRPAlignmentCorrectionsDataESSourceXML")
+
+# RP reconstruction chain
+process.load("RecoCTPPS.TotemRPLocal.totemRPLocalReconstruction_cff")
+
+process.load("RecoCTPPS.PixelLocal.ctppsPixelLocalReconstruction_cff")
+
+process.load("RecoCTPPS.TotemRPLocal.ctppsLocalTrackLiteProducer_cff")
+process.ctppsLocalTrackLiteProducer.includeDiamonds = False
 
 # reconstruction sequences
 process.path_reco = cms.Path(
@@ -71,11 +77,8 @@ process.output = cms.OutputModule("PoolOutputModule",
 
     'keep TotemRPRecHitedmDetSetVector_*_*_*',
     'keep TotemRPUVPatternedmDetSetVector_*_*_*',
-    #'keep TotemRPLocalTrackedmDetSetVector_*_*_*',
 
-    'keep CTPPSDiamondRecHitedmDetSetVector_*_*_*',
-
-    'keep CTPPSPixelRecHitedmDetSetVector_*_*_*',
+    #'keep CTPPSPixelRecHitedmDetSetVector_*_*_*',
 
     'keep CTPPSLocalTrackLites_*_*_*'
   )
