@@ -32,7 +32,7 @@ for (int xai : xangles.keys)
 	NewRow();
 
 	NewPad(false);
-	label("{\SetFontSizesXX xangle-" + xangles[xai] + "}");
+	label("{\SetFontSizesXX " + xangles[xai] + "}");
 
 	for (int rpi : rps.keys)
 	{

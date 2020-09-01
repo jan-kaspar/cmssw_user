@@ -16,9 +16,6 @@ job_file="job"
 finished_file="finished"
 time_file="timestamp"
 
-# settings for usin LXBATCH
-bsub_options="-o /dev/null -e /dev/null"
-
 # name settings for subdirectory structure
 subdir="tb"
 label=""
@@ -68,7 +65,7 @@ function BeginJobScript()
 	echo "cd \"$CMSSW_BASE\""
 	echo "eval \`scram runtime -sh\`"
 	echo ""
-	echo "export CMSSW_SEARCH_PATH=\"\$CMSSW_SEARCH_PATH:$top_dir\""
+	echo "export CMSSW_SEARCH_PATH=\"\$CMSSW_SEARCH_PATH:$top_dir:/afs/cern.ch/work/j/jkaspar/software/ctpps/user\""
 	echo "export CMSSW_DATA_PATH=\"/afs\""
 	echo ""
 	echo "job_dir=\"$job_dir\""
@@ -120,7 +117,7 @@ function AddInputFiles()
 	if [[ "$reco_dir" == "/eos/"* ]]
 	then
 		prefix="root://eostotem.cern.ch/"
-		file_list_raw=`eos ls "$reco_dir" | grep "run_${run}.*_reco.root"`
+		file_list_raw=`eos ls "$reco_dir" | grep "run_${run}" | grep ".root"`
 	fi
 
 	if [[ "$reco_dir" == "/castor/"* ]]
@@ -287,22 +284,22 @@ function MakeCfgFiles()
 
 function SubmitOrExecute()
 {
-	if [ "$test_only" == "y" ]
+	if [ "$use_batch" == "y" ]
 	then
-		echo "    execution inhibited (test_only=t)"
-		return 1
-	fi
-
-	if [ "$use_lxbatch" == "y" ]
-	then
-		#echo "bsub $job_dir/$job_file"
-		res=`bsub -q $queue $bsub_options "$job_dir/$job_file"`
-		echo "    $res"
-		echo "$res" > "$job_dir/submitted"
+		(
+			echo ""
+			echo "dir=$job_dir"
+			echo "queue"
+		) >> "$condor_sub"
 	else
-		#echo "$job_dir/$job_file"
-		$job_dir/$job_file &
-		echo "    job executed in background"
+		if [ "$test_only" == "y" ]
+		then
+			echo "    execution inhibited (test_only=t)"
+			return 1
+		else
+			$job_dir/$job_file &
+			echo "    job executed in background"
+		fi
 	fi
 }
 
@@ -340,9 +337,38 @@ function CompileCaption()
 
 #----------------------------------------------------------------------------------------------------
 
+function InitCondorScript()
+{
+	(
+		echo "executable = \$(dir)/$job_file"
+		echo "arguments = \$(ClusterId) \$(ProcId) \\\"\$(dir)\\\""
+		echo "output = \$(dir)/out"
+		echo "error = \$(dir)/err"
+		echo "log = $condor_log"
+
+		echo "+MaxRuntime = $max_time"
+
+		#echo "+JobBatchName = \"$job_name\""
+
+		# typical values: SLCern6, CentOS7
+		echo "requirements = (OpSysAndVer =?= \"SLCern6\")"
+
+	) > "$condor_sub"
+}
+
+#----------------------------------------------------------------------------------------------------
+
 function SubmitTrackBasedAlignment()
 {
 	CompileCaption
+
+	condor_sub="${subdir}/condor.sub"
+	condor_log="${subdir}/condor.log"
+
+	if [ "$use_batch" == "y" ]
+	then
+		InitCondorScript
+	fi
 
 	for task in "${tasks[@]}"
 	do
@@ -376,9 +402,22 @@ function SubmitTrackBasedAlignment()
 		
 		MakeJobScript
 		MakeCfgFiles
+
+		cd - &> /dev/null
 	
 		SubmitOrExecute
 	done
+
+	if [ "$use_batch" == "y" ]
+	then
+		if [ "$test_only" == "y" ]
+		then
+			echo "In order to submit, run:"
+			echo "    condor_submit \"$condor_sub\""
+		else
+			condor_submit "$condor_sub"
+		fi
+	fi
 }
 
 #----------------------------------------------------------------------------------------------------

@@ -18,7 +18,7 @@ additionalAcceptedRPSets=""
 
 # even number limit
 #maxEvents="-1" # process all events
-maxEvents="100000" # TODO
+maxEvents="10000"
 
 # iteration settings
 iterations=4
@@ -38,15 +38,17 @@ final_constraints_units="101,121"
 iterationsWithDiagnostics="0"
 
 # input settings
-reco_dir="/eos/totem/data/ctpps/reconstruction/2018/alignment_run_April/version4"
+#reco_dir="/eos/totem/data/ctpps/reconstruction/2018/alignment_run_April/AOD_skim"
+reco_dir="/eos/cms/store/group/phys_pps/reconstruction/2018/alignment_run_April/version7"
 
 # geometry settings
 geometry="data/geometry/2018_April/2018_04_13_fill6554"
 
-initial_alignment=("data/alignment/2018_April/s+el/version1/56.xml")
+#initial_alignment=("data/alignment/2018_April/s+el/version1/56.xml")
+initial_alignment=("data/alignment/2018_April/s+el/version3/xangle-160-beta-30/56.xml")
 
 # output settings
-subdir="tb,round2"
+subdir="tb,round4-check"
 label=""  # for non-standard settings, e.g. ",test"
 
 NewDataSet

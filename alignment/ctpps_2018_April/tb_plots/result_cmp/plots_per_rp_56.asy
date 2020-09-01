@@ -13,20 +13,36 @@ quantities.push("rp_shx"); quantity_labels.push("shift in $x\ung{\mu m}$");
 quantities.push("rp_shy"); quantity_labels.push("shift in $y\ung{\mu m}$");
 //quantities.push("rp_rotz"); quantity_labels.push("rotation about $z\ung{mrad}$");
 
-string prefix = "tb,round1";
-string postfix = "s,std,3pl,1rotzIt=0,units=2,overlap=f,3potsInO=t,eMuMvRot=f/iteration4";
-inputs = new string[] {
-	prefix + "/314247/103,104,105,123,124,125/"+postfix,
+string prefix = "tb,round3-short/";
+string postfix = "/103,104,105,123,124,125/s,std,3pl,1rotzIt=0,units=2,overlap=f,3potsInO=t,eMuMvRot=f/iteration3";
 
-	prefix + "/314250/103,104,105,123,124,125/"+postfix,
-	prefix + "/314255/103,104,105,123,124,125/"+postfix,
+// xangle-160-beta-30
+//inputs.push(prefix + "314247" + postfix); input_pens.push(red);
+inputs.push(prefix + "314247.1-20" + postfix); input_pens.push(red);
+inputs.push(prefix + "314247.21-40" + postfix); input_pens.push(red);
+inputs.push(prefix + "314247.41-61" + postfix); input_pens.push(red);
 
-	prefix + "/314269/103,104,105,123,124,125/"+postfix,
-	prefix + "/314272/103,104,105,123,124,125/"+postfix,
+// xangle-131-beta-30
+inputs.push(prefix + "314250.1-60" + postfix); input_pens.push(blue);
+inputs.push(prefix + "314250.61-121" + postfix); input_pens.push(blue);
+inputs.push(prefix + "314255.1-131" + postfix); input_pens.push(blue);
+inputs.push(prefix + "314255.132-262" + postfix); input_pens.push(blue);
 
-	//prefix + "/314274/103,104,105,123,124,125/"+postfix,
-	prefix + "/314276/103,104,105,123,124,125/"+postfix,
-};
+// xangle-130-beta-30
+inputs.push(prefix + "314269.1-86" + postfix); input_pens.push(heavygreen);
+inputs.push(prefix + "314269.87-172" + postfix); input_pens.push(heavygreen);
+inputs.push(prefix + "314272.1-18" + postfix); input_pens.push(heavygreen);
+inputs.push(prefix + "314272.19-37" + postfix); input_pens.push(heavygreen);
+
+// xangle-130-beta-25
+//inputs.push(prefix + "314274" + postfix); input_pens.push(magenta);
+//inputs.push(prefix + "314274.1-25" + postfix); input_pens.push(magenta);
+inputs.push(prefix + "314274.26-55" + postfix); input_pens.push(magenta);
+inputs.push(prefix + "314274.56-80" + postfix); input_pens.push(magenta);
+//inputs.push(prefix + "314276" + postfix); input_pens.push(magenta);
+inputs.push(prefix + "314276.1-80" + postfix); input_pens.push(magenta);
+inputs.push(prefix + "314276.81-160" + postfix); input_pens.push(magenta);
+inputs.push(prefix + "314276.161-230" + postfix); input_pens.push(magenta);
 
 //----------------------------------------------------------------------------------------------------
 

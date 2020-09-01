@@ -1,4 +1,4 @@
-string dir_base = "tb,round1-short/314247/103,104,105,123,124,125/s,std,3pl,1rotzIt=0,units=2,overlap=f,3potsInO=t,eMuMvRot=f";
+string dir_base = "tb,round2-short/314247/103,104,105,123,124,125/s,std,3pl,1rotzIt=0,units=2,overlap=f,3potsInO=t,eMuMvRot=f";
 
 string dirs[], d_labels[];
 dirs.push(dir_base + "/iteration1"); d_labels.push("iteration 1");

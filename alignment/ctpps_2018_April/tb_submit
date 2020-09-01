@@ -1,11 +1,11 @@
 #!/bin/bash
 
 #----------------------------------------------------------------------------------------------------
+# defaults
 
-# set defaults
 test_only="y"
-use_lxbatch="n"
-queue="8nh"
+use_batch="n"
+max_time="14400" # s
 
 #----------------------------------------------------------------------------------------------------
 
@@ -16,13 +16,12 @@ function PrintUsage()
 	echo "    -test             prepare jobs but do not execute"
 	echo "    -run              prepare jobs and execute"
 	echo "    -local            execute jobs locally"
-	echo "    -batch, -lxbatch  submit jobs to LXBATCH"
+	echo "    -batch, -batch    submit jobs to BATCH"
 	echo "    -submit           abbreviation of -run and -batch"
-	echo "    -queue <q>        use LXBATCH queue <q>, implies -batch option"
+	echo "    -maxtime <v>      set maxtime of the BATCH job"
 }
 
 #----------------------------------------------------------------------------------------------------
-
 # load code
 source "tb_code"
 
@@ -46,22 +45,21 @@ do
 			;;
 
 		"-local")
-			use_lxbatch="n"
+			use_batch="n"
 			;;
 
-		"-batch" | "-lxbatch")
-			use_lxbatch="y"
+		"-batch")
+			use_batch="y"
 			;;
 
-		"-queue")
+		"-maxtime")
 			shift
-			queue="$1"
-			use_lxbatch="y"
+			max_time="$1"
 			;;
 
 		"-submit")
 			test_only="n"
-			use_lxbatch="y"
+			use_batch="y"
 			;;
 
 		-*)

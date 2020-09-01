@@ -18,10 +18,10 @@ additionalAcceptedRPSets=""
 
 # even number limit
 #maxEvents="-1" # process all events
-maxEvents="100000" # TODO
+maxEvents="200000" # TODO
 
 # iteration settings
-iterations=3
+iterations=4
 #optimize=("s" "s" "sr")
 optimize=("s")
 maxResidualToSigma=(10 3)
@@ -38,7 +38,7 @@ final_constraints_units="101,121"
 iterationsWithDiagnostics="0"
 
 # input settings
-reco_dir="/eos/totem/data/ctpps/reconstruction/2018/alignment_run_September/version2"
+reco_dir="/eos/totem/data/ctpps/reconstruction/2018/alignment_run_September/AOD_skim"
 
 # geometry settings
 geometry="data/geometry/2018_September/2018_09_22_fill7206"
@@ -46,7 +46,7 @@ geometry="data/geometry/2018_September/2018_09_22_fill7206"
 initial_alignment=("data/alignment/2018_September/s+el/version1/56.xml")
 
 # output settings
-subdir="tb,round2"
+subdir="tb,round3"
 label=""  # for non-standard settings, e.g. ",test"
 
 NewDataSet

@@ -2,8 +2,8 @@ string dir_base = "tb,round1-short/10328/0,1,2,3,4,5-excl1981939712/s,fin,3pl,1r
 
 string dirs[], d_labels[];
 dirs.push(dir_base + "/iteration1"); d_labels.push("iteration 1");
-//dirs.push(dir_base + "/iteration2"); d_labels.push("iteration 2");
-//dirs.push(dir_base + "/iteration3"); d_labels.push("iteration 3");
+dirs.push(dir_base + "/iteration2"); d_labels.push("iteration 2");
+dirs.push(dir_base + "/iteration3"); d_labels.push("iteration 3");
 
 string rpSets[];
 pen rps_pens[];

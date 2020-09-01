@@ -24,6 +24,7 @@ string quantities[];
 string quantity_labels[];
 
 string inputs[];
+pen input_pens[];
 
 //----------------------------------------------------------------------------------------------------
 
@@ -113,7 +114,7 @@ void MakePlotsPerRP()
 
 				for (int ai : alignments.keys)
 				{
-					pen p = StdPen(ai);
+					pen p = input_pens[ai];
 					mark m = mCi;
 	
 					//if (!alignments[ai].rp_shx.initialized(rp))
@@ -134,7 +135,7 @@ void MakePlotsPerRP()
 		
 				xlimits(-0.5, inputs.length - 0.5, Crop);
 
-				AttachLegend(format("max - min = %.3f", q_max - q_min));
+				AttachLegend(format("max - min = %.3f", q_max - q_min), SE, NE);
 			}
 		}
 	
@@ -142,7 +143,7 @@ void MakePlotsPerRP()
 	
 		for (int ini : inputs.keys)
 		{
-			AddToLegend(replace(inputs[ini], "_", "\_"), StdPen(ini));
+			AddToLegend(replace(inputs[ini], "_", "\_"), input_pens[ini]);
 		}
 	
 		AttachLegend();
