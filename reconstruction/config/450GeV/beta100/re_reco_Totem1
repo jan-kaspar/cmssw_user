@@ -69,11 +69,11 @@ datasets=(
 
 files_per_block="1"
 
-output_dir="/eos/totem/data/offline/2018/450GeV/beta100/Totem1/version3"
+output_dir="/eos/totem/data/offline/2018/450GeV/beta100/Totem1/version4"
 
 geometry="geometry/2018_900GeV_beta100/RP_Dist_Beam_Cent.xml"
 
-alignment_dir="alignment/2018_900GeV_beta100/s/version1"
+alignment_dir="alignment/2018_900GeV_beta100/sr/version1"
 alignment_files="\"$alignment_dir/45.xml\", \"$alignment_dir/56.xml\""
 
 task_prefix="re_reco_Totem1"
