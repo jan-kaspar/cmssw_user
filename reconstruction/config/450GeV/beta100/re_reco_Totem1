@@ -79,7 +79,7 @@ alignment_files="\"$alignment_dir/45.xml\", \"$alignment_dir/56.xml\""
 task_prefix="re_reco_Totem1"
 task_suffix="_re_reco_Totem1"
 
-queue="8nh"
+max_time="28800"
 
 template_file="config/450GeV/beta100/re_reco_template.py"
 
