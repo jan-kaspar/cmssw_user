@@ -1,6 +1,7 @@
 import FWCore.ParameterSet.Config as cms
 
-process = cms.Process("trackBasedAlignment")
+from Configuration.StandardSequences.Eras import eras
+process = cms.Process("trackBasedAlignment", eras.Run2_2018)
 
 # minimum of logs
 process.MessageLogger = cms.Service("MessageLogger",
@@ -17,7 +18,12 @@ process.source = cms.Source("PoolSource",
     fileNames = cms.untracked.vstring(
 $inputFiles
     ),
-    lumisToProcess = cms.untracked.VLuminosityBlockRange($lsList)
+    lumisToProcess = cms.untracked.VLuminosityBlockRange($lsList),
+    inputCommands = cms.untracked.vstring(
+      "drop *",
+      "keep TotemRPRecHitedmDetSetVector_*_*_*",
+      "keep CTPPSPixelRecHitedmDetSetVector_*_*_*",
+    )
 )
 
 # geometry
@@ -29,6 +35,14 @@ process.XMLIdealGeometryESSource_CTPPS.geomXMLFiles.append("$geometry/RP_Dist_Be
 process.load("CalibPPS.ESProducers.ctppsRPAlignmentCorrectionsDataESSourceXML_cfi")
 process.ctppsRPAlignmentCorrectionsDataESSourceXML.RealFiles = cms.vstring($alignmentFiles)
 
+# reco modules
+process.load("RecoPPS.Local.totemRPLocalReconstruction_cff")
+
+process.load("RecoPPS.Local.ctppsPixelLocalReconstruction_cff")
+
+process.load("RecoPPS.Local.ctppsLocalTrackLiteProducer_cff")
+process.ctppsLocalTrackLiteProducer.includeDiamonds = False
+
 # aligner
 process.load("Alignment.PPSTrackBased.ppsStraightTrackAligner_cfi")
 
@@ -36,7 +50,10 @@ process.ppsStraightTrackAligner.verbosity = 1
 
 process.ppsStraightTrackAligner.tagUVPatternsStrip = cms.InputTag("totemRPUVPatternFinder")
 process.ppsStraightTrackAligner.tagDiamondHits = cms.InputTag("")
-process.ppsStraightTrackAligner.tagPixelHits = cms.InputTag("ctppsPixelRecHits")
+#process.ppsStraightTrackAligner.tagPixelHits = cms.InputTag("ctppsPixelRecHits")
+process.ppsStraightTrackAligner.tagPixelHits = cms.InputTag("")
+#process.ppsStraightTrackAligner.tagPixelLocalTracks = cms.InputTag("")
+process.ppsStraightTrackAligner.tagPixelLocalTracks = cms.InputTag("ctppsPixelLocalTracks")
 
 process.ppsStraightTrackAligner.maxEvents = int($maxEvents)
 
@@ -87,5 +104,10 @@ process.ppsStraightTrackAligner.JanAlignmentAlgorithm.buildDiagnosticPlots = $bu
 
 # processing sequence
 process.p = cms.Path(
-  process.ppsStraightTrackAligner
+  process.totemRPUVPatternFinder
+  * process.totemRPLocalTrackFitter
+  * process.ctppsPixelLocalTracks
+  * process.ctppsLocalTrackLiteProducer
+
+  * process.ppsStraightTrackAligner
 )

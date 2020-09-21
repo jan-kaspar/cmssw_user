@@ -15,9 +15,7 @@ log_file="log"
 job_file="job"
 finished_file="finished"
 time_file="timestamp"
-
-# settings for usin LXBATCH
-bsub_options="-o /dev/null -e /dev/null"
+condor_file="condor.sub"
 
 # name settings for subdirectory structure
 subdir="tb"
@@ -287,22 +285,21 @@ function MakeCfgFiles()
 
 function SubmitOrExecute()
 {
-	if [ "$test_only" == "y" ]
+	if [ "$use_batch" == "y" ]
 	then
-		echo "    execution inhibited (test_only=t)"
-		return 1
-	fi
-
-	if [ "$use_lxbatch" == "y" ]
-	then
-		#echo "bsub $job_dir/$job_file"
-		res=`bsub -q $queue $bsub_options "$job_dir/$job_file"`
-		echo "    $res"
-		echo "$res" > "$job_dir/submitted"
+		(
+			echo ""
+			echo "dir=$job_dir"
+			echo "queue"
+		) >> "$condor_file"
 	else
-		#echo "$job_dir/$job_file"
-		$job_dir/$job_file &
-		echo "    job executed in background"
+		if [ "$test_only" == "y" ]
+		then
+			echo "    execution inhibited (test_only=t)"
+		else
+			$job_dir/$job_file &
+			echo "    job executed in background"
+		fi
 	fi
 }
 
@@ -347,6 +344,19 @@ function SubmitTrackBasedAlignment()
 {
 	CompileCaption
 
+	if [ "$use_batch" == "y" ]
+	then
+		(
+			echo "executable = \$(dir)/job"
+			echo "arguments = \$(ClusterId) \$(ProcId) \\\"\$(dir)\\\""
+			echo "output = \$(dir)/out"
+			echo "error = \$(dir)/err"
+			echo "log = condor.log"
+			echo "+MaxRuntime = $max_time"
+			echo "requirements = (OpSysAndVer =?= \"CentOS7\")"
+		) > "$condor_file"
+	fi
+
 	for task in "${tasks[@]}"
 	do
 	    runs=($task)
@@ -379,9 +389,22 @@ function SubmitTrackBasedAlignment()
 		
 		MakeJobScript
 		MakeCfgFiles
+
+		cd - &> /dev/null
 	
 		SubmitOrExecute
 	done
+
+	if [ "$use_batch" == "y" ]
+	then
+		if [ "$test_only" == "y" ]
+		then
+			echo "In order to submit, run:"
+			echo "    condor_submit \"$condor_file\""
+		else
+			condor_submit "$condor_file"
+		fi
+	fi
 }
 
 #----------------------------------------------------------------------------------------------------
