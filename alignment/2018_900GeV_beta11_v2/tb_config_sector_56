@@ -2,7 +2,7 @@
 
 # what to optimise
 sector="56"
-z0="+210000"
+z0="+217000"
 rps="103,104,105,123,124,125"
 
 # nothing to exclude
@@ -22,15 +22,15 @@ maxEvents="1E5"
 
 # iteration settings
 iterations=4
-optimize=("s" "sr")
+optimize=("s" "s" "sr")
 iterationsWithOneRotZPerPot=0
-maxResidualToSigma=(10 10 3)
-chiSqPerNdfCut=(50 50 5)
+maxResidualToSigma=(30 10 10 3)
+chiSqPerNdfCut=(500 50 50 5)
 maxTrackAx=("0.5E-3")
 maxTrackAy=("0.5E-3")
 
 # constraint settings
-constraintsType="standard" # nothing else enabled
+constraintsType="standard"
 constraintsLabel="std"
 final_constraints_units="101,121"
 useEqualMeanUMeanVRotZConstraints="True"
@@ -45,9 +45,10 @@ reco_dir="/eos/totem/data/offline/2018/450GeV/beta11/ZeroBias/version1"
 geometry="data/geometry/2018_900GeV_beta11"
 
 initial_alignment=("data/alignment/2018_900GeV_beta11/init/56.xml")
+#initial_alignment=()
 
 # output settings
-subdir="tb,round1"
+subdir="tb,round2"
 label=""  # for non-standard settings, e.g. ",test"
 
 NewDataSet
