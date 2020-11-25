@@ -1,6 +1,15 @@
 #!/bin/bash
 
-source das_block_submitter
+# when run from DAS
+#source das_block_submitter
+#datasets=(
+#	"/EmptyBX/Run2018D-PromptReco-v2/AOD"
+#)
+
+# when run from EOS
+source eos_block_submitter
+input_dir="/eos/totem/data/offline/2018/450GeV/beta100/EmptyBX/version1"
+input_filter_command="|grep _re_reco_EmptyBX.root"
 
 runs=(
 	# fill 7284
@@ -10,21 +19,19 @@ runs=(
 	#324532
 )
 
-datasets=(
-	"/EmptyBX/Run2018D-PromptReco-v2/AOD"
-)
-
 files_per_block="1"
 
-output_dir="/eos/totem/data/offline/2018/450GeV/beta100/EmptyBX/version1"
+output_dir="/eos/totem/data/offline/2018/450GeV/beta100/EmptyBX/version2"
 
 geometry="geometry/2018_900GeV_beta100/RP_Dist_Beam_Cent.xml"
-alignment_files=""
+
+alignment_dir="alignment/2018_900GeV_beta100/sr/version1"
+alignment_files="\"$alignment_dir/45.xml\", \"$alignment_dir/56.xml\""
 
 task_prefix="re_reco_EmptyBX"
 task_suffix="_re_reco_EmptyBX"
 
-queue="8nh"
+max_time="28800"
 
 template_file="config/450GeV/beta100/re_reco_template.py"
 

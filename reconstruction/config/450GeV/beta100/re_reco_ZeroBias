@@ -1,6 +1,24 @@
 #!/bin/bash
 
-source das_block_submitter
+# when run from DAS
+#source das_block_submitter
+#datasets=(
+#	"/ZeroBias1/Run2018D-PromptReco-v2/AOD"
+#	"/ZeroBias2/Run2018D-PromptReco-v2/AOD"
+#	"/ZeroBias3/Run2018D-PromptReco-v2/AOD"
+#	"/ZeroBias4/Run2018D-PromptReco-v2/AOD"
+#	"/ZeroBias5/Run2018D-PromptReco-v2/AOD"
+#	"/ZeroBias6/Run2018D-PromptReco-v2/AOD"
+#	"/ZeroBias7/Run2018D-PromptReco-v2/AOD"
+#	"/ZeroBias8/Run2018D-PromptReco-v2/AOD"
+#	"/ZeroBias9/Run2018D-PromptReco-v2/AOD"
+#	"/ZeroBias10/Run2018D-PromptReco-v2/AOD"
+#)
+
+# when run from EOS
+source eos_block_submitter
+input_dir="/eos/totem/data/offline/2018/450GeV/beta100/ZeroBias/version2"
+input_filter_command="|grep _re_reco_ZeroBias.root"
 
 runs=(
 	# fill 7279
@@ -63,32 +81,19 @@ runs=(
 	324536
 )
 
-datasets=(
-	"/ZeroBias1/Run2018D-PromptReco-v2/AOD"
-	"/ZeroBias2/Run2018D-PromptReco-v2/AOD"
-	"/ZeroBias3/Run2018D-PromptReco-v2/AOD"
-	"/ZeroBias4/Run2018D-PromptReco-v2/AOD"
-	"/ZeroBias5/Run2018D-PromptReco-v2/AOD"
-	"/ZeroBias6/Run2018D-PromptReco-v2/AOD"
-	"/ZeroBias7/Run2018D-PromptReco-v2/AOD"
-	"/ZeroBias8/Run2018D-PromptReco-v2/AOD"
-	"/ZeroBias9/Run2018D-PromptReco-v2/AOD"
-	"/ZeroBias10/Run2018D-PromptReco-v2/AOD"
-)
-
 files_per_block="1"
 
-output_dir="/eos/totem/data/offline/2018/450GeV/beta100/ZeroBias/version2"
+output_dir="/eos/totem/data/offline/2018/450GeV/beta100/ZeroBias/version3"
 
 geometry="geometry/2018_900GeV_beta100/RP_Dist_Beam_Cent.xml"
 
-alignment_dir="alignment/2018_900GeV_beta100/s/version1"
+alignment_dir="alignment/2018_900GeV_beta100/sr/version1"
 alignment_files="\"$alignment_dir/45.xml\", \"$alignment_dir/56.xml\""
 
 task_prefix="re_reco_ZeroBias"
 task_suffix="_re_reco_ZeroBias"
 
-queue="8nh"
+max_time="28800"
 
 template_file="config/450GeV/beta100/re_reco_template.py"
 

@@ -2,7 +2,9 @@
 
 # when run from DAS
 #source das_block_submitter
-#datasets=("/Totem1/Run2018D-PromptReco-v2/AOD")
+#datasets=(
+#	"/Totem1/Run2018D-PromptReco-v2/AOD"
+#)
 
 # when run from EOS
 source eos_block_submitter
