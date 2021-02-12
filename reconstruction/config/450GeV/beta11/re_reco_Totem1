@@ -24,7 +24,7 @@ runs=(
 files_per_block="1"
 
 #output_dir="/eos/totem/data/offline/2018/450GeV/beta11/Totem1/version4" # with alignment sr/version1
-output_dir="/eos/totem/data/offline/2018/450GeV/beta11/Totem1/version5" # with alignment sr/version2
+#output_dir="/eos/totem/data/offline/2018/450GeV/beta11/Totem1/version5" # with alignment sr/version2
 
 geometry="geometry/2018_900GeV_beta11/RP_Dist_Beam_Cent.xml"
 

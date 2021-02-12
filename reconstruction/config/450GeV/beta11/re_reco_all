@@ -1,0 +1,57 @@
+#!/bin/bash
+
+source eos_block_submitter
+
+#----------------------------------------------------------------------------------------------------
+# common settings
+
+runs=(
+	# fill 7301
+	324575
+	324576
+	
+	# fill 7302
+	324578
+	324579
+	324580
+	324581
+)
+
+files_per_block="1"
+
+geometry="geometry/2018_900GeV_beta11/RP_Dist_Beam_Cent.xml"
+
+alignment_dir="alignment/2018_900GeV_beta11/sr/version2"
+alignment_files="\"$alignment_dir/45.xml\", \"$alignment_dir/56.xml\""
+
+max_time="28800"
+
+template_file="config/450GeV/beta11/re_reco_template.py"
+
+version="version5" # alignment alignment/2018_900GeV_beta11/sr/version2
+
+#----------------------------------------------------------------------------------------------------
+# stream Totem1
+
+input_dir="/eos/totem/data/offline/2018/450GeV/beta11/Totem1/version3"
+input_filter_command="|grep _re_reco_Totem1.root"
+
+output_dir="/eos/totem/data/offline/2018/450GeV/beta11/Totem1/$version"
+
+task_prefix="re_reco_Totem1"
+task_suffix="_re_reco_Totem1"
+
+SubmitBlocks
+
+#----------------------------------------------------------------------------------------------------
+# stream ZeroBias
+
+input_dir="/eos/totem/data/offline/2018/450GeV/beta11/ZeroBias/version2"
+input_filter_command="|grep _re_reco_ZeroBias.root"
+
+output_dir="/eos/totem/data/offline/2018/450GeV/beta11/ZeroBias/$version"
+
+task_prefix="re_reco_ZeroBias"
+task_suffix="_re_reco_ZeroBias"
+
+SubmitBlocks
